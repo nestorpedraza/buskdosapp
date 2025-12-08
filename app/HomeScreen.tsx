@@ -656,11 +656,11 @@ export default function HomeScreen() {
                     <Text style={[styles.tabIcon, styles.tabIconActive]}>🏠</Text>
                     <Text style={[styles.tabText, styles.tabTextActive]}>Home</Text>
                 </Pressable>
-                <Pressable style={styles.tabItem}>
+                <Pressable style={styles.tabItem} onPress={() => router.push('/likes')}>
                     <Text style={styles.tabIcon}>❤️</Text>
                     <Text style={styles.tabText}>Likes</Text>
                 </Pressable>
-                <Pressable style={styles.tabItemCenter}>
+                <Pressable style={styles.tabItemCenter} onPress={() => router.push('/map')}>
                     <LinearGradient
                         colors={['#9900ff', '#ff00f7']}
                         style={styles.tabCenterButton}
@@ -668,11 +668,11 @@ export default function HomeScreen() {
                         <Text style={styles.tabCenterIcon}>📍</Text>
                     </LinearGradient>
                 </Pressable>
-                <Pressable style={styles.tabItem}>
+                <Pressable style={styles.tabItem} onPress={() => router.push('/nav')}>
                     <Text style={styles.tabIcon}>🧭</Text>
                     <Text style={styles.tabText}>Nav</Text>
                 </Pressable>
-                <Pressable style={styles.tabItem} onPress={() => router.push('/login')}>
+                <Pressable style={styles.tabItem} onPress={() => router.push('/profile')}>
                     <Text style={styles.tabIcon}>👤</Text>
                     <Text style={styles.tabText}>Profile</Text>
                 </Pressable>
