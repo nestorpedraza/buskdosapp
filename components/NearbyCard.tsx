@@ -16,6 +16,7 @@ const CARD_WIDTH = (screenWidth - 40 - NEARBY_GRID_CONFIG.CARD_GAP) / NEARBY_GRI
 
 /**
  * NearbyCard - Componente memoizado para items cercanos
+ * Diseño similar a PopularCard con distancia
  */
 const NearbyCard: React.FC<NearbyCardProps> = memo(({ item, onPress }) => {
     const [imageState, setImageState] = useState<ImageLoadState>('idle');
@@ -30,42 +31,72 @@ const NearbyCard: React.FC<NearbyCardProps> = memo(({ item, onPress }) => {
 
     const imageSource = item.imageUri ? { uri: item.imageUri } : item.image;
 
+    // Generar estrellas basadas en el rating
+    const renderStars = () => {
+        const fullStars = Math.floor(item.rating);
+        const hasHalfStar = item.rating % 1 >= 0.5;
+        let stars = '★'.repeat(fullStars);
+        if (hasHalfStar && fullStars < 5) stars += '☆';
+        return stars.padEnd(5, '☆');
+    };
+
     return (
         <Pressable
-            style={styles.homeCard}
+            style={styles.card}
             onPress={handlePress}
-            android_ripple={{ color: 'rgba(255,255,255,0.3)' }}
+            android_ripple={{ color: 'rgba(153, 0, 255, 0.1)' }}
         >
-            {imageState === 'loading' && (
-                <View style={styles.loadingContainer}>
-                    <ActivityIndicator size="small" color="#9900ff" />
-                </View>
-            )}
+            {/* Imagen */}
+            <View style={styles.imageContainer}>
+                {imageState === 'loading' && (
+                    <View style={styles.loadingContainer}>
+                        <ActivityIndicator size="small" color="#9900ff" />
+                    </View>
+                )}
 
-            {imageState === 'error' && (
-                <View style={styles.errorContainer}>
-                    <Text style={styles.errorIcon}>📍</Text>
-                    <Text style={styles.errorText}>Sin imagen</Text>
-                </View>
-            )}
+                {imageState === 'error' && (
+                    <View style={styles.errorContainer}>
+                        <Text style={styles.errorIcon}>🏪</Text>
+                    </View>
+                )}
 
-            <Image
-                source={imageSource}
-                style={[
-                    styles.homeImage,
-                    imageState === 'error' && styles.hiddenImage,
-                ]}
-                onLoadStart={handleLoadStart}
-                onLoadEnd={handleLoadEnd}
-                onError={handleError}
-                resizeMode="cover"
-            />
+                <Image
+                    source={imageSource}
+                    style={[
+                        styles.image,
+                        imageState === 'error' && styles.hiddenImage,
+                    ]}
+                    onLoadStart={handleLoadStart}
+                    onLoadEnd={handleLoadEnd}
+                    onError={handleError}
+                    resizeMode="cover"
+                />
 
-            {item.title && (
-                <View style={styles.titleOverlay}>
-                    <Text style={styles.titleText}>{item.title}</Text>
+                {/* Tag de categoría */}
+                <View style={styles.tag}>
+                    <Text style={styles.tagText}>{item.tag}</Text>
                 </View>
-            )}
+
+                {/* Badge de distancia */}
+                <View style={styles.distanceBadge}>
+                    <Text style={styles.distanceText}>📍 {item.distance}</Text>
+                </View>
+            </View>
+
+            {/* Información */}
+            <View style={styles.info}>
+                <Text style={styles.title} numberOfLines={1}>
+                    {item.title}
+                </Text>
+                <Text style={styles.subtitle} numberOfLines={1}>
+                    {item.subtitle}
+                </Text>
+                <Text style={styles.price}>{item.price}</Text>
+                <View style={styles.ratingContainer}>
+                    <Text style={styles.ratingStars}>{renderStars()}</Text>
+                    <Text style={styles.ratingCount}>({item.reviews})</Text>
+                </View>
+            </View>
         </Pressable>
     );
 });
@@ -73,15 +104,24 @@ const NearbyCard: React.FC<NearbyCardProps> = memo(({ item, onPress }) => {
 NearbyCard.displayName = 'NearbyCard';
 
 const styles = StyleSheet.create({
-    homeCard: {
+    card: {
         width: CARD_WIDTH,
-        height: NEARBY_GRID_CONFIG.CARD_HEIGHT,
+        backgroundColor: '#fff',
         borderRadius: NEARBY_GRID_CONFIG.BORDER_RADIUS,
         overflow: 'hidden',
-        backgroundColor: '#f5f5f5',
         marginBottom: NEARBY_GRID_CONFIG.CARD_GAP,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 4,
     },
-    homeImage: {
+    imageContainer: {
+        height: 100,
+        position: 'relative',
+        backgroundColor: '#f5f5f5',
+    },
+    image: {
         width: '100%',
         height: '100%',
     },
@@ -103,26 +143,68 @@ const styles = StyleSheet.create({
         zIndex: 1,
     },
     errorIcon: {
-        fontSize: 24,
-        marginBottom: 4,
+        fontSize: 32,
     },
-    errorText: {
-        fontSize: 10,
-        color: '#999',
-    },
-    titleOverlay: {
+    tag: {
         position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        paddingVertical: 8,
-        paddingHorizontal: 12,
+        bottom: 8,
+        left: 8,
+        backgroundColor: 'rgba(0,0,0,0.6)',
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 4,
     },
-    titleText: {
+    tagText: {
         color: '#fff',
-        fontSize: 12,
+        fontSize: 9,
+        fontWeight: '500',
+    },
+    distanceBadge: {
+        position: 'absolute',
+        top: 8,
+        right: 8,
+        backgroundColor: 'rgba(255,255,255,0.95)',
+        paddingHorizontal: 6,
+        paddingVertical: 3,
+        borderRadius: 10,
+    },
+    distanceText: {
+        color: '#333',
+        fontSize: 9,
         fontWeight: '600',
+    },
+    info: {
+        padding: 10,
+    },
+    title: {
+        fontSize: 13,
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    subtitle: {
+        fontSize: 11,
+        color: '#666',
+        marginTop: 2,
+    },
+    price: {
+        fontSize: 11,
+        color: '#9900ff',
+        fontWeight: '600',
+        marginTop: 4,
+    },
+    ratingContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 4,
+    },
+    ratingStars: {
+        color: '#FFB800',
+        fontSize: 10,
+    },
+    ratingCount: {
+        fontSize: 10,
+        color: '#666',
+        marginLeft: 4,
     },
 });
 

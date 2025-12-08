@@ -33,7 +33,7 @@ export const POPULAR_CAROUSEL_CONFIG = {
 export const NEARBY_GRID_CONFIG = {
     NUM_COLUMNS: 2,
     CARD_GAP: 12,
-    CARD_HEIGHT: 120,
+    CARD_HEIGHT: 240,
     BORDER_RADIUS: 16,
 } as const;
 
@@ -68,9 +68,15 @@ export interface PopularItem {
  */
 export interface NearbyItem {
     id: string;
+    tag: string;
+    title: string;
+    subtitle: string;
+    price: string;
+    rating: number;
+    reviews: number;
+    distance: string;
     image: ImageSourcePropType;
     imageUri?: string;
-    title?: string;
 }
 
 /**

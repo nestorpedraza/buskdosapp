@@ -43,10 +43,12 @@ export default function HomeScreen() {
     const router = useRouter();
     const categoryListRef = useRef<Animated.FlatList<Category>>(null);
     const popularListRef = useRef<Animated.FlatList<PopularItem>>(null);
+    const favoritesListRef = useRef<Animated.FlatList<PopularItem>>(null);
 
     // Shared values para el scroll - viven en el UI Thread
     const categoryScrollX = useSharedValue(0);
     const popularScrollX = useSharedValue(0);
+    const favoritesScrollX = useSharedValue(0);
 
     // Datos con tipado estricto y IDs como strings
     const categories = useMemo<Category[]>(() => [
@@ -186,26 +188,116 @@ export default function HomeScreen() {
     ], []);
 
     const nearbyItems = useMemo<NearbyItem[]>(() => [
-        { id: '1', image: require('../assets/images/city.png'), title: 'Cerca de ti' },
-        { id: '2', image: require('../assets/images/city.png'), title: 'Populares' },
-        { id: '3', image: require('../assets/images/city.png'), title: 'Restaurantes' },
-        { id: '4', image: require('../assets/images/city.png'), title: 'Cafeterías' },
-        { id: '5', image: require('../assets/images/city.png'), title: 'Tiendas' },
-        { id: '6', image: require('../assets/images/city.png'), title: 'Salud' },
-        { id: '7', image: require('../assets/images/city.png'), title: 'Belleza' },
-        { id: '8', image: require('../assets/images/city.png'), title: 'Gimnasios' },
-        { id: '9', image: require('../assets/images/city.png'), title: 'Spa' },
-        { id: '10', image: require('../assets/images/city.png'), title: 'Tecnología' },
-        { id: '11', image: require('../assets/images/city.png'), title: 'Librerías' },
-        { id: '12', image: require('../assets/images/city.png'), title: 'Panaderías' },
-        { id: '13', image: require('../assets/images/city.png'), title: 'Farmacias' },
-        { id: '14', image: require('../assets/images/city.png'), title: 'Supermercados' },
-        { id: '15', image: require('../assets/images/city.png'), title: 'Pizzerías' },
-        { id: '16', image: require('../assets/images/city.png'), title: 'Lavanderías' },
-        { id: '17', image: require('../assets/images/city.png'), title: 'Bancos' },
-        { id: '18', image: require('../assets/images/city.png'), title: 'Hoteles' },
-        { id: '19', image: require('../assets/images/city.png'), title: 'Cines' },
-        { id: '20', image: require('../assets/images/city.png'), title: 'Parques' },
+        {
+            id: '1',
+            tag: 'Tienda Local',
+            title: 'Boutique Fashion',
+            subtitle: 'Ropa y accesorios',
+            price: '$50 promedio',
+            rating: 4.8,
+            reviews: 984,
+            distance: '0.3 km',
+            image: require('../assets/images/city.png'),
+        },
+        {
+            id: '2',
+            tag: 'Restaurante',
+            title: 'La Casa del Sabor',
+            subtitle: 'Comida tradicional',
+            price: '$25 por persona',
+            rating: 4.9,
+            reviews: 688,
+            distance: '0.5 km',
+            image: require('../assets/images/city.png'),
+        },
+        {
+            id: '3',
+            tag: 'Cafetería',
+            title: 'Café Aroma',
+            subtitle: 'Café especialidad',
+            price: '$8 promedio',
+            rating: 4.7,
+            reviews: 452,
+            distance: '0.7 km',
+            image: require('../assets/images/city.png'),
+        },
+        {
+            id: '4',
+            tag: 'Gimnasio',
+            title: 'Fitness Center',
+            subtitle: 'Entrenamiento completo',
+            price: '$30 mensual',
+            rating: 4.6,
+            reviews: 321,
+            distance: '0.8 km',
+            image: require('../assets/images/city.png'),
+        },
+        {
+            id: '5',
+            tag: 'Spa',
+            title: 'Wellness Spa',
+            subtitle: 'Tratamientos y masajes',
+            price: '$60 por sesión',
+            rating: 4.9,
+            reviews: 567,
+            distance: '1.0 km',
+            image: require('../assets/images/city.png'),
+        },
+        {
+            id: '6',
+            tag: 'Librería',
+            title: 'Mundo de Libros',
+            subtitle: 'Literatura y más',
+            price: '$15 promedio',
+            rating: 4.5,
+            reviews: 289,
+            distance: '1.2 km',
+            image: require('../assets/images/city.png'),
+        },
+        {
+            id: '7',
+            tag: 'Panadería',
+            title: 'Pan del Día',
+            subtitle: 'Productos frescos',
+            price: '$5 promedio',
+            rating: 4.8,
+            reviews: 723,
+            distance: '1.3 km',
+            image: require('../assets/images/city.png'),
+        },
+        {
+            id: '8',
+            tag: 'Tecnología',
+            title: 'Tech Store',
+            subtitle: 'Gadgets y accesorios',
+            price: '$100 promedio',
+            rating: 4.7,
+            reviews: 891,
+            distance: '1.5 km',
+            image: require('../assets/images/city.png'),
+        },
+        {
+            id: '9',
+            tag: 'Salón de Belleza',
+            title: 'Beauty Studio',
+            subtitle: 'Cortes y tratamientos',
+            price: '$35 por servicio',
+            rating: 4.9,
+            reviews: 634,
+            distance: '1.8 km',
+            image: require('../assets/images/city.png'),
+        },
+        {
+            id: '10',
+            tag: 'Farmacia',
+            title: 'Farmacia Salud',
+            subtitle: 'Medicamentos y cuidado',
+            price: '$20 promedio',
+            rating: 4.6,
+            reviews: 412,
+            distance: '2.0 km',
+            image: require('../assets/images/city.png'),
+        },
     ], []);
 
     // Número de dots de paginación (máximo 10)
@@ -215,6 +307,11 @@ export default function HomeScreen() {
     );
 
     const popularPaginationCount = useMemo(() =>
+        Math.min(popularItems.length, 10),
+        [popularItems.length]
+    );
+
+    const favoritesPaginationCount = useMemo(() =>
         Math.min(popularItems.length, 10),
         [popularItems.length]
     );
@@ -229,6 +326,12 @@ export default function HomeScreen() {
     const popularScrollHandler = useAnimatedScrollHandler({
         onScroll: (event) => {
             popularScrollX.value = event.contentOffset.x;
+        },
+    });
+
+    const favoritesScrollHandler = useAnimatedScrollHandler({
+        onScroll: (event) => {
+            favoritesScrollX.value = event.contentOffset.x;
         },
     });
 
@@ -337,6 +440,42 @@ export default function HomeScreen() {
             />
         );
     }, [popularScrollX]);
+
+    // Componente de punto de paginación animado para favoritos
+    const FavoritesPaginationDot = useCallback(({ index }: { index: number }) => {
+        const animatedStyle = useAnimatedStyle(() => {
+            const inputRange = [
+                (index - 1) * POPULAR_CAROUSEL_CONFIG.SNAP_INTERVAL,
+                index * POPULAR_CAROUSEL_CONFIG.SNAP_INTERVAL,
+                (index + 1) * POPULAR_CAROUSEL_CONFIG.SNAP_INTERVAL,
+            ];
+
+            const width = interpolate(
+                favoritesScrollX.value,
+                inputRange,
+                [8, 20, 8],
+                Extrapolation.CLAMP
+            );
+
+            const opacity = interpolate(
+                favoritesScrollX.value,
+                inputRange,
+                [0.3, 1, 0.3],
+                Extrapolation.CLAMP
+            );
+
+            return {
+                width,
+                opacity,
+            };
+        });
+
+        return (
+            <Animated.View
+                style={[styles.paginationDot, animatedStyle]}
+            />
+        );
+    }, [favoritesScrollX]);
 
     return (
         <View style={styles.container}>
@@ -460,14 +599,14 @@ export default function HomeScreen() {
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Favoritos</Text>
                     <AnimatedPopularList
-                        ref={popularListRef}
+                        ref={favoritesListRef}
                         data={popularItems}
                         horizontal
                         showsHorizontalScrollIndicator={false}
                         snapToInterval={POPULAR_CAROUSEL_CONFIG.SNAP_INTERVAL}
                         decelerationRate="fast"
                         contentContainerStyle={styles.carouselContainer}
-                        onScroll={popularScrollHandler}
+                        onScroll={favoritesScrollHandler}
                         scrollEventThrottle={16}
                         renderItem={renderPopularItem}
                         keyExtractor={popularKeyExtractor}
@@ -483,19 +622,17 @@ export default function HomeScreen() {
                         })}
                     />
 
-
-
-                    {/* Pagination Dots Animados para Populares */}
+                    {/* Pagination Dots Animados para Favoritos */}
                     <View style={styles.paginationContainer}>
-                        {Array.from({ length: popularPaginationCount }).map((_, index) => (
-                            <PopularPaginationDot key={index} index={index} />
+                        {Array.from({ length: favoritesPaginationCount }).map((_, index) => (
+                            <FavoritesPaginationDot key={index} index={index} />
                         ))}
                     </View>
                 </View>
 
-                {/* Cerca - Grid de 2 columnas */}
+                {/* Sitios Cercanos - Grid de 2 columnas */}
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Cerca</Text>
+                    <Text style={styles.sectionTitle}>Sitios Cercanos</Text>
                     <NearbyGridList
                         data={nearbyItems}
                         numColumns={NEARBY_GRID_CONFIG.NUM_COLUMNS}
