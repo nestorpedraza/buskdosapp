@@ -19,6 +19,8 @@ export default function HomeTabBar() {
             <Pressable style={styles.tabItemCenter} onPress={() => router.push('/map')}>
                 <LinearGradient
                     colors={['#9900ff', '#ff00f7']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
                     style={styles.tabCenterButton}
                 >
                     <Text style={styles.tabCenterIcon}>📍</Text>
