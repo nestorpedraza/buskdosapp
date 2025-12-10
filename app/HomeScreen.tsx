@@ -42,11 +42,13 @@ const NearbyGridList = Animated.FlatList<NearbyItem>;
 export default function HomeScreen() {
     const router = useRouter();
     const categoryListRef = useRef<Animated.FlatList<Category>>(null);
+    const nuevosListRef = useRef<Animated.FlatList<PopularItem>>(null);
     const popularListRef = useRef<Animated.FlatList<PopularItem>>(null);
     const favoritesListRef = useRef<Animated.FlatList<PopularItem>>(null);
 
     // Shared values para el scroll - viven en el UI Thread
     const categoryScrollX = useSharedValue(0);
+    const nuevosScrollX = useSharedValue(0);
     const popularScrollX = useSharedValue(0);
     const favoritesScrollX = useSharedValue(0);
 
@@ -306,6 +308,11 @@ export default function HomeScreen() {
         [categories.length]
     );
 
+    const nuevosPaginationCount = useMemo(() =>
+        Math.min(popularItems.length, 10),
+        [popularItems.length]
+    );
+
     const popularPaginationCount = useMemo(() =>
         Math.min(popularItems.length, 10),
         [popularItems.length]
@@ -320,6 +327,12 @@ export default function HomeScreen() {
     const categoryScrollHandler = useAnimatedScrollHandler({
         onScroll: (event) => {
             categoryScrollX.value = event.contentOffset.x;
+        },
+    });
+
+    const nuevosScrollHandler = useAnimatedScrollHandler({
+        onScroll: (event) => {
+            nuevosScrollX.value = event.contentOffset.x;
         },
     });
 
@@ -441,6 +454,42 @@ export default function HomeScreen() {
         );
     }, [popularScrollX]);
 
+    // Componente de punto de paginación animado para nuevos
+    const NuevosPaginationDot = useCallback(({ index }: { index: number }) => {
+        const animatedStyle = useAnimatedStyle(() => {
+            const inputRange = [
+                (index - 1) * POPULAR_CAROUSEL_CONFIG.SNAP_INTERVAL,
+                index * POPULAR_CAROUSEL_CONFIG.SNAP_INTERVAL,
+                (index + 1) * POPULAR_CAROUSEL_CONFIG.SNAP_INTERVAL,
+            ];
+
+            const width = interpolate(
+                nuevosScrollX.value,
+                inputRange,
+                [8, 20, 8],
+                Extrapolation.CLAMP
+            );
+
+            const opacity = interpolate(
+                nuevosScrollX.value,
+                inputRange,
+                [0.3, 1, 0.3],
+                Extrapolation.CLAMP
+            );
+
+            return {
+                width,
+                opacity,
+            };
+        });
+
+        return (
+            <Animated.View
+                style={[styles.paginationDot, animatedStyle]}
+            />
+        );
+    }, [nuevosScrollX]);
+
     // Componente de punto de paginación animado para favoritos
     const FavoritesPaginationDot = useCallback(({ index }: { index: number }) => {
         const animatedStyle = useAnimatedStyle(() => {
@@ -558,6 +607,42 @@ export default function HomeScreen() {
                     </View>
                 </View>
 
+
+                {/* Nuevos Carousel */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Nuevos</Text>
+                    <AnimatedPopularList
+                        ref={nuevosListRef}
+                        data={popularItems}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        snapToInterval={POPULAR_CAROUSEL_CONFIG.SNAP_INTERVAL}
+                        decelerationRate="fast"
+                        contentContainerStyle={styles.carouselContainer}
+                        onScroll={nuevosScrollHandler}
+                        scrollEventThrottle={16}
+                        renderItem={renderPopularItem}
+                        keyExtractor={popularKeyExtractor}
+                        // Optimizaciones de rendimiento
+                        removeClippedSubviews={true}
+                        maxToRenderPerBatch={5}
+                        windowSize={5}
+                        initialNumToRender={3}
+                        getItemLayout={(_, index) => ({
+                            length: POPULAR_CAROUSEL_CONFIG.SNAP_INTERVAL,
+                            offset: POPULAR_CAROUSEL_CONFIG.SNAP_INTERVAL * index,
+                            index,
+                        })}
+                    />
+
+                    {/* Pagination Dots Animados para Nuevos */}
+                    <View style={styles.paginationContainer}>
+                        {Array.from({ length: nuevosPaginationCount }).map((_, index) => (
+                            <NuevosPaginationDot key={index} index={index} />
+                        ))}
+                    </View>
+                </View>
+
                 {/* Mas Populares Carousel */}
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Más Populares</Text>
@@ -584,6 +669,8 @@ export default function HomeScreen() {
                             index,
                         })}
                     />
+
+
 
 
 

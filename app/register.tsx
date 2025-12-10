@@ -1,9 +1,11 @@
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import Svg, { Defs, Stop, LinearGradient as SvgLinearGradient, Text as SvgText } from 'react-native-svg';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import AppButton from '../components/AppButton';
 import AppInput from '../components/AppInput';
+import AuthBackground from '../components/AuthBackground';
+import Divider from '../components/Divider';
+import LogoHeader from '../components/LogoHeader';
 
 export default function Register() {
     const [email, setEmail] = useState('');
@@ -63,51 +65,17 @@ export default function Register() {
     };
 
     return (
-        <View style={styles.container}>
-            <ImageBackground
-                source={require('../assets/images/city.png')}
-                style={styles.backgroundImage}
-                resizeMode="cover"
-            >
-                <View style={styles.overlay} />
-            </ImageBackground>
-
+        <AuthBackground>
             <ScrollView
                 style={styles.scrollView}
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
             >
                 <View style={styles.contentContainer}>
+                    <LogoHeader showTitle={false} />
 
-                    {/* Container del logo */}
-                    <View style={styles.logoContainer}>
-                        <Image
-                            source={require('../assets/images/buskados_vectorizado_200x200.png')}
-                            style={styles.logo}
-                            resizeMode="contain"
-                        />
-                    </View>
-
-                    <View style={{ alignItems: 'center', width: '100%' }}>
-                        <Svg height="60" width="400">
-                            <Defs>
-                                <SvgLinearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <Stop offset="0%" stopColor="#0073ffff" stopOpacity="1" />
-                                    <Stop offset="50%" stopColor="#9900ffff" stopOpacity="1" />
-                                    <Stop offset="100%" stopColor="#ff00f7ff" stopOpacity="1" />
-                                </SvgLinearGradient>
-                            </Defs>
-                            <SvgText
-                                fill="url(#grad)"
-                                fontSize="32"
-                                fontWeight="bold"
-                                x="200"
-                                y="40"
-                                textAnchor="middle"
-                            >
-                                Crear Cuenta
-                            </SvgText>
-                        </Svg>
+                    <View style={{ alignItems: 'center', width: '100%', marginBottom: 20 }}>
+                        <Text style={styles.title}>Crear Cuenta</Text>
                     </View>
 
                     {/* Input de Email */}
@@ -184,30 +152,21 @@ export default function Register() {
                         onPress={handleCancel}
                     />
 
-                    <AppButton label="Regresar" variant="outline" containerStyle={{ width: '100%' }} onPress={() => router.push('/login')} />
+                    <Divider text="o" />
 
+                    <AppButton
+                        label="Ya tengo cuenta"
+                        variant="outline"
+                        containerStyle={{ width: '100%' }}
+                        onPress={() => router.push('/login')}
+                    />
                 </View>
             </ScrollView>
-        </View>
+        </AuthBackground>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#7300ff5f",
-    },
-    backgroundImage: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-    },
-    overlay: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(255, 255, 255, 0.85)',
-    },
     scrollView: {
         flex: 1,
         width: '100%',
@@ -222,14 +181,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
         width: '100%',
     },
-    logoContainer: {
-        alignItems: 'center',
-        marginBottom: 10,
-    },
-    logo: {
-        width: 150,
-        height: 150,
-        borderRadius: 75,
+    title: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: '#9900ff',
+        textAlign: 'center',
     },
     checkboxContainer: {
         flexDirection: 'row',
