@@ -329,7 +329,7 @@ export default function HomeScreen() {
             </ScrollView>
 
             {/* Bottom Tab Bar */}
-            <HomeTabBar />
+            <HomeTabBar activeRoute="/homescreen" />
         </View>
     );
 }

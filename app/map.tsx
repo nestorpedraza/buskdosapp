@@ -10,6 +10,7 @@ import {
     TextInput,
     View,
 } from 'react-native';
+import HomeTabBar from '../components/HomeTabBar';
 
 const { width } = Dimensions.get('window');
 
@@ -143,32 +144,7 @@ export default function MapScreen() {
             </View>
 
             {/* Bottom Tab Bar */}
-            <View style={styles.tabBar}>
-                <Pressable style={styles.tabItem} onPress={() => router.push('/HomeScreen')}>
-                    <Text style={styles.tabIcon}>🏠</Text>
-                    <Text style={styles.tabText}>Home</Text>
-                </Pressable>
-                <Pressable style={styles.tabItem} onPress={() => router.push('/likes')}>
-                    <Text style={styles.tabIcon}>❤️</Text>
-                    <Text style={styles.tabText}>Likes</Text>
-                </Pressable>
-                <Pressable style={styles.tabItemCenter}>
-                    <LinearGradient
-                        colors={['#9900ff', '#ff00f7']}
-                        style={styles.tabCenterButton}
-                    >
-                        <Text style={styles.tabCenterIcon}>📍</Text>
-                    </LinearGradient>
-                </Pressable>
-                <Pressable style={styles.tabItem} onPress={() => router.push('/nav')}>
-                    <Text style={styles.tabIcon}>🧭</Text>
-                    <Text style={styles.tabText}>Nav</Text>
-                </Pressable>
-                <Pressable style={styles.tabItem} onPress={() => router.push('/profile')}>
-                    <Text style={styles.tabIcon}>👤</Text>
-                    <Text style={styles.tabText}>Profile</Text>
-                </Pressable>
-            </View>
+            <HomeTabBar activeRoute="/map" />
         </View>
     );
 }
@@ -364,58 +340,5 @@ const styles = StyleSheet.create({
     placeArrow: {
         fontSize: 24,
         color: '#ccc',
-    },
-    tabBar: {
-        flexDirection: 'row',
-        backgroundColor: '#fff',
-        paddingVertical: 10,
-        paddingBottom: 25,
-        borderTopWidth: 1,
-        borderTopColor: '#f0f0f0',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-    },
-    tabItem: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    tabItemCenter: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: -30,
-    },
-    tabCenterButton: {
-        width: 55,
-        height: 55,
-        borderRadius: 28,
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowColor: '#9900ff',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 5,
-        elevation: 8,
-    },
-    tabIcon: {
-        fontSize: 22,
-        marginBottom: 3,
-    },
-    tabIconActive: {
-        transform: [{ scale: 1.1 }],
-    },
-    tabCenterIcon: {
-        fontSize: 24,
-    },
-    tabText: {
-        fontSize: 11,
-        color: '#888',
-    },
-    tabTextActive: {
-        color: '#9900ff',
-        fontWeight: '600',
     },
 });

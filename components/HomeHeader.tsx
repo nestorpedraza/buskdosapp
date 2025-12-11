@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
 export default function HomeHeader() {
     const router = useRouter();
@@ -30,25 +30,7 @@ export default function HomeHeader() {
                 </Pressable>
             </View>
 
-            {/* Search Bar */}
-            <View style={[
-                styles.searchContainer,
-                isFocused && styles.searchContainerFocused
-            ]}>
-                <Text style={styles.searchIconLeft}>🔍</Text>
-                <TextInput
-                    style={styles.searchInput}
-                    placeholder="Busca negocios, cafés..."
-                    placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
-                />
-                {isFocused && (
-                    <Pressable style={styles.clearButton}>
-                        <Text style={styles.clearIcon}>✕</Text>
-                    </Pressable>
-                )}
-            </View>
+
         </LinearGradient>
     );
 }

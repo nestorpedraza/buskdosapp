@@ -3,37 +3,79 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-export default function HomeTabBar() {
+interface HomeTabBarProps {
+    activeRoute?: string;
+}
+
+export default function HomeTabBar({ activeRoute = '/' }: HomeTabBarProps) {
     const router = useRouter();
+
+    // Definir colores de gradiente según la ruta activa
+    const getGradientColors = (): readonly [string, string] => {
+        switch (activeRoute) {
+            case '/homescreen':
+                return ['#9900ff', '#ff00f774'] as const; // Home - Morado/Rosa
+            case '/likes':
+                return ['#ff0080', '#ff4d946f'] as const; // Likes - Rosa intenso
+            case '/map':
+                return ['#0048ff85', '#1e00ff62'] as const; // Map - Azul
+            case '/nav':
+                return ['#ff00519d', '#ffa2008f'] as const; // Nav - Naranja
+            case '/profile':
+                return ['#c0c0c0ff', '#3d3d3d7b'] as const; // Profile - Verde
+            default:
+                return ['#9900ff', '#c300ff5b'] as const;
+        }
+    };
+
+    // Obtener los tabs inactivos
+    const inactiveTabs = [
+        { route: '/homescreen', icon: '🏠', label: 'Home', path: '/HomeScreen' as const },
+        { route: '/likes', icon: '❤️', label: 'Likes', path: '/likes' as const },
+        { route: '/map', icon: '📍', label: 'Map', path: '/map' as const },
+        { route: '/nav', icon: '🧭', label: 'Nav', path: '/nav' as const },
+        { route: '/profile', icon: '👤', label: 'Profile', path: '/profile' as const },
+    ].filter(tab => tab.route !== activeRoute);
+
+    // Dividir tabs: 2 a la izquierda, 2 a la derecha
+    const leftTabs = inactiveTabs.slice(0, 2);
+    const rightTabs = inactiveTabs.slice(2, 4);
 
     return (
         <View style={styles.tabBar}>
-            <Pressable style={styles.tabItem}>
-                <Text style={[styles.tabIcon, styles.tabIconActive]}>🏠</Text>
-                <Text style={[styles.tabText, styles.tabTextActive]}>Home</Text>
-            </Pressable>
-            <Pressable style={styles.tabItem} onPress={() => router.push('/likes')}>
-                <Text style={styles.tabIcon}>❤️</Text>
-                <Text style={styles.tabText}>Likes</Text>
-            </Pressable>
-            <Pressable style={styles.tabItemCenter} onPress={() => router.push('/map')}>
+            {/* Tabs izquierda */}
+            {leftTabs.map((tab) => (
+                <Pressable key={tab.route} style={styles.tabItem} onPress={() => router.push(tab.path)}>
+                    <Text style={styles.tabIcon}>{tab.icon}</Text>
+                    <Text style={styles.tabText}>{tab.label}</Text>
+                </Pressable>
+            ))}
+
+            {/* Tab central activo */}
+            <Pressable style={styles.tabItemCenter}>
                 <LinearGradient
-                    colors={['#9900ff', '#ff00f7']}
+                    colors={getGradientColors()}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 1 }}
                     style={styles.tabCenterButton}
                 >
-                    <Text style={styles.tabCenterIcon}>📍</Text>
+                    <Text style={styles.tabCenterIcon}>
+                        {activeRoute === '/homescreen' && '🏠'}
+                        {activeRoute === '/likes' && '❤️'}
+                        {activeRoute === '/map' && '📍'}
+                        {activeRoute === '/nav' && '🧭'}
+                        {activeRoute === '/profile' && '👤'}
+                    </Text>
                 </LinearGradient>
             </Pressable>
-            <Pressable style={styles.tabItem} onPress={() => router.push('/nav')}>
-                <Text style={styles.tabIcon}>🧭</Text>
-                <Text style={styles.tabText}>Nav</Text>
-            </Pressable>
-            <Pressable style={styles.tabItem} onPress={() => router.push('/profile')}>
-                <Text style={styles.tabIcon}>👤</Text>
-                <Text style={styles.tabText}>Profile</Text>
-            </Pressable>
+
+            {/* Tabs derecha */}
+            {rightTabs.map((tab) => (
+                <Pressable key={tab.route} style={styles.tabItem} onPress={() => router.push(tab.path)}>
+                    <Text style={styles.tabIcon}>{tab.icon}</Text>
+                    <Text style={styles.tabText}>{tab.label}</Text>
+                </Pressable>
+            ))}
         </View>
     );
 }
@@ -47,7 +89,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#fff',
         paddingVertical: 10,
-        paddingBottom: 25,
+        paddingBottom: 40,
         borderTopWidth: 1,
         borderTopColor: '#eee',
         alignItems: 'center',
