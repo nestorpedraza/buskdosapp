@@ -1,8 +1,8 @@
-import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import {
     Dimensions,
+    Image,
     Pressable,
     ScrollView,
     StyleSheet,
@@ -54,16 +54,12 @@ export default function MapScreen() {
         <View style={styles.container}>
             {/* Map Placeholder */}
             <View style={styles.mapContainer}>
-                <LinearGradient
-                    colors={['#e8e8e8', '#d0d0d0']}
-                    style={styles.mapPlaceholder}
-                >
-                    <Text style={styles.mapPlaceholderText}>🗺️</Text>
-                    <Text style={styles.mapPlaceholderSubtext}>Mapa interactivo</Text>
-                    <Text style={styles.mapPlaceholderHint}>
-                        Integra react-native-maps o mapbox
-                    </Text>
-                </LinearGradient>
+                <Image
+                    source={require('../assets/images/mapa.png')}
+                    style={styles.mapImage}
+                    resizeMode="cover"
+                />
+
 
                 {/* Floating Search Bar */}
                 <View style={styles.floatingSearchContainer}>
@@ -78,6 +74,7 @@ export default function MapScreen() {
                         />
                     </View>
                 </View>
+
 
                 {/* Category Pills */}
                 <ScrollView
@@ -158,24 +155,29 @@ const styles = StyleSheet.create({
         flex: 1,
         position: 'relative',
     },
-    mapPlaceholder: {
+    mapImage: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        width: '100%',
+        height: '100%',
     },
-    mapPlaceholderText: {
-        fontSize: 60,
-        marginBottom: 10,
+    mapOverlay: {
+        position: 'absolute',
+        top: 20,
+        left: 20,
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        paddingHorizontal: 15,
+        paddingVertical: 8,
+        borderRadius: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
     },
-    mapPlaceholderSubtext: {
-        fontSize: 18,
-        color: '#666',
-        fontWeight: '600',
-    },
-    mapPlaceholderHint: {
-        fontSize: 12,
-        color: '#999',
-        marginTop: 5,
+    mapCityName: {
+        fontSize: 16,
+        fontWeight: '700',
+        color: '#9900ff',
     },
     floatingSearchContainer: {
         position: 'absolute',

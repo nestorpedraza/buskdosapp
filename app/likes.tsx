@@ -1,16 +1,16 @@
-import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
     Dimensions,
     FlatList,
-    Image,
-    Pressable,
     StyleSheet,
-    Text,
     View,
 } from 'react-native';
+import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
+import LikedCard from '../components/LikedCard';
+import LikesEmptyState from '../components/LikesEmptyState';
+import TitlesHeader from '../components/TitlesHeader';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = (width - 60) / 2;
@@ -25,35 +25,6 @@ interface LikedItem {
     reviews: number;
     image: any;
     distance: string;
-}
-
-function LikedCard({ item, onUnlike }: { item: LikedItem; onUnlike: (id: string) => void }) {
-    return (
-        <View style={styles.card}>
-            <Image source={item.image} style={styles.cardImage} />
-            <LinearGradient
-                colors={['transparent', 'rgba(0,0,0,0.8)']}
-                style={styles.cardGradient}
-            />
-            <Pressable
-                style={styles.likeButton}
-                onPress={() => onUnlike(item.id)}
-            >
-                <Text style={styles.likeIcon}>❤️</Text>
-            </Pressable>
-            <View style={styles.cardContent}>
-                <View style={styles.tagContainer}>
-                    <Text style={styles.tag}>{item.tag}</Text>
-                </View>
-                <Text style={styles.cardTitle} numberOfLines={1}>{item.title}</Text>
-                <Text style={styles.cardSubtitle} numberOfLines={1}>{item.subtitle}</Text>
-                <View style={styles.cardFooter}>
-                    <Text style={styles.rating}>⭐ {item.rating}</Text>
-                    <Text style={styles.distance}>📍 {item.distance}</Text>
-                </View>
-            </View>
-        </View>
-    );
 }
 
 export default function LikesScreen() {
@@ -104,6 +75,94 @@ export default function LikesScreen() {
             image: require('../assets/images/city.png'),
             distance: '2.1 km',
         },
+        {
+            id: '5',
+            tag: 'Panadería',
+            title: 'Pan del Día',
+            subtitle: 'Panadería artesanal',
+            price: '$5 promedio',
+            rating: 4.9,
+            reviews: 567,
+            image: require('../assets/images/city.png'),
+            distance: '0.3 km',
+        },
+        {
+            id: '6',
+            tag: 'Librería',
+            title: 'Letras & Libros',
+            subtitle: 'Libros nuevos y usados',
+            price: '$15 promedio',
+            rating: 4.5,
+            reviews: 234,
+            image: require('../assets/images/city.png'),
+            distance: '1.5 km',
+        },
+        {
+            id: '7',
+            tag: 'Spa',
+            title: 'Relax Zone',
+            subtitle: 'Masajes y tratamientos',
+            price: '$60 por sesión',
+            rating: 4.8,
+            reviews: 412,
+            image: require('../assets/images/city.png'),
+            distance: '2.3 km',
+        },
+        {
+            id: '8',
+            tag: 'Farmacia',
+            title: 'Farma Salud',
+            subtitle: 'Medicamentos y más',
+            price: 'Variado',
+            rating: 4.4,
+            reviews: 189,
+            image: require('../assets/images/city.png'),
+            distance: '0.6 km',
+        },
+        {
+            id: '9',
+            tag: 'Cine',
+            title: 'Cinema Plaza',
+            subtitle: 'Últimos estrenos',
+            price: '$12 por entrada',
+            rating: 4.6,
+            reviews: 892,
+            image: require('../assets/images/city.png'),
+            distance: '1.8 km',
+        },
+        {
+            id: '10',
+            tag: 'Restaurante',
+            title: 'Sushi Bar',
+            subtitle: 'Cocina japonesa',
+            price: '$35 por persona',
+            rating: 4.9,
+            reviews: 623,
+            image: require('../assets/images/city.png'),
+            distance: '1.0 km',
+        },
+        {
+            id: '11',
+            tag: 'Bar',
+            title: 'The Lounge',
+            subtitle: 'Cocteles premium',
+            price: '$20 promedio',
+            rating: 4.7,
+            reviews: 445,
+            image: require('../assets/images/city.png'),
+            distance: '1.4 km',
+        },
+        {
+            id: '12',
+            tag: 'Peluquería',
+            title: 'Style Studio',
+            subtitle: 'Corte y color',
+            price: '$25 por servicio',
+            rating: 4.8,
+            reviews: 356,
+            image: require('../assets/images/city.png'),
+            distance: '0.9 km',
+        },
     ]);
 
     const handleUnlike = (id: string) => {
@@ -119,17 +178,11 @@ export default function LikesScreen() {
     return (
         <View style={styles.container}>
             {/* Header */}
-            <LinearGradient
-                colors={['#9900ff', '#ff00f7']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={styles.headerGradient}
-            >
-                <Text style={styles.headerTitle}>Mis Favoritos</Text>
-                <Text style={styles.headerSubtitle}>
-                    {likedItems.length} lugares guardados
-                </Text>
-            </LinearGradient>
+            <HomeHeader />
+
+            {/* Section Title */}
+            <TitlesHeader likedCount={likedItems.length} title="Mis Lugares"
+                subtitle="Tus destinos favoritos" />
 
             {/* Content */}
             {likedItems.length > 0 ? (
@@ -143,26 +196,7 @@ export default function LikesScreen() {
                     showsVerticalScrollIndicator={false}
                 />
             ) : (
-                <View style={styles.emptyState}>
-                    <Text style={styles.emptyIcon}>💔</Text>
-                    <Text style={styles.emptyTitle}>Sin favoritos aún</Text>
-                    <Text style={styles.emptySubtitle}>
-                        Explora y guarda los lugares que te gusten
-                    </Text>
-                    <Pressable
-                        style={styles.exploreButton}
-                        onPress={() => router.push('/HomeScreen')}
-                    >
-                        <LinearGradient
-                            colors={['#9900ff', '#ff00f7']}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 0 }}
-                            style={styles.exploreButtonGradient}
-                        >
-                            <Text style={styles.exploreButtonText}>Explorar</Text>
-                        </LinearGradient>
-                    </Pressable>
-                </View>
+                <LikesEmptyState onExplore={() => router.push('/HomeScreen')} />
             )}
 
             {/* Bottom Tab Bar */}
@@ -176,23 +210,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    headerGradient: {
-        paddingTop: 60,
-        paddingBottom: 25,
-        paddingHorizontal: 20,
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
-    },
-    headerTitle: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#fff',
-    },
-    headerSubtitle: {
-        fontSize: 14,
-        color: 'rgba(255, 255, 255, 0.8)',
-        marginTop: 5,
-    },
     listContent: {
         padding: 20,
         paddingBottom: 100,
@@ -200,118 +217,5 @@ const styles = StyleSheet.create({
     columnWrapper: {
         justifyContent: 'space-between',
         marginBottom: 15,
-    },
-    card: {
-        width: CARD_WIDTH,
-        height: 200,
-        borderRadius: 20,
-        overflow: 'hidden',
-        backgroundColor: '#f5f5f5',
-    },
-    cardImage: {
-        width: '100%',
-        height: '100%',
-        resizeMode: 'cover',
-    },
-    cardGradient: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        height: '70%',
-    },
-    likeButton: {
-        position: 'absolute',
-        top: 10,
-        right: 10,
-        width: 32,
-        height: 32,
-        borderRadius: 16,
-        backgroundColor: 'rgba(255,255,255,0.9)',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    likeIcon: {
-        fontSize: 16,
-    },
-    cardContent: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        padding: 12,
-    },
-    tagContainer: {
-        alignSelf: 'flex-start',
-        backgroundColor: 'rgba(153, 0, 255, 0.8)',
-        paddingHorizontal: 8,
-        paddingVertical: 3,
-        borderRadius: 10,
-        marginBottom: 5,
-    },
-    tag: {
-        fontSize: 9,
-        color: '#fff',
-        fontWeight: '600',
-    },
-    cardTitle: {
-        fontSize: 14,
-        fontWeight: 'bold',
-        color: '#fff',
-    },
-    cardSubtitle: {
-        fontSize: 11,
-        color: 'rgba(255,255,255,0.8)',
-        marginTop: 2,
-    },
-    cardFooter: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 6,
-    },
-    rating: {
-        fontSize: 11,
-        color: '#fff',
-        fontWeight: '600',
-    },
-    distance: {
-        fontSize: 10,
-        color: 'rgba(255,255,255,0.8)',
-    },
-    emptyState: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: 40,
-    },
-    emptyIcon: {
-        fontSize: 60,
-        marginBottom: 20,
-    },
-    emptyTitle: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 10,
-    },
-    emptySubtitle: {
-        fontSize: 14,
-        color: '#888',
-        textAlign: 'center',
-        marginBottom: 30,
-    },
-    exploreButton: {
-        borderRadius: 25,
-        overflow: 'hidden',
-    },
-    exploreButtonGradient: {
-        paddingHorizontal: 40,
-        paddingVertical: 15,
-    },
-    exploreButtonText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: 'bold',
     },
 });

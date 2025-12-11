@@ -10,6 +10,7 @@ import {
     Text,
     View,
 } from 'react-native';
+import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
 
 const { width } = Dimensions.get('window');
@@ -59,51 +60,8 @@ export default function ProfileScreen() {
 
     return (
         <View style={styles.container}>
-            {/* Header with gradient */}
-            <LinearGradient
-                colors={['#9900ff', '#ff00f7']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={styles.headerGradient}
-            >
-                {/* Settings Icon */}
-                <Pressable style={styles.settingsButton}>
-                    <Text style={styles.settingsIcon}>⚙️</Text>
-                </Pressable>
-
-                {/* Profile Info */}
-                <View style={styles.profileInfo}>
-                    <View style={styles.avatarContainer}>
-                        <Image
-                            source={require('../assets/images/city.png')}
-                            style={styles.avatar}
-                        />
-                        <View style={styles.avatarBadge}>
-                            <Text style={styles.avatarBadgeText}>✓</Text>
-                        </View>
-                    </View>
-                    <Text style={styles.userName}>Juan Pérez</Text>
-                    <Text style={styles.userEmail}>juan.perez@email.com</Text>
-                </View>
-
-                {/* Stats */}
-                <View style={styles.statsContainer}>
-                    <View style={styles.statItem}>
-                        <Text style={styles.statNumber}>{userStats.reviews}</Text>
-                        <Text style={styles.statLabel}>Reseñas</Text>
-                    </View>
-                    <View style={styles.statDivider} />
-                    <View style={styles.statItem}>
-                        <Text style={styles.statNumber}>{userStats.favorites}</Text>
-                        <Text style={styles.statLabel}>Favoritos</Text>
-                    </View>
-                    <View style={styles.statDivider} />
-                    <View style={styles.statItem}>
-                        <Text style={styles.statNumber}>{userStats.visited}</Text>
-                        <Text style={styles.statLabel}>Visitados</Text>
-                    </View>
-                </View>
-            </LinearGradient>
+            {/* Header */}
+            <HomeHeader />
 
             <ScrollView
                 style={styles.scrollView}
@@ -130,6 +88,48 @@ export default function ProfileScreen() {
                         <Text style={styles.premiumArrow}>›</Text>
                     </LinearGradient>
                 </Pressable>
+
+                {/* Profile Card */}
+                <View style={styles.profileCard}>
+                    {/* Profile Info */}
+                    <View style={styles.profileInfo}>
+                        <View style={styles.avatarContainer}>
+                            <Image
+                                source={require('../assets/images/city.png')}
+                                style={styles.avatar}
+                            />
+                            <Pressable style={styles.avatarEditButton}>
+                                <Text style={styles.avatarEditIcon}>📷</Text>
+                            </Pressable>
+                        </View>
+                        <Text style={styles.userName}>Juan Pérez</Text>
+                        <Text style={styles.userEmail}>juan.perez@email.com</Text>
+                        <View style={styles.verifiedBadge}>
+                            <Text style={styles.verifiedIcon}>✓</Text>
+                            <Text style={styles.verifiedText}>Verificado</Text>
+                        </View>
+                    </View>
+
+                    {/* Stats */}
+                    <View style={styles.statsContainer}>
+                        <Pressable style={styles.statItem}>
+                            <Text style={styles.statNumber}>{userStats.reviews}</Text>
+                            <Text style={styles.statLabel}>Reseñas</Text>
+                        </Pressable>
+                        <View style={styles.statDivider} />
+                        <Pressable style={styles.statItem}>
+                            <Text style={styles.statNumber}>{userStats.favorites}</Text>
+                            <Text style={styles.statLabel}>Favoritos</Text>
+                        </Pressable>
+                        <View style={styles.statDivider} />
+                        <Pressable style={styles.statItem}>
+                            <Text style={styles.statNumber}>{userStats.visited}</Text>
+                            <Text style={styles.statLabel}>Visitados</Text>
+                        </Pressable>
+                    </View>
+                </View>
+
+
 
                 {/* Menu Section */}
                 <View style={styles.section}>
@@ -202,92 +202,111 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f8f8f8',
     },
-    headerGradient: {
-        paddingTop: 50,
-        paddingBottom: 30,
-        paddingHorizontal: 20,
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
-    },
-    settingsButton: {
-        position: 'absolute',
-        top: 50,
-        right: 20,
-    },
-    settingsIcon: {
-        fontSize: 24,
+    profileCard: {
+        marginHorizontal: 20,
+        marginTop: 20,
+        marginBottom: 20,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        padding: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 4,
     },
     profileInfo: {
         alignItems: 'center',
-        marginTop: 10,
+        marginBottom: 20,
     },
     avatarContainer: {
         position: 'relative',
+        marginBottom: 15,
     },
     avatar: {
-        width: 90,
-        height: 90,
-        borderRadius: 45,
+        width: 100,
+        height: 100,
+        borderRadius: 50,
         borderWidth: 3,
-        borderColor: '#fff',
+        borderColor: '#e0e0e0',
     },
-    avatarBadge: {
+    avatarEditButton: {
         position: 'absolute',
         bottom: 0,
         right: 0,
-        width: 26,
-        height: 26,
-        borderRadius: 13,
-        backgroundColor: '#4CAF50',
+        width: 34,
+        height: 34,
+        borderRadius: 17,
+        backgroundColor: '#9900ff',
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 2,
+        borderWidth: 3,
         borderColor: '#fff',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 5,
     },
-    avatarBadgeText: {
-        color: '#fff',
-        fontSize: 12,
-        fontWeight: 'bold',
+    avatarEditIcon: {
+        fontSize: 16,
     },
     userName: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        color: '#fff',
-        marginTop: 12,
+        fontSize: 24,
+        fontWeight: '700',
+        color: '#333',
+        marginBottom: 5,
     },
     userEmail: {
         fontSize: 14,
-        color: 'rgba(255,255,255,0.8)',
-        marginTop: 4,
+        color: '#666',
+        marginBottom: 10,
+    },
+    verifiedBadge: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#e8f5e9',
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 15,
+        gap: 5,
+    },
+    verifiedIcon: {
+        fontSize: 12,
+        color: '#4CAF50',
+    },
+    verifiedText: {
+        color: '#4CAF50',
+        fontSize: 12,
+        fontWeight: '600',
     },
     statsContainer: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        marginTop: 20,
-        backgroundColor: 'rgba(255,255,255,0.15)',
+        backgroundColor: '#f8f8f8',
         borderRadius: 15,
-        paddingVertical: 15,
-        paddingHorizontal: 20,
+        paddingVertical: 16,
+        paddingHorizontal: 10,
     },
     statItem: {
         flex: 1,
         alignItems: 'center',
     },
     statNumber: {
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: 'bold',
-        color: '#fff',
+        color: '#333',
     },
     statLabel: {
         fontSize: 12,
-        color: 'rgba(255,255,255,0.8)',
+        color: '#666',
         marginTop: 4,
     },
     statDivider: {
         width: 1,
         height: 30,
-        backgroundColor: 'rgba(255,255,255,0.3)',
+        backgroundColor: '#ddd',
     },
     scrollView: {
         flex: 1,
@@ -297,7 +316,7 @@ const styles = StyleSheet.create({
     },
     premiumCard: {
         marginHorizontal: 20,
-        marginTop: -15,
+        marginTop: 10,
         borderRadius: 15,
         overflow: 'hidden',
         shadowColor: '#000',

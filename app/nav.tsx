@@ -9,7 +9,9 @@ import {
     Text,
     View,
 } from 'react-native';
+import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
+import TitlesHeader from '../components/TitlesHeader';
 
 const { width } = Dimensions.get('window');
 
@@ -65,17 +67,10 @@ export default function NavScreen() {
     return (
         <View style={styles.container}>
             {/* Header */}
-            <LinearGradient
-                colors={['#9900ff', '#ff00f7']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={styles.headerGradient}
-            >
-                <Text style={styles.headerTitle}>Explorar</Text>
-                <Text style={styles.headerSubtitle}>
-                    Descubre lugares increíbles
-                </Text>
-            </LinearGradient>
+            <HomeHeader />
+
+            {/* Section Title */}
+            <TitlesHeader title="Explorar" subtitle="Descubre lugares increíbles" />
 
             <ScrollView
                 style={styles.scrollView}
@@ -194,20 +189,8 @@ const styles = StyleSheet.create({
     },
     headerGradient: {
         paddingTop: 60,
-        paddingBottom: 25,
-        paddingHorizontal: 20,
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
-    },
-    headerTitle: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#fff',
-    },
-    headerSubtitle: {
-        fontSize: 14,
-        color: 'rgba(255, 255, 255, 0.8)',
-        marginTop: 5,
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     scrollView: {
         flex: 1,
@@ -217,12 +200,13 @@ const styles = StyleSheet.create({
     },
     section: {
         paddingHorizontal: 20,
-        marginTop: 25,
+        marginTop: 20,
     },
     sectionHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginBottom: 15,
     },
     sectionTitle: {
         fontSize: 18,

@@ -24,7 +24,7 @@ export default function HomeHeader() {
                         />
                         <View style={styles.logoTextContainer}>
                             <Text style={styles.logoMainText}>Buskdos</Text>
-                            <Text style={styles.logoSubText}>Descubre & Compra</Text>
+                            <Text style={styles.logoSubText}>Explora, Descubre & Compra</Text>
                         </View>
                     </View>
                 </Pressable>
@@ -38,10 +38,10 @@ export default function HomeHeader() {
 const styles = StyleSheet.create({
     headerGradient: {
         paddingTop: 50,
-        paddingBottom: 20,
+        paddingBottom: 1,
         paddingHorizontal: 20,
-        borderBottomLeftRadius: 35,
-        borderBottomRightRadius: 35,
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
         shadowColor: '#9900ff',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.25,
