@@ -11,6 +11,7 @@ import {
     TextInput,
     View,
 } from 'react-native';
+import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
 
 const { width, height } = Dimensions.get('window');
@@ -319,6 +320,9 @@ export default function MapScreen() {
 
     return (
         <View style={styles.container}>
+            {/* Header */}
+            <HomeHeader />
+
             {/* Map Placeholder */}
             <View style={styles.mapContainer}>
                 <Image
