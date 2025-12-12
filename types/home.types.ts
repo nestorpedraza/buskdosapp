@@ -19,7 +19,7 @@ export const CAROUSEL_CONFIG = {
  */
 export const POPULAR_CAROUSEL_CONFIG = {
     CARD_WIDTH: 180,
-    CARD_MARGIN: 12,
+    CARD_MARGIN: 16,
     CARD_HEIGHT: 220,
     BORDER_RADIUS: 16,
     get SNAP_INTERVAL() {

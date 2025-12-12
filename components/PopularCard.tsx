@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
         borderRadius: POPULAR_CAROUSEL_CONFIG.BORDER_RADIUS,
         overflow: 'hidden',
         marginRight: POPULAR_CAROUSEL_CONFIG.CARD_MARGIN,
+        marginVertical: 8,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,

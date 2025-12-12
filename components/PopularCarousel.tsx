@@ -117,7 +117,8 @@ export default function PopularCarousel({ title, items, onItemPress }: PopularCa
 const styles = StyleSheet.create({
     section: {
         paddingHorizontal: 20,
-        paddingTop: 24,
+        paddingTop: 28,
+        paddingBottom: 8,
     },
     sectionTitle: {
         fontSize: 22,
