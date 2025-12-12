@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import React, { useCallback, useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
@@ -11,7 +12,7 @@ import { Category, NearbyItem, PopularItem, SubCategory } from '../types/home.ty
 
 
 /**
- * HomeScreen - Pantalla principal optimizada
+ * HomeScreen - Pantalla pr                                                                                                                                                                                                                                                                                                                                                                                                                             incipal optimizada
  * 
  * Componentes utilizados:
  * - HomeHeader: Header con búsqueda
@@ -21,6 +22,8 @@ import { Category, NearbyItem, PopularItem, SubCategory } from '../types/home.ty
  * - HomeTabBar: Barra de navegación inferior
  */
 export default function HomeScreen() {
+    const router = useRouter();
+
     // State para filtros
     const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
     const [selectedSubcategoryId, setSelectedSubcategoryId] = useState<string | null>(null);
@@ -96,11 +99,13 @@ export default function HomeScreen() {
 
     const handlePopularPress = useCallback((item: PopularItem) => {
         console.log('Popular item pressed:', item.title);
-    }, []);
+        router.push({ pathname: '/place/[id]', params: { id: item.id } });
+    }, [router]);
 
     const handleNearbyPress = useCallback((item: NearbyItem) => {
         console.log('Nearby item pressed:', item.title);
-    }, []);
+        router.push({ pathname: '/place/[id]', params: { id: item.id } });
+    }, [router]);
 
     return (
         <View style={styles.container}>
