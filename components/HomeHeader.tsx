@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 export default function HomeHeader() {
     const router = useRouter();
@@ -16,18 +16,16 @@ export default function HomeHeader() {
         >
             {/* Logo Section */}
             <View style={styles.logoSection}>
-                <Pressable onPress={() => router.push('/')} style={styles.logoPressable}>
-                    <View style={styles.logoContainer}>
-                        <Image
-                            source={require('../assets/images/buskados_vectorizado_200x200.png')}
-                            style={styles.logoImage}
-                        />
-                        <View style={styles.logoTextContainer}>
-                            <Text style={styles.logoMainText}>Buskdos</Text>
-                            <Text style={styles.logoSubText}>Explora, Descubre & Compra</Text>
-                        </View>
+                <View style={styles.logoContainer}>
+                    <Image
+                        source={require('../assets/images/buskados_vectorizado_200x200.png')}
+                        style={styles.logoImage}
+                    />
+                    <View style={styles.logoTextContainer}>
+                        <Text style={styles.logoMainText}>Buskdos</Text>
+                        <Text style={styles.logoSubText}>Explora, Descubre & Compra</Text>
                     </View>
-                </Pressable>
+                </View>
             </View>
 
 
