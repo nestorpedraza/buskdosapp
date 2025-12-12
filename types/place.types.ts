@@ -22,6 +22,7 @@ export interface PlaceDetails {
     phone: string;
     whatsapp: string;
     schedule: string;
+    isOpen?: boolean;
     website: string;
 
     // Redes sociales
@@ -32,6 +33,24 @@ export interface PlaceDetails {
 
     // Galería
     gallery: GalleryItem[];
+
+    // Promociones
+    promotions?: Promotion[];
+
+    // Reseñas/Comentarios
+    reviewsList?: PlaceReview[];
+}
+
+export interface Promotion {
+    id: string;
+    title: string;
+    description: string;
+    discount: string; // Ej: "20% OFF", "2x1", "$10.000 OFF"
+    image: ImageSourcePropType;
+    validUntil: string; // Fecha ISO
+    code?: string; // Código de descuento opcional
+    type?: 'regular' | 'flash' | 'exclusive';
+    terms?: string;
 }
 
 export interface SocialMediaLinks {
