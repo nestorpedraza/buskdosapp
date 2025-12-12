@@ -7,7 +7,7 @@ import Animated, {
     useAnimatedStyle,
     useSharedValue,
 } from 'react-native-reanimated';
-import { CAROUSEL_CONFIG, Category } from '../types/home.types';
+import { CAROUSEL_CONFIG, Category, SubCategory } from '../types/home.types';
 import CategoryItem from './CategoryItem';
 
 const AnimatedCategoryList = Animated.FlatList<Category>;
@@ -15,9 +15,10 @@ const AnimatedCategoryList = Animated.FlatList<Category>;
 interface CategoriesCarouselProps {
     categories: Category[];
     onCategoryPress?: (item: Category) => void;
+    onSubcategoryPress?: (category: Category, subcategory: SubCategory) => void;
 }
 
-export default function CategoriesCarousel({ categories, onCategoryPress }: CategoriesCarouselProps) {
+export default function CategoriesCarousel({ categories, onCategoryPress, onSubcategoryPress }: CategoriesCarouselProps) {
     const categoryListRef = React.useRef<Animated.FlatList<Category>>(null);
     const categoryScrollX = useSharedValue(0);
 
@@ -36,9 +37,17 @@ export default function CategoriesCarousel({ categories, onCategoryPress }: Cate
         onCategoryPress?.(item);
     }, [onCategoryPress]);
 
+    const handleSubcategoryPress = useCallback((category: Category, subcategory: SubCategory) => {
+        onSubcategoryPress?.(category, subcategory);
+    }, [onSubcategoryPress]);
+
     const renderCategoryItem = useCallback(({ item }: { item: Category }) => (
-        <CategoryItem item={item} onPress={handleCategoryPress} />
-    ), [handleCategoryPress]);
+        <CategoryItem
+            item={item}
+            onPress={handleCategoryPress}
+            onSubcategoryPress={handleSubcategoryPress}
+        />
+    ), [handleCategoryPress, handleSubcategoryPress]);
 
     const categoryKeyExtractor = useCallback((item: Category) => item.id, []);
 
@@ -92,7 +101,7 @@ export default function CategoriesCarousel({ categories, onCategoryPress }: Cate
                 scrollEventThrottle={16}
                 renderItem={renderCategoryItem}
                 keyExtractor={categoryKeyExtractor}
-                removeClippedSubviews={true}
+                removeClippedSubviews={false}
                 maxToRenderPerBatch={5}
                 windowSize={5}
                 initialNumToRender={4}

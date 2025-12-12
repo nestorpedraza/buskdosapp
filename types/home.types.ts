@@ -38,6 +38,15 @@ export const NEARBY_GRID_CONFIG = {
 } as const;
 
 /**
+ * Interfaz para las subcategorías
+ */
+export interface SubCategory {
+    id: string;
+    name: string;
+    icon?: string; // Emoji o ícono opcional
+}
+
+/**
  * Interfaz para las categorías del carrusel
  */
 export interface Category {
@@ -46,6 +55,8 @@ export interface Category {
     image: ImageSourcePropType;
     /** URI opcional para imágenes de red */
     imageUri?: string;
+    /** Subcategorías opcionales */
+    subcategories?: SubCategory[];
 }
 
 /**
@@ -85,6 +96,7 @@ export interface NearbyItem {
 export interface CategoryItemProps {
     item: Category;
     onPress?: (item: Category) => void;
+    onSubcategoryPress?: (category: Category, subcategory: SubCategory) => void;
 }
 
 /**

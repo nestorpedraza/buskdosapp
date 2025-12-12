@@ -6,7 +6,7 @@ import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
 import NearbySection from '../components/NearbySection';
 import PopularCarousel from '../components/PopularCarousel';
-import { Category, NearbyItem, PopularItem } from '../types/home.types';
+import { Category, NearbyItem, PopularItem, SubCategory } from '../types/home.types';
 
 
 /**
@@ -22,16 +22,120 @@ import { Category, NearbyItem, PopularItem } from '../types/home.types';
 export default function HomeScreen() {
     // Datos con tipado estricto
     const categories = useMemo<Category[]>(() => [
-        { id: '1', name: 'Tiendas', image: require('../assets/images/city.png') },
-        { id: '2', name: 'Restaurantes', image: require('../assets/images/city.png') },
-        { id: '3', name: 'Cafeterías', image: require('../assets/images/city.png') },
-        { id: '4', name: 'Salud', image: require('../assets/images/city.png') },
-        { id: '5', name: 'Belleza', image: require('../assets/images/city.png') },
-        { id: '6', name: 'Servicios', image: require('../assets/images/city.png') },
-        { id: '7', name: 'Deportes', image: require('../assets/images/city.png') },
-        { id: '8', name: 'Educación', image: require('../assets/images/city.png') },
-        { id: '9', name: 'Tecnología', image: require('../assets/images/city.png') },
-        { id: '10', name: 'Hogar', image: require('../assets/images/city.png') },
+        {
+            id: '1',
+            name: 'Tiendas',
+            image: require('../assets/images/city.png'),
+            subcategories: [
+                { id: '1-1', name: 'Ropa', icon: '👕' },
+                { id: '1-2', name: 'Zapatos', icon: '👟' },
+                { id: '1-3', name: 'Electrónica', icon: '📱' },
+                { id: '1-4', name: 'Joyería', icon: '💎' },
+                { id: '1-5', name: 'Libros', icon: '📚' },
+            ]
+        },
+        {
+            id: '2',
+            name: 'Restaurantes',
+            image: require('../assets/images/city.png'),
+            subcategories: [
+                { id: '2-1', name: 'Italiana', icon: '🍝' },
+                { id: '2-2', name: 'Mexicana', icon: '🌮' },
+                { id: '2-3', name: 'China', icon: '🥡' },
+                { id: '2-4', name: 'Sushi', icon: '🍣' },
+                { id: '2-5', name: 'Hamburguesas', icon: '🍔' },
+                { id: '2-6', name: 'Pizza', icon: '🍕' },
+            ]
+        },
+        {
+            id: '3',
+            name: 'Cafeterías',
+            image: require('../assets/images/city.png'),
+            subcategories: [
+                { id: '3-1', name: 'Café Espresso', icon: '☕' },
+                { id: '3-2', name: 'Café con Leche', icon: '🥛' },
+                { id: '3-3', name: 'Postres', icon: '🍰' },
+                { id: '3-4', name: 'Desayunos', icon: '🥐' },
+            ]
+        },
+        {
+            id: '4',
+            name: 'Salud',
+            image: require('../assets/images/city.png'),
+            subcategories: [
+                { id: '4-1', name: 'Farmacias', icon: '💊' },
+                { id: '4-2', name: 'Clínicas', icon: '🏥' },
+                { id: '4-3', name: 'Dentistas', icon: '🦷' },
+                { id: '4-4', name: 'Oftalmología', icon: '👓' },
+                { id: '4-5', name: 'Laboratorios', icon: '🔬' },
+            ]
+        },
+        {
+            id: '5',
+            name: 'Belleza',
+            image: require('../assets/images/city.png'),
+            subcategories: [
+                { id: '5-1', name: 'Peluquería', icon: '💇' },
+                { id: '5-2', name: 'Spa', icon: '🧖' },
+                { id: '5-3', name: 'Uñas', icon: '💅' },
+                { id: '5-4', name: 'Maquillaje', icon: '💄' },
+            ]
+        },
+        {
+            id: '6',
+            name: 'Servicios',
+            image: require('../assets/images/city.png'),
+            subcategories: [
+                { id: '6-1', name: 'Lavanderías', icon: '👔' },
+                { id: '6-2', name: 'Cerrajería', icon: '🔑' },
+                { id: '6-3', name: 'Plomería', icon: '🔧' },
+                { id: '6-4', name: 'Electricidad', icon: '💡' },
+            ]
+        },
+        {
+            id: '7',
+            name: 'Deportes',
+            image: require('../assets/images/city.png'),
+            subcategories: [
+                { id: '7-1', name: 'Gimnasios', icon: '💪' },
+                { id: '7-2', name: 'Yoga', icon: '🧘' },
+                { id: '7-3', name: 'Natación', icon: '🏊' },
+                { id: '7-4', name: 'Artes Marciales', icon: '🥋' },
+            ]
+        },
+        {
+            id: '8',
+            name: 'Educación',
+            image: require('../assets/images/city.png'),
+            subcategories: [
+                { id: '8-1', name: 'Colegios', icon: '🏫' },
+                { id: '8-2', name: 'Universidades', icon: '🎓' },
+                { id: '8-3', name: 'Cursos', icon: '📖' },
+                { id: '8-4', name: 'Idiomas', icon: '🗣️' },
+            ]
+        },
+        {
+            id: '9',
+            name: 'Tecnología',
+            image: require('../assets/images/city.png'),
+            subcategories: [
+                { id: '9-1', name: 'Computadoras', icon: '💻' },
+                { id: '9-2', name: 'Celulares', icon: '📱' },
+                { id: '9-3', name: 'Accesorios', icon: '🎧' },
+                { id: '9-4', name: 'Reparación', icon: '🔧' },
+            ]
+        },
+        {
+            id: '10',
+            name: 'Hogar',
+            image: require('../assets/images/city.png'),
+            subcategories: [
+                { id: '10-1', name: 'Muebles', icon: '🛋️' },
+                { id: '10-2', name: 'Decoración', icon: '🖼️' },
+                { id: '10-3', name: 'Jardín', icon: '🌱' },
+                { id: '10-4', name: 'Cocina', icon: '🍳' },
+            ]
+        },
     ], []);
 
     const popularItems = useMemo<PopularItem[]>(() => [
@@ -275,6 +379,11 @@ export default function HomeScreen() {
         console.log('Category pressed:', item.name);
     }, []);
 
+    const handleSubcategoryPress = useCallback((category: Category, subcategory: SubCategory) => {
+        console.log('Subcategory pressed:', category.name, '->', subcategory.name);
+        // Aquí puedes navegar o filtrar contenido por subcategoría
+    }, []);
+
     const handlePopularPress = useCallback((item: PopularItem) => {
         console.log('Popular item pressed:', item.title);
     }, []);
@@ -298,6 +407,7 @@ export default function HomeScreen() {
                 <CategoriesCarousel
                     categories={categories}
                     onCategoryPress={handleCategoryPress}
+                    onSubcategoryPress={handleSubcategoryPress}
                 />
 
                 {/* Carousel Nuevos */}
