@@ -77,7 +77,12 @@ const PopularCard: React.FC<PopularCardProps> = memo(({ item, onPress }) => {
                 <Text style={styles.popularSubtitle} numberOfLines={1}>
                     {item.subtitle}
                 </Text>
-                <Text style={styles.popularPrice}>{item.price}</Text>
+                <View style={styles.checkmarkContainer}>
+                    <View style={styles.checkmarkCircle}>
+                        <Text style={styles.checkmark}>✓</Text>
+                    </View>
+                    <Text style={styles.verifiedText}>Verificado</Text>
+                </View>
                 <View style={styles.ratingContainer}>
                     <Text style={styles.ratingStars}>{renderStars()}</Text>
                     <Text style={styles.ratingCount}>({item.reviews})</Text>
@@ -158,11 +163,29 @@ const styles = StyleSheet.create({
         color: '#666',
         marginTop: 2,
     },
-    popularPrice: {
+    checkmarkContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 6,
+    },
+    checkmarkCircle: {
+        width: 18,
+        height: 18,
+        borderRadius: 9,
+        backgroundColor: '#8b5cf6',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    checkmark: {
+        fontSize: 11,
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    verifiedText: {
         fontSize: 12,
-        color: '#9900ff',
+        color: '#8b5cf6',
         fontWeight: '600',
-        marginTop: 4,
+        marginLeft: 6,
     },
     ratingContainer: {
         flexDirection: 'row',

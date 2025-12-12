@@ -108,8 +108,12 @@ const CategoryItem: React.FC<CategoryItemProps> = memo(({ item, onPress, onSubca
                 {/* Botón de subcategorías */}
                 {hasSubcategories && (
                     <Pressable
-                        style={styles.subcategoryButton}
+                        style={({ pressed }) => [
+                            styles.subcategoryButton,
+                            pressed && styles.subcategoryButtonPressed
+                        ]}
                         onPress={handleToggleSubcategories}
+                        android_ripple={{ color: 'rgba(255,255,255,0.3)', radius: 14 }}
                     >
                         <View style={styles.hamburgerIcon}>
                             <View style={[styles.hamburgerLine, isExpanded && styles.hamburgerLineActive]} />
@@ -126,8 +130,12 @@ const CategoryItem: React.FC<CategoryItemProps> = memo(({ item, onPress, onSubca
                     {item.subcategories!.map((subcategory) => (
                         <Pressable
                             key={subcategory.id}
-                            style={styles.subcategoryItem}
+                            style={({ pressed }) => [
+                                styles.subcategoryItem,
+                                pressed && styles.subcategoryItemPressed
+                            ]}
                             onPress={() => handleSubcategoryPress(subcategory)}
+                            android_ripple={{ color: 'rgba(153, 0, 255, 0.1)' }}
                         >
                             {subcategory.icon && (
                                 <Text style={styles.subcategoryIcon}>{subcategory.icon}</Text>
@@ -186,17 +194,25 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 8,
         right: 8,
-        backgroundColor: 'rgba(153, 0, 255, 0.9)',
-        width: 28,
-        height: 28,
-        borderRadius: 14,
+        backgroundColor: '#8b5cf6',
+        width: 32,
+        height: 32,
+        borderRadius: 16,
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        shadowColor: '#8b5cf6',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.4,
+        shadowRadius: 5,
+        elevation: 6,
+        borderWidth: 2,
+        borderColor: 'rgba(255, 255, 255, 0.3)',
+    },
+    subcategoryButtonPressed: {
+        backgroundColor: '#7c3aed',
+        transform: [{ scale: 0.92 }],
+        shadowOpacity: 0.6,
+        elevation: 8,
     },
     hamburgerIcon: {
         width: 14,
@@ -215,34 +231,51 @@ const styles = StyleSheet.create({
     subcategoriesAccordion: {
         marginTop: 8,
         marginBottom: 16,
-        backgroundColor: '#fff',
-        borderRadius: 12,
-        padding: 8,
+        backgroundColor: '#ffffff',
+        borderRadius: 16,
+        padding: 12,
         width: CAROUSEL_CONFIG.CARD_WIDTH,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 8,
-        elevation: 8,
+        shadowColor: '#8b5cf6',
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.15,
+        shadowRadius: 12,
+        elevation: 10,
+        borderWidth: 1,
+        borderColor: 'rgba(139, 92, 246, 0.1)',
     },
     subcategoryItem: {
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 8,
         paddingHorizontal: 12,
-        borderRadius: 8,
-        backgroundColor: '#f8f8f8',
+        borderRadius: 10,
+        backgroundColor: '#f8f5ff',
         marginBottom: 6,
+        borderWidth: 1,
+        borderColor: 'rgba(139, 92, 246, 0.08)',
+        shadowColor: '#8b5cf6',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.05,
+        shadowRadius: 3,
+        elevation: 2,
+    },
+    subcategoryItemPressed: {
+        backgroundColor: '#ede9fe',
+        transform: [{ scale: 0.97 }],
+        borderColor: '#8b5cf6',
+        shadowOpacity: 0.15,
+        elevation: 4,
     },
     subcategoryIcon: {
         fontSize: 16,
         marginRight: 8,
     },
     subcategoryText: {
-        fontSize: 13,
-        color: '#333',
-        fontWeight: '500',
+        fontSize: 14,
+        color: '#4c1d95',
+        fontWeight: '600',
         flex: 1,
+        letterSpacing: 0.2,
     },
     loadingContainer: {
         ...StyleSheet.absoluteFillObject,
