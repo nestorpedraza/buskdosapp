@@ -1,0 +1,3512 @@
+[
+    {
+        "id": "1",
+        "tag": "Ropa",
+        "title": "Boutique Fashion",
+        "subtitle": "Moda contemporánea",
+        "price": "$50 promedio",
+        "rating": 4.8,
+        "reviews": 984,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "2",
+        "tag": "Ropa",
+        "title": "Fashion Store",
+        "subtitle": "Ropa casual",
+        "price": "$45 promedio",
+        "rating": 4.7,
+        "reviews": 856,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "3",
+        "tag": "Ropa",
+        "title": "Tienda de Moda",
+        "subtitle": "Tendencias actuales",
+        "price": "$55 promedio",
+        "rating": 4.9,
+        "reviews": 742,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "4",
+        "tag": "Ropa",
+        "title": "Elegancia Urbana",
+        "subtitle": "Ropa moderna",
+        "price": "$60 promedio",
+        "rating": 4.6,
+        "reviews": 523,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "5",
+        "tag": "Ropa",
+        "title": "Estilo Completo",
+        "subtitle": "Colección variada",
+        "price": "$50 promedio",
+        "rating": 4.8,
+        "reviews": 698,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "6",
+        "tag": "Ropa",
+        "title": "Fashion Point",
+        "subtitle": "Ropa juvenil",
+        "price": "$40 promedio",
+        "rating": 4.7,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "7",
+        "tag": "Ropa",
+        "title": "La Tienda de Moda",
+        "subtitle": "Looks completos",
+        "price": "$48 promedio",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "8",
+        "tag": "Ropa",
+        "title": "Diseños Exclusivos",
+        "subtitle": "Prendas premium",
+        "price": "$65 promedio",
+        "rating": 4.8,
+        "reviews": 541,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "9",
+        "tag": "Ropa",
+        "title": "Centro Comercial Ropa",
+        "subtitle": "Grandes marcas",
+        "price": "$52 promedio",
+        "rating": 4.7,
+        "reviews": 776,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "10",
+        "tag": "Ropa",
+        "title": "Tienda Modas",
+        "subtitle": "Colecciones nuevas",
+        "price": "$49 promedio",
+        "rating": 4.8,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "11",
+        "tag": "Ropa",
+        "title": "Fashion Hub",
+        "subtitle": "Ropa de calidad",
+        "price": "$54 promedio",
+        "rating": 4.6,
+        "reviews": 521,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "12",
+        "tag": "Ropa",
+        "title": "Vestidos y Más",
+        "subtitle": "Ropa elegante",
+        "price": "$58 promedio",
+        "rating": 4.9,
+        "reviews": 743,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "13",
+        "tag": "Zapatos",
+        "title": "Zapaterías Premium",
+        "subtitle": "Calzado de calidad",
+        "price": "$70 promedio",
+        "rating": 4.8,
+        "reviews": 654,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "14",
+        "tag": "Zapatos",
+        "title": "Zapatería El Paso",
+        "subtitle": "Zapatos variados",
+        "price": "$65 promedio",
+        "rating": 4.7,
+        "reviews": 512,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "15",
+        "tag": "Zapatos",
+        "title": "Shoes Store",
+        "subtitle": "Calzado moderno",
+        "price": "$68 promedio",
+        "rating": 4.9,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "16",
+        "tag": "Zapatos",
+        "title": "Centro de Zapatos",
+        "subtitle": "Gran variedad",
+        "price": "$72 promedio",
+        "rating": 4.6,
+        "reviews": 489,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "17",
+        "tag": "Zapatos",
+        "title": "Diseños en Zapatos",
+        "subtitle": "Zapatos exclusivos",
+        "price": "$75 promedio",
+        "rating": 4.8,
+        "reviews": 634,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "18",
+        "tag": "Zapatos",
+        "title": "Calzado Popular",
+        "subtitle": "Precios accesibles",
+        "price": "$60 promedio",
+        "rating": 4.7,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "19",
+        "tag": "Zapatos",
+        "title": "Zapatería Nueva",
+        "subtitle": "Últimas colecciones",
+        "price": "$70 promedio",
+        "rating": 4.9,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "20",
+        "tag": "Zapatos",
+        "title": "Pie Perfecto",
+        "subtitle": "Zapatos cómodos",
+        "price": "$66 promedio",
+        "rating": 4.8,
+        "reviews": 589,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "21",
+        "tag": "Zapatos",
+        "title": "Shoes Gallery",
+        "subtitle": "Colección premium",
+        "price": "$76 promedio",
+        "rating": 4.7,
+        "reviews": 523,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "22",
+        "tag": "Zapatos",
+        "title": "Zapatos y Accesorios",
+        "subtitle": "Completo calzado",
+        "price": "$68 promedio",
+        "rating": 4.9,
+        "reviews": 701,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "23",
+        "tag": "Electrónica",
+        "title": "Tech Store Premium",
+        "subtitle": "Gadgets nuevos",
+        "price": "$150 promedio",
+        "rating": 4.9,
+        "reviews": 891,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "24",
+        "tag": "Electrónica",
+        "title": "Electrónica Moderna",
+        "subtitle": "Tecnología avanzada",
+        "price": "$145 promedio",
+        "rating": 4.8,
+        "reviews": 756,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "25",
+        "tag": "Electrónica",
+        "title": "Centro de Electrónica",
+        "subtitle": "Marcas reconocidas",
+        "price": "$155 promedio",
+        "rating": 4.7,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "26",
+        "tag": "Electrónica",
+        "title": "Tienda Digital",
+        "subtitle": "Equipos electrónicos",
+        "price": "$148 promedio",
+        "rating": 4.9,
+        "reviews": 812,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "27",
+        "tag": "Electrónica",
+        "title": "Gadgets y Más",
+        "subtitle": "Lo último en tech",
+        "price": "$152 promedio",
+        "rating": 4.6,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "28",
+        "tag": "Electrónica",
+        "title": "Electrónica Acessible",
+        "subtitle": "Precios competitivos",
+        "price": "$140 promedio",
+        "rating": 4.8,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "29",
+        "tag": "Electrónica",
+        "title": "Tech World",
+        "subtitle": "Toda la electrónica",
+        "price": "$158 promedio",
+        "rating": 4.9,
+        "reviews": 895,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "30",
+        "tag": "Electrónica",
+        "title": "Dispositivos Nuevos",
+        "subtitle": "Innovación",
+        "price": "$150 promedio",
+        "rating": 4.7,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "31",
+        "tag": "Electrónica",
+        "title": "Zona Electrónica",
+        "subtitle": "Mejor precio",
+        "price": "$147 promedio",
+        "rating": 4.8,
+        "reviews": 801,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "32",
+        "tag": "Electrónica",
+        "title": "Electro Tienda",
+        "subtitle": "Productos certificados",
+        "price": "$154 promedio",
+        "rating": 4.9,
+        "reviews": 762,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "33",
+        "tag": "Joyería",
+        "title": "Joyas Premium",
+        "subtitle": "Accesorios exclusivos",
+        "price": "$200 promedio",
+        "rating": 4.9,
+        "reviews": 512,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "34",
+        "tag": "Joyería",
+        "title": "Joyería Elegante",
+        "subtitle": "Diseños finos",
+        "price": "$195 promedio",
+        "rating": 4.8,
+        "reviews": 478,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "35",
+        "tag": "Joyería",
+        "title": "Diamantes y Joyas",
+        "subtitle": "Piedras preciosas",
+        "price": "$220 promedio",
+        "rating": 4.9,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "36",
+        "tag": "Joyería",
+        "title": "Centro de Joyas",
+        "subtitle": "Variedad completa",
+        "price": "$210 promedio",
+        "rating": 4.7,
+        "reviews": 456,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "37",
+        "tag": "Joyería",
+        "title": "Accesorios Finos",
+        "subtitle": "Colecciones nuevas",
+        "price": "$205 promedio",
+        "rating": 4.8,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "38",
+        "tag": "Joyería",
+        "title": "Joyas Modernas",
+        "subtitle": "Diseños contemporáneos",
+        "price": "$215 promedio",
+        "rating": 4.9,
+        "reviews": 523,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "39",
+        "tag": "Joyería",
+        "title": "Tienda de Lujo",
+        "subtitle": "Piezas únicas",
+        "price": "$225 promedio",
+        "rating": 4.8,
+        "reviews": 489,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "40",
+        "tag": "Joyería",
+        "title": "Bijoutería Selecta",
+        "subtitle": "Joyas y accesorios",
+        "price": "$190 promedio",
+        "rating": 4.7,
+        "reviews": 467,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "41",
+        "tag": "Joyería",
+        "title": "Gemas y Joyas",
+        "subtitle": "Lujo asequible",
+        "price": "$200 promedio",
+        "rating": 4.9,
+        "reviews": 512,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "42",
+        "tag": "Joyería",
+        "title": "Joyería Artesanal",
+        "subtitle": "Hecho a mano",
+        "price": "$210 promedio",
+        "rating": 4.8,
+        "reviews": 478,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "43",
+        "tag": "Libros",
+        "title": "Librería Mundo",
+        "subtitle": "Literatura general",
+        "price": "$25 promedio",
+        "rating": 4.8,
+        "reviews": 634,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "44",
+        "tag": "Libros",
+        "title": "Mundo de Libros",
+        "subtitle": "Vasta colección",
+        "price": "$24 promedio",
+        "rating": 4.7,
+        "reviews": 523,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "45",
+        "tag": "Libros",
+        "title": "Papelería y Libros",
+        "subtitle": "Artículos escolares",
+        "price": "$23 promedio",
+        "rating": 4.8,
+        "reviews": 589,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "46",
+        "tag": "Libros",
+        "title": "Centro de Lectura",
+        "subtitle": "Nuevos títulos",
+        "price": "$26 promedio",
+        "rating": 4.9,
+        "reviews": 701,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "47",
+        "tag": "Libros",
+        "title": "Libros Bestseller",
+        "subtitle": "Más vendidos",
+        "price": "$25 promedio",
+        "rating": 4.7,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "48",
+        "tag": "Libros",
+        "title": "Tienda de Lectura",
+        "subtitle": "Literatura variada",
+        "price": "$24 promedio",
+        "rating": 4.8,
+        "reviews": 667,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "49",
+        "tag": "Libros",
+        "title": "Librería Educativa",
+        "subtitle": "Libros académicos",
+        "price": "$27 promedio",
+        "rating": 4.9,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "50",
+        "tag": "Libros",
+        "title": "Estantería Móvil",
+        "subtitle": "Toda clase de libros",
+        "price": "$25 promedio",
+        "rating": 4.6,
+        "reviews": 478,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "51",
+        "tag": "Libros",
+        "title": "Clásicos y Modernos",
+        "subtitle": "Para todos los gustos",
+        "price": "$26 promedio",
+        "rating": 4.8,
+        "reviews": 589,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "52",
+        "tag": "Libros",
+        "title": "Librería Premium",
+        "subtitle": "Primeras ediciones",
+        "price": "$28 promedio",
+        "rating": 4.9,
+        "reviews": 512,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "53",
+        "tag": "Italiana",
+        "title": "Pasta Fresca Italiana",
+        "subtitle": "Comida auténtica",
+        "price": "$35 por persona",
+        "rating": 4.9,
+        "reviews": 856,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "54",
+        "tag": "Italiana",
+        "title": "Trattoria Napoli",
+        "subtitle": "Sabor italiano",
+        "price": "$38 por persona",
+        "rating": 4.8,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "55",
+        "tag": "Italiana",
+        "title": "La Casa del Risotto",
+        "subtitle": "Platos clásicos",
+        "price": "$36 por persona",
+        "rating": 4.9,
+        "reviews": 801,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "56",
+        "tag": "Italiana",
+        "title": "Osteria Italiana",
+        "subtitle": "Cocina de Italia",
+        "price": "$40 por persona",
+        "rating": 4.7,
+        "reviews": 634,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "57",
+        "tag": "Italiana",
+        "title": "Ristorante Bella",
+        "subtitle": "Especialidades italianas",
+        "price": "$37 por persona",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "58",
+        "tag": "Italiana",
+        "title": "Pasta Perfecta",
+        "subtitle": "Elaboración casera",
+        "price": "$34 por persona",
+        "rating": 4.8,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "59",
+        "tag": "Italiana",
+        "title": "Trattoria del Barrio",
+        "subtitle": "Ambiente familiar",
+        "price": "$35 por persona",
+        "rating": 4.9,
+        "reviews": 712,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "60",
+        "tag": "Italiana",
+        "title": "Salsa Romana",
+        "subtitle": "Auténtica italiana",
+        "price": "$39 por persona",
+        "rating": 4.8,
+        "reviews": 523,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "61",
+        "tag": "Italiana",
+        "title": "Cucina Italiana",
+        "subtitle": "Recetas tradicionales",
+        "price": "$36 por persona",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "62",
+        "tag": "Italiana",
+        "title": "Al Dente Restaurant",
+        "subtitle": "Pasta al dente",
+        "price": "$37 por persona",
+        "rating": 4.7,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "63",
+        "tag": "Mexicana",
+        "title": "Cantina Mexicana",
+        "subtitle": "Comida tradicional",
+        "price": "$28 por persona",
+        "rating": 4.8,
+        "reviews": 876,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "64",
+        "tag": "Mexicana",
+        "title": "El Sabor de México",
+        "subtitle": "Auténtico mexicano",
+        "price": "$26 por persona",
+        "rating": 4.9,
+        "reviews": 934,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "65",
+        "tag": "Mexicana",
+        "title": "Taquería Popular",
+        "subtitle": "Tacos y burritos",
+        "price": "$20 por persona",
+        "rating": 4.7,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "66",
+        "tag": "Mexicana",
+        "title": "Restaurante Mexico",
+        "subtitle": "Platos típicos",
+        "price": "$30 por persona",
+        "rating": 4.9,
+        "reviews": 812,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "67",
+        "tag": "Mexicana",
+        "title": "Cocina Mexicana",
+        "subtitle": "Recetas ancestrales",
+        "price": "$29 por persona",
+        "rating": 4.8,
+        "reviews": 645,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "68",
+        "tag": "Mexicana",
+        "title": "Fiesta Mexicana",
+        "subtitle": "Ambiente festivo",
+        "price": "$27 por persona",
+        "rating": 4.9,
+        "reviews": 756,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "69",
+        "tag": "Mexicana",
+        "title": "Quesadería Delicia",
+        "subtitle": "Quesadillas y más",
+        "price": "$22 por persona",
+        "rating": 4.7,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "70",
+        "tag": "Mexicana",
+        "title": "La Familia Mexicana",
+        "subtitle": "Comida casera",
+        "price": "$25 por persona",
+        "rating": 4.8,
+        "reviews": 601,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "71",
+        "tag": "Mexicana",
+        "title": "Estilo Oaxaqueño",
+        "subtitle": "Comida regional",
+        "price": "$31 por persona",
+        "rating": 4.9,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "72",
+        "tag": "Mexicana",
+        "title": "Mercado Gastronómico",
+        "subtitle": "Platillos variados",
+        "price": "$28 por persona",
+        "rating": 4.6,
+        "reviews": 523,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "73",
+        "tag": "China",
+        "title": "Casa China",
+        "subtitle": "Auténtico chino",
+        "price": "$22 por persona",
+        "rating": 4.8,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "74",
+        "tag": "China",
+        "title": "Dragón Dorado",
+        "subtitle": "Comida oriental",
+        "price": "$24 por persona",
+        "rating": 4.9,
+        "reviews": 823,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "75",
+        "tag": "China",
+        "title": "Restaurante Chino Nuevo",
+        "subtitle": "Especialidades chinas",
+        "price": "$25 por persona",
+        "rating": 4.7,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "76",
+        "tag": "China",
+        "title": "Wok Palace",
+        "subtitle": "Comida rápida asiática",
+        "price": "$20 por persona",
+        "rating": 4.8,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "77",
+        "tag": "China",
+        "title": "Asia Express",
+        "subtitle": "Lo mejor de China",
+        "price": "$23 por persona",
+        "rating": 4.9,
+        "reviews": 756,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "78",
+        "tag": "China",
+        "title": "Ming Dynasty",
+        "subtitle": "Refinado oriental",
+        "price": "$28 por persona",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "79",
+        "tag": "China",
+        "title": "Golden Dragon",
+        "subtitle": "Manjares chinos",
+        "price": "$26 por persona",
+        "rating": 4.9,
+        "reviews": 601,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "80",
+        "tag": "China",
+        "title": "Arroz Frito Delicia",
+        "subtitle": "Comida para llevar",
+        "price": "$18 por persona",
+        "rating": 4.7,
+        "reviews": 478,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "81",
+        "tag": "China",
+        "title": "Oriental Gourmet",
+        "subtitle": "Comida fina asiática",
+        "price": "$32 por persona",
+        "rating": 4.9,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "82",
+        "tag": "China",
+        "title": "Cantón Restaurant",
+        "subtitle": "Tradición cantonesa",
+        "price": "$25 por persona",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "83",
+        "tag": "Sushi",
+        "title": "Sushi Palace",
+        "subtitle": "Sushi premium",
+        "price": "$45 por persona",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "84",
+        "tag": "Sushi",
+        "title": "Tokyo Sushi Bar",
+        "subtitle": "Auténticamente japonés",
+        "price": "$48 por persona",
+        "rating": 4.9,
+        "reviews": 912,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "85",
+        "tag": "Sushi",
+        "title": "Sakura Sushi",
+        "subtitle": "Fresco diariamente",
+        "price": "$44 por persona",
+        "rating": 4.8,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "86",
+        "tag": "Sushi",
+        "title": "Nirvana Sushi",
+        "subtitle": "Experiencia japonesa",
+        "price": "$50 por persona",
+        "rating": 4.9,
+        "reviews": 801,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "87",
+        "tag": "Sushi",
+        "title": "Sushi & Co",
+        "subtitle": "Rolls innovadores",
+        "price": "$42 por persona",
+        "rating": 4.7,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "88",
+        "tag": "Sushi",
+        "title": "Edo Sushi",
+        "subtitle": "Tradición oriental",
+        "price": "$46 por persona",
+        "rating": 4.8,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "89",
+        "tag": "Sushi",
+        "title": "Fuji Sushi House",
+        "subtitle": "Lo mejor del Japón",
+        "price": "$47 por persona",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "90",
+        "tag": "Sushi",
+        "title": "Mizuki Sushi",
+        "subtitle": "Arte del sushi",
+        "price": "$49 por persona",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "91",
+        "tag": "Sushi",
+        "title": "Koi Sushi Bar",
+        "subtitle": "Variedad de rolls",
+        "price": "$43 por persona",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "92",
+        "tag": "Sushi",
+        "title": "Sushi Omakase",
+        "subtitle": "Experiencia premium",
+        "price": "$55 por persona",
+        "rating": 4.9,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "93",
+        "tag": "Hamburguesas",
+        "title": "Burger King Premium",
+        "subtitle": "Hamburguesas gourmet",
+        "price": "$18 por persona",
+        "rating": 4.7,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "94",
+        "tag": "Hamburguesas",
+        "title": "The Burger House",
+        "subtitle": "Carnes de calidad",
+        "price": "$20 por persona",
+        "rating": 4.8,
+        "reviews": 912,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "95",
+        "tag": "Hamburguesas",
+        "title": "Burguer Deluxe",
+        "subtitle": "Combinaciones especiales",
+        "price": "$19 por persona",
+        "rating": 4.9,
+        "reviews": 756,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "96",
+        "tag": "Hamburguesas",
+        "title": "Fast Burgers",
+        "subtitle": "Rápido y delicioso",
+        "price": "$15 por persona",
+        "rating": 4.6,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "97",
+        "tag": "Hamburguesas",
+        "title": "Hamburguesas Gourmet",
+        "subtitle": "Ingredients premium",
+        "price": "$22 por persona",
+        "rating": 4.9,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "98",
+        "tag": "Hamburguesas",
+        "title": "The Burger Stand",
+        "subtitle": "Clásicas y modernas",
+        "price": "$17 por persona",
+        "rating": 4.7,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "99",
+        "tag": "Hamburguesas",
+        "title": "Burguer Paradise",
+        "subtitle": "Paraíso de la carne",
+        "price": "$21 por persona",
+        "rating": 4.8,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "100",
+        "tag": "Hamburguesas",
+        "title": "Classic Burgers",
+        "subtitle": "Sabor tradicional",
+        "price": "$16 por persona",
+        "rating": 4.9,
+        "reviews": 601,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "101",
+        "tag": "Hamburguesas",
+        "title": "Meat Master",
+        "subtitle": "Especialista en carnes",
+        "price": "$23 por persona",
+        "rating": 4.8,
+        "reviews": 823,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "102",
+        "tag": "Hamburguesas",
+        "title": "Street Burgers",
+        "subtitle": "Comida callejera",
+        "price": "$14 por persona",
+        "rating": 4.7,
+        "reviews": 467,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "103",
+        "tag": "Pizza",
+        "title": "Pizza Napolitana",
+        "subtitle": "Pizza artesanal",
+        "price": "$25 por pizza",
+        "rating": 4.9,
+        "reviews": 876,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "104",
+        "tag": "Pizza",
+        "title": "Pizzería Italiana",
+        "subtitle": "Horno de leña",
+        "price": "$28 por pizza",
+        "rating": 4.8,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "105",
+        "tag": "Pizza",
+        "title": "La Mejor Pizza",
+        "subtitle": "Receta secreta",
+        "price": "$24 por pizza",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "106",
+        "tag": "Pizza",
+        "title": "Pizzas Gourmet",
+        "subtitle": "Sabores especiales",
+        "price": "$30 por pizza",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "107",
+        "tag": "Pizza",
+        "title": "Pizzería del Barrio",
+        "subtitle": "Ambiente acogedor",
+        "price": "$22 por pizza",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "108",
+        "tag": "Pizza",
+        "title": "Pizza Express",
+        "subtitle": "Rapida y deliciosa",
+        "price": "$20 por pizza",
+        "rating": 4.7,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "109",
+        "tag": "Pizza",
+        "title": "Toscana Pizzas",
+        "subtitle": "Estilo toscano",
+        "price": "$26 por pizza",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "110",
+        "tag": "Pizza",
+        "title": "Pizzería Nueva York",
+        "subtitle": "Estilo NY",
+        "price": "$21 por pizza",
+        "rating": 4.8,
+        "reviews": 601,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "111",
+        "tag": "Pizza",
+        "title": "Homo de Fuego",
+        "subtitle": "Pizzas premium",
+        "price": "$29 por pizza",
+        "rating": 4.9,
+        "reviews": 823,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "112",
+        "tag": "Pizza",
+        "title": "Pizzería Perfeccion",
+        "subtitle": "Perfecta cada vez",
+        "price": "$27 por pizza",
+        "rating": 4.8,
+        "reviews": 712,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "113",
+        "tag": "Café Espresso",
+        "title": "Espresso Perfecto",
+        "subtitle": "Café de especialidad",
+        "price": "$6 promedio",
+        "rating": 4.9,
+        "reviews": 856,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "114",
+        "tag": "Café Espresso",
+        "title": "Coffee House Prime",
+        "subtitle": "Tostión artesanal",
+        "price": "$7 promedio",
+        "rating": 4.8,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "115",
+        "tag": "Café Espresso",
+        "title": "Aroma Intenso",
+        "subtitle": "Expresos puros",
+        "price": "$6.5 promedio",
+        "rating": 4.9,
+        "reviews": 801,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "116",
+        "tag": "Café Espresso",
+        "title": "Café Negro",
+        "subtitle": "Puro y fuerte",
+        "price": "$5.5 promedio",
+        "rating": 4.7,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "117",
+        "tag": "Café Espresso",
+        "title": "The Espresso Bar",
+        "subtitle": "Máquinas italianas",
+        "price": "$7.5 promedio",
+        "rating": 4.9,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "118",
+        "tag": "Café Espresso",
+        "title": "Café Fine",
+        "subtitle": "Granos selectos",
+        "price": "$8 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "119",
+        "tag": "Café Espresso",
+        "title": "Crema Perfecta",
+        "subtitle": "Espresso cremoso",
+        "price": "$6.5 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "120",
+        "tag": "Café Espresso",
+        "title": "Shot de Café",
+        "subtitle": "Espresso rápido",
+        "price": "$5 promedio",
+        "rating": 4.7,
+        "reviews": 601,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "121",
+        "tag": "Café Espresso",
+        "title": "Barista Maestro",
+        "subtitle": "Arte en cada taza",
+        "price": "$7 promedio",
+        "rating": 4.9,
+        "reviews": 823,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "122",
+        "tag": "Café Espresso",
+        "title": "Sombra Café",
+        "subtitle": "Café oscuro",
+        "price": "$6 promedio",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "123",
+        "tag": "Café con Leche",
+        "title": "Café Suave",
+        "subtitle": "Leche vaporizada",
+        "price": "$7 promedio",
+        "rating": 4.8,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "124",
+        "tag": "Café con Leche",
+        "title": "Latte Paradise",
+        "subtitle": "Lattes artesanales",
+        "price": "$8 promedio",
+        "rating": 4.9,
+        "reviews": 912,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "125",
+        "tag": "Café con Leche",
+        "title": "Café Cremoso",
+        "subtitle": "Cremosos y suave",
+        "price": "$7.5 promedio",
+        "rating": 4.7,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "126",
+        "tag": "Café con Leche",
+        "title": "Morning Coffee",
+        "subtitle": "Desayuno perfecto",
+        "price": "$7 promedio",
+        "rating": 4.9,
+        "reviews": 801,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "127",
+        "tag": "Café con Leche",
+        "title": "Cappuccino House",
+        "subtitle": "Cappuccinos premium",
+        "price": "$8.5 promedio",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "128",
+        "tag": "Café con Leche",
+        "title": "Leche y Café",
+        "subtitle": "La mezcla perfecta",
+        "price": "$6.5 promedio",
+        "rating": 4.9,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "129",
+        "tag": "Café con Leche",
+        "title": "Flat White Café",
+        "subtitle": "Flat white especial",
+        "price": "$8 promedio",
+        "rating": 4.7,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "130",
+        "tag": "Café con Leche",
+        "title": "Macchiato Delicia",
+        "subtitle": "Macchiatos ricos",
+        "price": "$7.5 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "131",
+        "tag": "Café con Leche",
+        "title": "Café Aterciopelado",
+        "subtitle": "Textura suave",
+        "price": "$7 promedio",
+        "rating": 4.8,
+        "reviews": 601,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "132",
+        "tag": "Café con Leche",
+        "title": "Sweet Milk Coffee",
+        "subtitle": "Dulce y cremoso",
+        "price": "$8 promedio",
+        "rating": 4.9,
+        "reviews": 823,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "133",
+        "tag": "Postres",
+        "title": "Pastelería Dulce",
+        "subtitle": "Tartas caseras",
+        "price": "$8 promedio",
+        "rating": 4.9,
+        "reviews": 876,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "134",
+        "tag": "Postres",
+        "title": "Desserts Paradise",
+        "subtitle": "Postres gourmet",
+        "price": "$10 promedio",
+        "rating": 4.8,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "135",
+        "tag": "Postres",
+        "title": "Magia de Postres",
+        "subtitle": "Creatividad dulce",
+        "price": "$9 promedio",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "136",
+        "tag": "Postres",
+        "title": "Pastelería Nueva",
+        "subtitle": "Tortas decoradas",
+        "price": "$12 promedio",
+        "rating": 4.7,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "137",
+        "tag": "Postres",
+        "title": "Tienda de Postres",
+        "subtitle": "Variedad infinita",
+        "price": "$8.5 promedio",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "138",
+        "tag": "Postres",
+        "title": "Confitería Royal",
+        "subtitle": "Postres finos",
+        "price": "$11 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "139",
+        "tag": "Postres",
+        "title": "Dulce Tentación",
+        "subtitle": "Irresistibles",
+        "price": "$9 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "140",
+        "tag": "Postres",
+        "title": "Pastelería Artesanal",
+        "subtitle": "Hecho con amor",
+        "price": "$10 promedio",
+        "rating": 4.8,
+        "reviews": 601,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "141",
+        "tag": "Postres",
+        "title": "Repostería Fina",
+        "subtitle": "Elegancia en cada bocado",
+        "price": "$12 promedio",
+        "rating": 4.9,
+        "reviews": 823,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "142",
+        "tag": "Postres",
+        "title": "Postres Creativos",
+        "subtitle": "Sabores únicos",
+        "price": "$9.5 promedio",
+        "rating": 4.7,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "143",
+        "tag": "Desayunos",
+        "title": "Breakfast Corner",
+        "subtitle": "Desayunos completos",
+        "price": "$12 promedio",
+        "rating": 4.9,
+        "reviews": 856,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "144",
+        "tag": "Desayunos",
+        "title": "Morning Delights",
+        "subtitle": "Recetas matutinas",
+        "price": "$13 promedio",
+        "rating": 4.8,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "145",
+        "tag": "Desayunos",
+        "title": "Café Desayunos",
+        "subtitle": "Opciones variadas",
+        "price": "$11 promedio",
+        "rating": 4.9,
+        "reviews": 801,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "146",
+        "tag": "Desayunos",
+        "title": "Brunch Café",
+        "subtitle": "Brunch delicioso",
+        "price": "$14 promedio",
+        "rating": 4.7,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "147",
+        "tag": "Desayunos",
+        "title": "Early Morning Café",
+        "subtitle": "Abre temprano",
+        "price": "$10 promedio",
+        "rating": 4.9,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "148",
+        "tag": "Desayunos",
+        "title": "Huevos Perfectos",
+        "subtitle": "Especialidad en huevos",
+        "price": "$12.5 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "149",
+        "tag": "Desayunos",
+        "title": "Pan Recién Horneado",
+        "subtitle": "Pan artesanal",
+        "price": "$9 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "150",
+        "tag": "Desayunos",
+        "title": "Smoothie & Brunch",
+        "subtitle": "Healthy breakfast",
+        "price": "$13.5 promedio",
+        "rating": 4.8,
+        "reviews": 601,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "151",
+        "tag": "Desayunos",
+        "title": "Desayuner a Prepárada",
+        "subtitle": "Para llevar",
+        "price": "$10.5 promedio",
+        "rating": 4.9,
+        "reviews": 823,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "152",
+        "tag": "Desayunos",
+        "title": "Mañana de Café",
+        "subtitle": "Desayuno especial",
+        "price": "$11.5 promedio",
+        "rating": 4.7,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "153",
+        "tag": "Farmacias",
+        "title": "Farmacia Salud Plus",
+        "subtitle": "Medicamentos completos",
+        "price": "$25 promedio",
+        "rating": 4.8,
+        "reviews": 734,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "154",
+        "tag": "Farmacias",
+        "title": "Droguería Central",
+        "subtitle": "Productos farmacéuticos",
+        "price": "$22 promedio",
+        "rating": 4.9,
+        "reviews": 856,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "155",
+        "tag": "Farmacias",
+        "title": "Farmacia 24 Horas",
+        "subtitle": "Abierto día y noche",
+        "price": "$28 promedio",
+        "rating": 4.7,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "156",
+        "tag": "Farmacias",
+        "title": "Remedios Naturales",
+        "subtitle": "Productos orgánicos",
+        "price": "$30 promedio",
+        "rating": 4.8,
+        "reviews": 523,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "157",
+        "tag": "Farmacias",
+        "title": "Farmacia del Dr.",
+        "subtitle": "Asesoría experta",
+        "price": "$26 promedio",
+        "rating": 4.9,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "158",
+        "tag": "Farmacias",
+        "title": "Farmacia Descuentos",
+        "subtitle": "Precios especiales",
+        "price": "$20 promedio",
+        "rating": 4.6,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "159",
+        "tag": "Farmacias",
+        "title": "Farmacia Premium",
+        "subtitle": "Medicinas importadas",
+        "price": "$35 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "160",
+        "tag": "Farmacias",
+        "title": "Farmacia Familiar",
+        "subtitle": "Para toda la familia",
+        "price": "$24 promedio",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "161",
+        "tag": "Farmacias",
+        "title": "Farmacia Generics",
+        "subtitle": "Genéricos baratos",
+        "price": "$18 promedio",
+        "rating": 4.7,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "162",
+        "tag": "Farmacias",
+        "title": "Farmacia Online",
+        "subtitle": "Entrega a domicilio",
+        "price": "$27 promedio",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "163",
+        "tag": "Clínicas",
+        "title": "Clínica Médica General",
+        "subtitle": "Médicos especializados",
+        "price": "$50 promedio",
+        "rating": 4.9,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "164",
+        "tag": "Clínicas",
+        "title": "Centro de Salud",
+        "subtitle": "Atención integral",
+        "price": "$55 promedio",
+        "rating": 4.8,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "165",
+        "tag": "Clínicas",
+        "title": "Hospital Clínica",
+        "subtitle": "Emergencias 24/7",
+        "price": "$60 promedio",
+        "rating": 4.9,
+        "reviews": 923,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "166",
+        "tag": "Clínicas",
+        "title": "Clínica Privada",
+        "subtitle": "Servicio exclusivo",
+        "price": "$75 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "167",
+        "tag": "Clínicas",
+        "title": "Clínica del Corazón",
+        "subtitle": "Cardiología experta",
+        "price": "$65 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "168",
+        "tag": "Clínicas",
+        "title": "Centro Médico",
+        "subtitle": "Múltiples especialidades",
+        "price": "$52 promedio",
+        "rating": 4.7,
+        "reviews": 478,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "169",
+        "tag": "Clínicas",
+        "title": "Clínica Moderna",
+        "subtitle": "Equipamiento avanzado",
+        "price": "$70 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "170",
+        "tag": "Clínicas",
+        "title": "Salud Integral",
+        "subtitle": "Bienestar completo",
+        "price": "$58 promedio",
+        "rating": 4.8,
+        "reviews": 601,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "171",
+        "tag": "Clínicas",
+        "title": "Clínica Sur",
+        "subtitle": "Acceso fácil",
+        "price": "$48 promedio",
+        "rating": 4.9,
+        "reviews": 823,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "172",
+        "tag": "Clínicas",
+        "title": "Centro de Urgencias",
+        "subtitle": "Respuesta rápida",
+        "price": "$62 promedio",
+        "rating": 4.7,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "173",
+        "tag": "Dentistas",
+        "title": "Clínica Dental Premium",
+        "subtitle": "Odontología avanzada",
+        "price": "$80 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "174",
+        "tag": "Dentistas",
+        "title": "Dr. Sonrisa",
+        "subtitle": "Blanqueamiento dental",
+        "price": "$70 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "175",
+        "tag": "Dentistas",
+        "title": "Centro Odontológico",
+        "subtitle": "Cuidado completo",
+        "price": "$75 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "176",
+        "tag": "Dentistas",
+        "title": "Dentista Pediátrico",
+        "subtitle": "Para los niños",
+        "price": "$60 promedio",
+        "rating": 4.7,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "177",
+        "tag": "Dentistas",
+        "title": "Implantes Dentales",
+        "subtitle": "Implantes de calidad",
+        "price": "$120 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "178",
+        "tag": "Dentistas",
+        "title": "Ortodoncia Moderna",
+        "subtitle": "Alineadores invisibles",
+        "price": "$100 promedio",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "179",
+        "tag": "Dentistas",
+        "title": "Clínica Dental Express",
+        "subtitle": "Tratamientos rápidos",
+        "price": "$65 promedio",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "180",
+        "tag": "Dentistas",
+        "title": "Dental Estética",
+        "subtitle": "Sonrisa perfecta",
+        "price": "$85 promedio",
+        "rating": 4.8,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "181",
+        "tag": "Dentistas",
+        "title": "Odontología Familiar",
+        "subtitle": "Para toda la familia",
+        "price": "$72 promedio",
+        "rating": 4.9,
+        "reviews": 734,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "182",
+        "tag": "Dentistas",
+        "title": "Emergencia Dental",
+        "subtitle": "Disponible 24/7",
+        "price": "$90 promedio",
+        "rating": 4.7,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "183",
+        "tag": "Peluquería",
+        "title": "Salón de Belleza Premium",
+        "subtitle": "Peinados exclusivos",
+        "price": "$45 promedio",
+        "rating": 4.9,
+        "reviews": 856,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "184",
+        "tag": "Peluquería",
+        "title": "Cortes Modernos",
+        "subtitle": "Últimos estilos",
+        "price": "$40 promedio",
+        "rating": 4.8,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "185",
+        "tag": "Peluquería",
+        "title": "Peluquería Unisex",
+        "subtitle": "Para todos",
+        "price": "$35 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "186",
+        "tag": "Peluquería",
+        "title": "Coloración Experta",
+        "subtitle": "Tinturas profesionales",
+        "price": "$55 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "187",
+        "tag": "Peluquería",
+        "title": "Tratamientos Capilares",
+        "subtitle": "Cuidado integral",
+        "price": "$50 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "188",
+        "tag": "Peluquería",
+        "title": "Peinados Nupciales",
+        "subtitle": "Para bodas",
+        "price": "$80 promedio",
+        "rating": 4.8,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "189",
+        "tag": "Peluquería",
+        "title": "Barbería Antigua",
+        "subtitle": "Barbas y cuidado",
+        "price": "$30 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "190",
+        "tag": "Peluquería",
+        "title": "Salón de Lujo",
+        "subtitle": "Experiencia premium",
+        "price": "$65 promedio",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "191",
+        "tag": "Peluquería",
+        "title": "Extensiones de Cabello",
+        "subtitle": "Cabello largo",
+        "price": "$70 promedio",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "192",
+        "tag": "Peluquería",
+        "title": "Salón Infantil",
+        "subtitle": "Cortes para niños",
+        "price": "$25 promedio",
+        "rating": 4.7,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "193",
+        "tag": "Spa",
+        "title": "Spa Resort Lujo",
+        "subtitle": "Relajación total",
+        "price": "$100 promedio",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "194",
+        "tag": "Spa",
+        "title": "Centro de Bienestar",
+        "subtitle": "Masajes relajantes",
+        "price": "$85 promedio",
+        "rating": 4.8,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "195",
+        "tag": "Spa",
+        "title": "Thai Spa",
+        "subtitle": "Masajes tailandeses",
+        "price": "$90 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "196",
+        "tag": "Spa",
+        "title": "Spa Natural",
+        "subtitle": "Productos naturales",
+        "price": "$95 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "197",
+        "tag": "Spa",
+        "title": "Termalismo",
+        "subtitle": "Aguas termales",
+        "price": "$110 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "198",
+        "tag": "Spa",
+        "title": "Spa Corporal",
+        "subtitle": "Masajes profesionales",
+        "price": "$88 promedio",
+        "rating": 4.8,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "199",
+        "tag": "Spa",
+        "title": "Oasis Relax",
+        "subtitle": "Piscina y sauna",
+        "price": "$105 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "200",
+        "tag": "Spa",
+        "title": "Spa Parejas",
+        "subtitle": "Masajes en pareja",
+        "price": "$150 promedio",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "201",
+        "tag": "Spa",
+        "title": "Relajación Total",
+        "subtitle": "Desestresante",
+        "price": "$92 promedio",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "202",
+        "tag": "Spa",
+        "title": "Spa Piedras Calientes",
+        "subtitle": "Tratamiento ancestral",
+        "price": "$98 promedio",
+        "rating": 4.7,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "203",
+        "tag": "Lavanderías",
+        "title": "Lavandería Expres",
+        "subtitle": "Servicio rápido",
+        "price": "$12 promedio",
+        "rating": 4.8,
+        "reviews": 734,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "204",
+        "tag": "Lavanderías",
+        "title": "Tintorería Profesional",
+        "subtitle": "Ropa delicada",
+        "price": "$15 promedio",
+        "rating": 4.9,
+        "reviews": 856,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "205",
+        "tag": "Lavanderías",
+        "title": "Lavado en Seco",
+        "subtitle": "Lavado delicado",
+        "price": "$18 promedio",
+        "rating": 4.7,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "206",
+        "tag": "Lavanderías",
+        "title": "Laundry 24/7",
+        "subtitle": "Abierto día y noche",
+        "price": "$10 promedio",
+        "rating": 4.8,
+        "reviews": 523,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "207",
+        "tag": "Lavanderías",
+        "title": "Planchado a Domicilio",
+        "subtitle": "Servicio a casa",
+        "price": "$20 promedio",
+        "rating": 4.9,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "208",
+        "tag": "Lavanderías",
+        "title": "Limpieza de Alfombras",
+        "subtitle": "Sanitización",
+        "price": "$25 promedio",
+        "rating": 4.6,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "209",
+        "tag": "Lavanderías",
+        "title": "Lavanderías Modernas",
+        "subtitle": "Equipo nuevo",
+        "price": "$11 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "210",
+        "tag": "Lavanderías",
+        "title": "Tinturación Express",
+        "subtitle": "Cambio de color",
+        "price": "$22 promedio",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "211",
+        "tag": "Lavanderías",
+        "title": "Servicio Ecológico",
+        "subtitle": "Eco-friendly",
+        "price": "$14 promedio",
+        "rating": 4.9,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "212",
+        "tag": "Lavanderías",
+        "title": "Lavandería Premium",
+        "subtitle": "Servicio de lujo",
+        "price": "$28 promedio",
+        "rating": 4.7,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "213",
+        "tag": "Cerrajería",
+        "title": "Cerrajería 24H",
+        "subtitle": "Emergencia abierta",
+        "price": "$30 promedio",
+        "rating": 4.8,
+        "reviews": 734,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "214",
+        "tag": "Cerrajería",
+        "title": "Cerraduras Modernas",
+        "subtitle": "Tecnología nueva",
+        "price": "$35 promedio",
+        "rating": 4.9,
+        "reviews": 856,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "215",
+        "tag": "Cerrajería",
+        "title": "Duplicado de Llaves",
+        "subtitle": "Rápido y fácil",
+        "price": "$5 promedio",
+        "rating": 4.7,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "216",
+        "tag": "Cerrajería",
+        "title": "Bóveda de Seguridad",
+        "subtitle": "Cajas fuertes",
+        "price": "$50 promedio",
+        "rating": 4.8,
+        "reviews": 523,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "217",
+        "tag": "Cerrajería",
+        "title": "Cerrajería Automotriz",
+        "subtitle": "Autos bloqueados",
+        "price": "$40 promedio",
+        "rating": 4.9,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "218",
+        "tag": "Cerrajería",
+        "title": "Blindaje de Puertas",
+        "subtitle": "Seguridad máxima",
+        "price": "$60 promedio",
+        "rating": 4.6,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "219",
+        "tag": "Cerrajería",
+        "title": "Abridores de Puertas",
+        "subtitle": "Expertos rápidos",
+        "price": "$35 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "220",
+        "tag": "Cerrajería",
+        "title": "Sistemas de Seguridad",
+        "subtitle": "Cerraduras inteligentes",
+        "price": "$100 promedio",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "221",
+        "tag": "Cerrajería",
+        "title": "Reparación de Cerraduras",
+        "subtitle": "Mantenimiento",
+        "price": "$20 promedio",
+        "rating": 4.9,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "222",
+        "tag": "Cerrajería",
+        "title": "Asesoramiento en Seguridad",
+        "subtitle": "Consultoría",
+        "price": "$25 promedio",
+        "rating": 4.7,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "223",
+        "tag": "Gimnasios",
+        "title": "Gym Premium",
+        "subtitle": "Equipamiento de lujo",
+        "price": "$50 promedio",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "224",
+        "tag": "Gimnasios",
+        "title": "Fitness Club",
+        "subtitle": "Clases grupales",
+        "price": "$45 promedio",
+        "rating": 4.8,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "225",
+        "tag": "Gimnasios",
+        "title": "CrossFit Box",
+        "subtitle": "Entrenamiento intenso",
+        "price": "$55 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "226",
+        "tag": "Gimnasios",
+        "title": "Centro Deportivo",
+        "subtitle": "Múltiples disciplinas",
+        "price": "$40 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "227",
+        "tag": "Gimnasios",
+        "title": "Power Gym",
+        "subtitle": "Musculación experta",
+        "price": "$48 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "228",
+        "tag": "Gimnasios",
+        "title": "Gym 24 Horas",
+        "subtitle": "Abierto siempre",
+        "price": "$42 promedio",
+        "rating": 4.6,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "229",
+        "tag": "Gimnasios",
+        "title": "Studio de Fitness",
+        "subtitle": "Ambiente moderno",
+        "price": "$60 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "230",
+        "tag": "Gimnasios",
+        "title": "Personal Training",
+        "subtitle": "Entrenador personal",
+        "price": "$70 promedio",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "231",
+        "tag": "Gimnasios",
+        "title": "Spinning Center",
+        "subtitle": "Bicicletas estacionarias",
+        "price": "$52 promedio",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "232",
+        "tag": "Gimnasios",
+        "title": "Wellness Center",
+        "subtitle": "Completo bienestar",
+        "price": "$65 promedio",
+        "rating": 4.7,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "233",
+        "tag": "Colegios",
+        "title": "Colegio San José",
+        "subtitle": "Educación integral",
+        "price": "$400 mensual",
+        "rating": 4.9,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "234",
+        "tag": "Colegios",
+        "title": "Escuela Primaria",
+        "subtitle": "Para niños",
+        "price": "$300 mensual",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "235",
+        "tag": "Colegios",
+        "title": "Instituto Educativo",
+        "subtitle": "Secundaria completa",
+        "price": "$450 mensual",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "236",
+        "tag": "Colegios",
+        "title": "Colegio Bilingüe",
+        "subtitle": "Inglés avanzado",
+        "price": "$550 mensual",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "237",
+        "tag": "Colegios",
+        "title": "Escuela Montessori",
+        "subtitle": "Método alternativo",
+        "price": "$600 mensual",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "238",
+        "tag": "Colegios",
+        "title": "Colegio Técnico",
+        "subtitle": "Formación práctica",
+        "price": "$380 mensual",
+        "rating": 4.7,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "239",
+        "tag": "Colegios",
+        "title": "Instituto Privado",
+        "subtitle": "Educación de calidad",
+        "price": "$500 mensual",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "240",
+        "tag": "Colegios",
+        "title": "Colegio Internacional",
+        "subtitle": "Certificado global",
+        "price": "$700 mensual",
+        "rating": 4.8,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "241",
+        "tag": "Colegios",
+        "title": "Escuela Waldorf",
+        "subtitle": "Pedagogía Waldorf",
+        "price": "$520 mensual",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "242",
+        "tag": "Colegios",
+        "title": "Liceo Moderno",
+        "subtitle": "Tecnología integrada",
+        "price": "$480 mensual",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "243",
+        "tag": "Universidades",
+        "title": "Universidad Nacional",
+        "subtitle": "Educación superior",
+        "price": "$800 semestre",
+        "rating": 4.9,
+        "reviews": 1234,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "244",
+        "tag": "Universidades",
+        "title": "Instituto Tecnológico",
+        "subtitle": "Carreras técnicas",
+        "price": "$600 semestre",
+        "rating": 4.8,
+        "reviews": 923,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "245",
+        "tag": "Universidades",
+        "title": "Universidad Privada",
+        "subtitle": "Excelencia académica",
+        "price": "$1200 semestre",
+        "rating": 4.9,
+        "reviews": 1456,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "246",
+        "tag": "Universidades",
+        "title": "Facultad de Medicina",
+        "subtitle": "Formación médica",
+        "price": "$1500 semestre",
+        "rating": 4.8,
+        "reviews": 867,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "247",
+        "tag": "Universidades",
+        "title": "Escuela de Ingeniería",
+        "subtitle": "Ingenieros del futuro",
+        "price": "$900 semestre",
+        "rating": 4.9,
+        "reviews": 1089,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "248",
+        "tag": "Universidades",
+        "title": "Universidad Online",
+        "subtitle": "Estudia desde casa",
+        "price": "$500 semestre",
+        "rating": 4.7,
+        "reviews": 734,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "249",
+        "tag": "Universidades",
+        "title": "Campus Internacional",
+        "subtitle": "Intercambios",
+        "price": "$1100 semestre",
+        "rating": 4.9,
+        "reviews": 956,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "250",
+        "tag": "Universidades",
+        "title": "Instituto de Artes",
+        "subtitle": "Creatividad y diseño",
+        "price": "$700 semestre",
+        "rating": 4.8,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "251",
+        "tag": "Universidades",
+        "title": "Facultad de Derecho",
+        "subtitle": "Abogados de élite",
+        "price": "$1000 semestre",
+        "rating": 4.9,
+        "reviews": 1123,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "252",
+        "tag": "Universidades",
+        "title": "Escuela de Negocios",
+        "subtitle": "MBA y maestrías",
+        "price": "$1400 semestre",
+        "rating": 4.8,
+        "reviews": 845,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "253",
+        "tag": "Cursos",
+        "title": "Academia de Programación",
+        "subtitle": "Código desde cero",
+        "price": "$250 curso",
+        "rating": 4.9,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "254",
+        "tag": "Cursos",
+        "title": "Cursos de Marketing",
+        "subtitle": "Digital marketing",
+        "price": "$200 curso",
+        "rating": 4.8,
+        "reviews": 489,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "255",
+        "tag": "Cursos",
+        "title": "Escuela de Cocina",
+        "subtitle": "Chef profesional",
+        "price": "$350 curso",
+        "rating": 4.9,
+        "reviews": 623,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "256",
+        "tag": "Cursos",
+        "title": "Diseño Gráfico",
+        "subtitle": "Creatividad visual",
+        "price": "$280 curso",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "257",
+        "tag": "Cursos",
+        "title": "Fotografía Profesional",
+        "subtitle": "Captura momentos",
+        "price": "$300 curso",
+        "rating": 4.9,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "258",
+        "tag": "Cursos",
+        "title": "Música y Producción",
+        "subtitle": "Crea tu música",
+        "price": "$320 curso",
+        "rating": 4.7,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "259",
+        "tag": "Cursos",
+        "title": "Excel Avanzado",
+        "subtitle": "Domina las hojas",
+        "price": "$150 curso",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "260",
+        "tag": "Cursos",
+        "title": "Desarrollo Web",
+        "subtitle": "Sitios modernos",
+        "price": "$400 curso",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "261",
+        "tag": "Cursos",
+        "title": "Yoga Instructor",
+        "subtitle": "Certificación",
+        "price": "$450 curso",
+        "rating": 4.9,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "262",
+        "tag": "Cursos",
+        "title": "Barista Profesional",
+        "subtitle": "Arte del café",
+        "price": "$180 curso",
+        "rating": 4.8,
+        "reviews": 456,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "263",
+        "tag": "Idiomas",
+        "title": "English Academy",
+        "subtitle": "Inglés fluido",
+        "price": "$200 mensual",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "264",
+        "tag": "Idiomas",
+        "title": "Escuela de Francés",
+        "subtitle": "Parlez-vous français?",
+        "price": "$220 mensual",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "265",
+        "tag": "Idiomas",
+        "title": "Mandarín Básico",
+        "subtitle": "Chino simplificado",
+        "price": "$250 mensual",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "266",
+        "tag": "Idiomas",
+        "title": "Alemán Intensivo",
+        "subtitle": "Deutsch lernen",
+        "price": "$230 mensual",
+        "rating": 4.8,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "268",
+        "tag": "Idiomas",
+        "title": "Portugués Brasileño",
+        "subtitle": "Fale português",
+        "price": "$190 mensual",
+        "rating": 4.7,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "269",
+        "tag": "Idiomas",
+        "title": "Japonés Básico",
+        "subtitle": "Nihongo o benkyō",
+        "price": "$260 mensual",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "270",
+        "tag": "Idiomas",
+        "title": "Ruso para Principiantes",
+        "subtitle": "Говорите по-русски",
+        "price": "$240 mensual",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "271",
+        "tag": "Idiomas",
+        "title": "Árabe Moderno",
+        "subtitle": "تكلم العربية",
+        "price": "$270 mensual",
+        "rating": 4.9,
+        "reviews": 456,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "272",
+        "tag": "Idiomas",
+        "title": "Coreano K-pop",
+        "subtitle": "한국어 배우기",
+        "price": "$210 mensual",
+        "rating": 4.8,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "273",
+        "tag": "Computadoras",
+        "title": "Tech Store Computers",
+        "subtitle": "PCs de última generación",
+        "price": "$800 promedio",
+        "rating": 4.9,
+        "reviews": 923,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "274",
+        "tag": "Computadoras",
+        "title": "Laptops Premium",
+        "subtitle": "Portátiles potentes",
+        "price": "$1200 promedio",
+        "rating": 4.8,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "275",
+        "tag": "Computadoras",
+        "title": "Gaming PC Store",
+        "subtitle": "Para gamers",
+        "price": "$1500 promedio",
+        "rating": 4.9,
+        "reviews": 1045,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "276",
+        "tag": "Computadoras",
+        "title": "Apple Store",
+        "subtitle": "MacBooks y iMacs",
+        "price": "$2000 promedio",
+        "rating": 4.8,
+        "reviews": 756,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "277",
+        "tag": "Computadoras",
+        "title": "PC Componentes",
+        "subtitle": "Arma tu PC",
+        "price": "$600 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "278",
+        "tag": "Computadoras",
+        "title": "Workstations Pro",
+        "subtitle": "Para profesionales",
+        "price": "$1800 promedio",
+        "rating": 4.7,
+        "reviews": 489,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "279",
+        "tag": "Computadoras",
+        "title": "Notebooks Económicas",
+        "subtitle": "Buen precio",
+        "price": "$500 promedio",
+        "rating": 4.9,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "280",
+        "tag": "Computadoras",
+        "title": "Mini PCs",
+        "subtitle": "Compactos y potentes",
+        "price": "$400 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "281",
+        "tag": "Computadoras",
+        "title": "All-in-One Computers",
+        "subtitle": "Todo en uno",
+        "price": "$900 promedio",
+        "rating": 4.9,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "282",
+        "tag": "Computadoras",
+        "title": "PC Refurbished",
+        "subtitle": "Reacondicionados",
+        "price": "$350 promedio",
+        "rating": 4.6,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "283",
+        "tag": "Celulares",
+        "title": "iPhone Store",
+        "subtitle": "Última generación",
+        "price": "$1000 promedio",
+        "rating": 4.9,
+        "reviews": 1234,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "284",
+        "tag": "Celulares",
+        "title": "Samsung Galaxy",
+        "subtitle": "Smartphones Android",
+        "price": "$800 promedio",
+        "rating": 4.8,
+        "reviews": 1089,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "285",
+        "tag": "Celulares",
+        "title": "Xiaomi Official",
+        "subtitle": "Mejor relación precio",
+        "price": "$400 promedio",
+        "rating": 4.9,
+        "reviews": 956,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "286",
+        "tag": "Celulares",
+        "title": "Huawei Store",
+        "subtitle": "Tecnología china",
+        "price": "$500 promedio",
+        "rating": 4.7,
+        "reviews": 734,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "287",
+        "tag": "Celulares",
+        "title": "Celulares Gaming",
+        "subtitle": "Para juegos",
+        "price": "$700 promedio",
+        "rating": 4.9,
+        "reviews": 823,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "288",
+        "tag": "Celulares",
+        "title": "Motorola Center",
+        "subtitle": "Confiables",
+        "price": "$350 promedio",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "289",
+        "tag": "Celulares",
+        "title": "OnePlus Premium",
+        "subtitle": "Flagship killer",
+        "price": "$600 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "290",
+        "tag": "Celulares",
+        "title": "Google Pixel",
+        "subtitle": "Cámara perfecta",
+        "price": "$750 promedio",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "291",
+        "tag": "Celulares",
+        "title": "Smartphones Baratos",
+        "subtitle": "Económicos",
+        "price": "$200 promedio",
+        "rating": 4.6,
+        "reviews": 489,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "292",
+        "tag": "Celulares",
+        "title": "Celulares Liberados",
+        "subtitle": "Sin contrato",
+        "price": "$450 promedio",
+        "rating": 4.9,
+        "reviews": 678,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "293",
+        "tag": "Accesorios",
+        "title": "Audífonos Premium",
+        "subtitle": "Audio de calidad",
+        "price": "$150 promedio",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "294",
+        "tag": "Accesorios",
+        "title": "Cargadores Rápidos",
+        "subtitle": "Carga ultra rápida",
+        "price": "$30 promedio",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "295",
+        "tag": "Accesorios",
+        "title": "Fundas y Protectores",
+        "subtitle": "Protege tu cel",
+        "price": "$20 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "296",
+        "tag": "Accesorios",
+        "title": "Smartwatches",
+        "subtitle": "Relojes inteligentes",
+        "price": "$200 promedio",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "297",
+        "tag": "Accesorios",
+        "title": "PowerBanks",
+        "subtitle": "Batería portátil",
+        "price": "$40 promedio",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "298",
+        "tag": "Accesorios",
+        "title": "Teclados y Mouse",
+        "subtitle": "Gaming y oficina",
+        "price": "$80 promedio",
+        "rating": 4.7,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "299",
+        "tag": "Accesorios",
+        "title": "Webcams HD",
+        "subtitle": "Videollamadas",
+        "price": "$60 promedio",
+        "rating": 4.9,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "300",
+        "tag": "Accesorios",
+        "title": "Soportes y Tripies",
+        "subtitle": "Para dispositivos",
+        "price": "$25 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "301",
+        "tag": "Accesorios",
+        "title": "Cables y Adaptadores",
+        "subtitle": "Todo tipo",
+        "price": "$15 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "302",
+        "tag": "Accesorios",
+        "title": "Lámparas LED USB",
+        "subtitle": "Iluminación",
+        "price": "$18 promedio",
+        "rating": 4.6,
+        "reviews": 456,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "303",
+        "tag": "Reparación",
+        "title": "Servicio Técnico Apple",
+        "subtitle": "Reparación certificada",
+        "price": "$100 promedio",
+        "rating": 4.9,
+        "reviews": 734,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "304",
+        "tag": "Reparación",
+        "title": "Fix Phone Center",
+        "subtitle": "Reparamos todo",
+        "price": "$80 promedio",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "305",
+        "tag": "Reparación",
+        "title": "Cambio de Pantallas",
+        "subtitle": "Pantallas originales",
+        "price": "$120 promedio",
+        "rating": 4.9,
+        "reviews": 823,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "306",
+        "tag": "Reparación",
+        "title": "Reparación PC",
+        "subtitle": "Computadoras",
+        "price": "$70 promedio",
+        "rating": 4.7,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "307",
+        "tag": "Reparación",
+        "title": "Cambio de Baterías",
+        "subtitle": "Baterías nuevas",
+        "price": "$50 promedio",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "308",
+        "tag": "Reparación",
+        "title": "Desbloqueo de Celulares",
+        "subtitle": "Liberación",
+        "price": "$40 promedio",
+        "rating": 4.6,
+        "reviews": 423,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "309",
+        "tag": "Reparación",
+        "title": "Recuperación de Datos",
+        "subtitle": "Data recovery",
+        "price": "$150 promedio",
+        "rating": 4.9,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "310",
+        "tag": "Reparación",
+        "title": "Limpieza de Virus",
+        "subtitle": "Antivirus",
+        "price": "$35 promedio",
+        "rating": 4.8,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "311",
+        "tag": "Reparación",
+        "title": "Instalación Software",
+        "subtitle": "Programas y OS",
+        "price": "$45 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "312",
+        "tag": "Reparación",
+        "title": "Servicio Express",
+        "subtitle": "Mismo día",
+        "price": "$90 promedio",
+        "rating": 4.8,
+        "reviews": 456,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "313",
+        "tag": "Muebles",
+        "title": "Mueblería Moderna",
+        "subtitle": "Diseño contemporáneo",
+        "price": "$500 promedio",
+        "rating": 4.9,
+        "reviews": 734,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "314",
+        "tag": "Muebles",
+        "title": "Sofás y Sillones",
+        "subtitle": "Comodidad",
+        "price": "$600 promedio",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "315",
+        "tag": "Muebles",
+        "title": "Recámaras Completas",
+        "subtitle": "Juegos de dormitorio",
+        "price": "$1200 promedio",
+        "rating": 4.9,
+        "reviews": 823,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "316",
+        "tag": "Muebles",
+        "title": "Comedores Elegantes",
+        "subtitle": "Para reuniones",
+        "price": "$800 promedio",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "317",
+        "tag": "Muebles",
+        "title": "Libreros y Estantes",
+        "subtitle": "Organizadores",
+        "price": "$250 promedio",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "318",
+        "tag": "Muebles",
+        "title": "Escritorios Home Office",
+        "subtitle": "Trabajo en casa",
+        "price": "$350 promedio",
+        "rating": 4.7,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "319",
+        "tag": "Muebles",
+        "title": "Muebles Minimalistas",
+        "subtitle": "Menos es más",
+        "price": "$450 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "320",
+        "tag": "Muebles",
+        "title": "Muebles de Madera",
+        "subtitle": "Calidad natural",
+        "price": "$700 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "321",
+        "tag": "Muebles",
+        "title": "Sillas Ergonómicas",
+        "subtitle": "Comodidad total",
+        "price": "$200 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "322",
+        "tag": "Muebles",
+        "title": "Muebles a Medida",
+        "subtitle": "Personalizados",
+        "price": "$900 promedio",
+        "rating": 4.8,
+        "reviews": 456,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "323",
+        "tag": "Decoración",
+        "title": "Tienda de Decoración",
+        "subtitle": "Adornos variados",
+        "price": "$80 promedio",
+        "rating": 4.9,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "324",
+        "tag": "Decoración",
+        "title": "Cuadros y Arte",
+        "subtitle": "Para tus paredes",
+        "price": "$120 promedio",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "325",
+        "tag": "Decoración",
+        "title": "Cortinas Elegantes",
+        "subtitle": "Textiles finos",
+        "price": "$150 promedio",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "326",
+        "tag": "Decoración",
+        "title": "Alfombras Diseño",
+        "subtitle": "Cubre tus pisos",
+        "price": "$200 promedio",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "327",
+        "tag": "Decoración",
+        "title": "Espejos Decorativos",
+        "subtitle": "Amplía espacios",
+        "price": "$100 promedio",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "328",
+        "tag": "Decoración",
+        "title": "Lámparas de Diseño",
+        "subtitle": "Iluminación especial",
+        "price": "$180 promedio",
+        "rating": 4.7,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "329",
+        "tag": "Decoración",
+        "title": "Cojines y Textiles",
+        "subtitle": "Accesorios suaves",
+        "price": "$40 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "330",
+        "tag": "Decoración",
+        "title": "Velas Aromáticas",
+        "subtitle": "Ambientación",
+        "price": "$25 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "331",
+        "tag": "Decoración",
+        "title": "Plantas Artificiales",
+        "subtitle": "Verde sin cuidado",
+        "price": "$50 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "332",
+        "tag": "Decoración",
+        "title": "Jarrones y Floreros",
+        "subtitle": "Centros de mesa",
+        "price": "$60 promedio",
+        "rating": 4.6,
+        "reviews": 456,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "333",
+        "tag": "Jardín",
+        "title": "Vivero de Plantas",
+        "subtitle": "Plantas naturales",
+        "price": "$30 promedio",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "334",
+        "tag": "Jardín",
+        "title": "Herramientas de Jardín",
+        "subtitle": "Para jardinería",
+        "price": "$50 promedio",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "335",
+        "tag": "Jardín",
+        "title": "Muebles de Exterior",
+        "subtitle": "Patio y jardín",
+        "price": "$400 promedio",
+        "rating": 4.9,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "336",
+        "tag": "Jardín",
+        "title": "Sistemas de Riego",
+        "subtitle": "Automatizado",
+        "price": "$200 promedio",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "337",
+        "tag": "Jardín",
+        "title": "Fertilizantes Orgánicos",
+        "subtitle": "Nutrición natural",
+        "price": "$20 promedio",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "338",
+        "tag": "Jardín",
+        "title": "Macetas Decorativas",
+        "subtitle": "Contenedores",
+        "price": "$35 promedio",
+        "rating": 4.7,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "339",
+        "tag": "Jardín",
+        "title": "Césped Artificial",
+        "subtitle": "Sin mantenimiento",
+        "price": "$300 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "340",
+        "tag": "Jardín",
+        "title": "Iluminación Exterior",
+        "subtitle": "Luces jardín",
+        "price": "$120 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "341",
+        "tag": "Jardín",
+        "title": "Barbacoas y Parrillas",
+        "subtitle": "Para asados",
+        "price": "$250 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "342",
+        "tag": "Jardín",
+        "title": "Fuentes de Agua",
+        "subtitle": "Decoración acuática",
+        "price": "$180 promedio",
+        "rating": 4.6,
+        "reviews": 456,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "343",
+        "tag": "Cocina",
+        "title": "Electrodomésticos",
+        "subtitle": "Para tu cocina",
+        "price": "$300 promedio",
+        "rating": 4.9,
+        "reviews": 834,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "344",
+        "tag": "Cocina",
+        "title": "Ollas y Sartenes",
+        "subtitle": "Utensilios cocina",
+        "price": "$80 promedio",
+        "rating": 4.8,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "345",
+        "tag": "Cocina",
+        "title": "Cuchillos Profesionales",
+        "subtitle": "Corte perfecto",
+        "price": "$100 promedio",
+        "rating": 4.9,
+        "reviews": 723,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "346",
+        "tag": "Cocina",
+        "title": "Licuadoras Potentes",
+        "subtitle": "Mezcla todo",
+        "price": "$150 promedio",
+        "rating": 4.8,
+        "reviews": 567,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "347",
+        "tag": "Cocina",
+        "title": "Cafeteras Automáticas",
+        "subtitle": "Café en casa",
+        "price": "$200 promedio",
+        "rating": 4.9,
+        "reviews": 689,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "348",
+        "tag": "Cocina",
+        "title": "Vajillas Completas",
+        "subtitle": "Platos y vasos",
+        "price": "$120 promedio",
+        "rating": 4.7,
+        "reviews": 501,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "349",
+        "tag": "Cocina",
+        "title": "Organizadores Cocina",
+        "subtitle": "Orden perfecto",
+        "price": "$50 promedio",
+        "rating": 4.9,
+        "reviews": 745,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "350",
+        "tag": "Cocina",
+        "title": "Hornos Microondas",
+        "subtitle": "Calentar rápido",
+        "price": "$180 promedio",
+        "rating": 4.8,
+        "reviews": 534,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "351",
+        "tag": "Cocina",
+        "title": "Batidoras Eléctricas",
+        "subtitle": "Repostería fácil",
+        "price": "$90 promedio",
+        "rating": 4.9,
+        "reviews": 612,
+        "image": "../assets/images/city.png"
+    },
+    {
+        "id": "352",
+        "tag": "Cocina",
+        "title": "Cubiertos Premium",
+        "subtitle": "Acero inoxidable",
+        "price": "$70 promedio",
+        "rating": 4.6,
+        "reviews": 456,
+        "image": "../assets/images/city.png"
+    }
+]
