@@ -142,37 +142,12 @@ export default function PlaceHeader({
             </View>
 
             {/* Horario */}
-            {schedule && (
-                <View style={[styles.scheduleContainer, !isOpen && styles.scheduleContainerClosed]}>
-                    <View style={[styles.statusIndicator, isOpen ? styles.statusOpen : styles.statusClosed]} />
-                    <Text style={[styles.statusText, isOpen ? styles.statusTextOpen : styles.statusTextClosed]}>
-                        {isOpen ? 'Abierto' : 'Cerrado'}
-                    </Text>
-                    <Text style={styles.scheduleDivider}>•</Text>
-                    <Text style={styles.scheduleIcon}>🕒</Text>
-                    <View style={styles.scheduleDetails}>
-                        {typeof schedule === 'string' ? (
-                            <Text style={[styles.scheduleText, !isOpen && styles.scheduleTextClosed]}>{schedule}</Text>
-                        ) : (
-                            <>
-                                <Text style={[styles.scheduleText, !isOpen && styles.scheduleTextClosed]}>
-                                    Lun-Vie: {schedule.weekdays}
-                                </Text>
-                                {schedule.saturday && (
-                                    <Text style={[styles.scheduleText, !isOpen && styles.scheduleTextClosed]}>
-                                        Sáb: {schedule.saturday}
-                                    </Text>
-                                )}
-                                {schedule.sunday && (
-                                    <Text style={[styles.scheduleText, !isOpen && styles.scheduleTextClosed]}>
-                                        Dom: {schedule.sunday}
-                                    </Text>
-                                )}
-                            </>
-                        )}
-                    </View>
-                </View>
-            )}
+            <View style={[styles.scheduleContainer, !isOpen && styles.scheduleContainerClosed]}>
+                <View style={[styles.statusIndicator, isOpen ? styles.statusOpen : styles.statusClosed]} />
+                <Text style={[styles.statusText, isOpen ? styles.statusTextOpen : styles.statusTextClosed]}>
+                    {isOpen ? 'Abierto' : 'Cerrado'}
+                </Text>
+            </View>
 
             {/* Descripción */}
             <Text style={styles.description} numberOfLines={3}>
