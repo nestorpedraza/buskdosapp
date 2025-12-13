@@ -4,12 +4,14 @@ import React, { useMemo } from 'react';
 import {
     Dimensions,
     Image,
+    Platform,
     Pressable,
     ScrollView,
     StyleSheet,
     Text,
     View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
 
@@ -59,145 +61,152 @@ export default function ProfileScreen() {
     };
 
     return (
-        <View style={styles.container}>
-            {/* Header */}
-            <HomeHeader />
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+                {/* Header */}
+                <HomeHeader />
 
-            <ScrollView
-                style={styles.scrollView}
-                contentContainerStyle={styles.scrollContent}
-                showsVerticalScrollIndicator={false}
-            >
-                {/* Premium Card */}
-                <Pressable style={styles.premiumCard}>
-                    <LinearGradient
-                        colors={['#667eea', '#764ba2']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={styles.premiumGradient}
-                    >
-                        <View style={styles.premiumContent}>
-                            <Text style={styles.premiumIcon}>👑</Text>
-                            <View style={styles.premiumInfo}>
-                                <Text style={styles.premiumTitle}>Hazte Premium</Text>
-                                <Text style={styles.premiumSubtitle}>
-                                    Accede a ofertas exclusivas
-                                </Text>
+                <ScrollView
+                    style={styles.scrollView}
+                    contentContainerStyle={styles.scrollContent}
+                    showsVerticalScrollIndicator={false}
+                >
+                    {/* Premium Card */}
+                    <Pressable style={styles.premiumCard}>
+                        <LinearGradient
+                            colors={['#667eea', '#764ba2']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
+                            style={styles.premiumGradient}
+                        >
+                            <View style={styles.premiumContent}>
+                                <Text style={styles.premiumIcon}>👑</Text>
+                                <View style={styles.premiumInfo}>
+                                    <Text style={styles.premiumTitle}>Hazte Premium</Text>
+                                    <Text style={styles.premiumSubtitle}>
+                                        Accede a ofertas exclusivas
+                                    </Text>
+                                </View>
+                            </View>
+                            <Text style={styles.premiumArrow}>›</Text>
+                        </LinearGradient>
+                    </Pressable>
+
+                    {/* Profile Card */}
+                    <View style={styles.profileCard}>
+                        {/* Profile Info */}
+                        <View style={styles.profileInfo}>
+                            <View style={styles.avatarContainer}>
+                                <Image
+                                    source={require('../assets/images/city.png')}
+                                    style={styles.avatar}
+                                />
+                                <Pressable style={styles.avatarEditButton}>
+                                    <Text style={styles.avatarEditIcon}>📷</Text>
+                                </Pressable>
+                            </View>
+                            <Text style={styles.userName}>Juan Pérez</Text>
+                            <Text style={styles.userEmail}>juan.perez@email.com</Text>
+                            <View style={styles.verifiedBadge}>
+                                <Text style={styles.verifiedIcon}>✓</Text>
+                                <Text style={styles.verifiedText}>Verificado</Text>
                             </View>
                         </View>
-                        <Text style={styles.premiumArrow}>›</Text>
-                    </LinearGradient>
-                </Pressable>
 
-                {/* Profile Card */}
-                <View style={styles.profileCard}>
-                    {/* Profile Info */}
-                    <View style={styles.profileInfo}>
-                        <View style={styles.avatarContainer}>
-                            <Image
-                                source={require('../assets/images/city.png')}
-                                style={styles.avatar}
-                            />
-                            <Pressable style={styles.avatarEditButton}>
-                                <Text style={styles.avatarEditIcon}>📷</Text>
+                        {/* Stats */}
+                        <View style={styles.statsContainer}>
+                            <Pressable style={styles.statItem}>
+                                <Text style={styles.statNumber}>{userStats.reviews}</Text>
+                                <Text style={styles.statLabel}>Reseñas</Text>
+                            </Pressable>
+                            <View style={styles.statDivider} />
+                            <Pressable style={styles.statItem}>
+                                <Text style={styles.statNumber}>{userStats.favorites}</Text>
+                                <Text style={styles.statLabel}>Favoritos</Text>
+                            </Pressable>
+                            <View style={styles.statDivider} />
+                            <Pressable style={styles.statItem}>
+                                <Text style={styles.statNumber}>{userStats.visited}</Text>
+                                <Text style={styles.statLabel}>Visitados</Text>
                             </Pressable>
                         </View>
-                        <Text style={styles.userName}>Juan Pérez</Text>
-                        <Text style={styles.userEmail}>juan.perez@email.com</Text>
-                        <View style={styles.verifiedBadge}>
-                            <Text style={styles.verifiedIcon}>✓</Text>
-                            <Text style={styles.verifiedText}>Verificado</Text>
+                    </View>
+
+
+
+                    {/* Menu Section */}
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Mi cuenta</Text>
+                        <View style={styles.menuCard}>
+                            {menuItems.map((item, index) => (
+                                <Pressable
+                                    key={item.id}
+                                    style={[
+                                        styles.menuItem,
+                                        index === menuItems.length - 1 && styles.menuItemLast
+                                    ]}
+                                >
+                                    <View style={styles.menuIconContainer}>
+                                        <Text style={styles.menuIcon}>{item.icon}</Text>
+                                    </View>
+                                    <View style={styles.menuContent}>
+                                        <Text style={styles.menuTitle}>{item.title}</Text>
+                                        {item.subtitle && (
+                                            <Text style={styles.menuSubtitle}>{item.subtitle}</Text>
+                                        )}
+                                    </View>
+                                    <Text style={styles.menuArrow}>›</Text>
+                                </Pressable>
+                            ))}
                         </View>
                     </View>
 
-                    {/* Stats */}
-                    <View style={styles.statsContainer}>
-                        <Pressable style={styles.statItem}>
-                            <Text style={styles.statNumber}>{userStats.reviews}</Text>
-                            <Text style={styles.statLabel}>Reseñas</Text>
-                        </Pressable>
-                        <View style={styles.statDivider} />
-                        <Pressable style={styles.statItem}>
-                            <Text style={styles.statNumber}>{userStats.favorites}</Text>
-                            <Text style={styles.statLabel}>Favoritos</Text>
-                        </Pressable>
-                        <View style={styles.statDivider} />
-                        <Pressable style={styles.statItem}>
-                            <Text style={styles.statNumber}>{userStats.visited}</Text>
-                            <Text style={styles.statLabel}>Visitados</Text>
-                        </Pressable>
+                    {/* Support Section */}
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Soporte</Text>
+                        <View style={styles.menuCard}>
+                            {supportItems.map((item, index) => (
+                                <Pressable
+                                    key={item.id}
+                                    style={[
+                                        styles.menuItem,
+                                        index === supportItems.length - 1 && styles.menuItemLast
+                                    ]}
+                                >
+                                    <View style={styles.menuIconContainer}>
+                                        <Text style={styles.menuIcon}>{item.icon}</Text>
+                                    </View>
+                                    <View style={styles.menuContent}>
+                                        <Text style={styles.menuTitle}>{item.title}</Text>
+                                    </View>
+                                    <Text style={styles.menuArrow}>›</Text>
+                                </Pressable>
+                            ))}
+                        </View>
                     </View>
-                </View>
 
+                    {/* Logout Button */}
+                    <Pressable style={styles.logoutButton} onPress={handleLogout}>
+                        <Text style={styles.logoutIcon}>🚪</Text>
+                        <Text style={styles.logoutText}>Cerrar sesión</Text>
+                    </Pressable>
 
+                    {/* App Version */}
+                    <Text style={styles.versionText}>Buskdos v1.0.0</Text>
+                </ScrollView>
 
-                {/* Menu Section */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Mi cuenta</Text>
-                    <View style={styles.menuCard}>
-                        {menuItems.map((item, index) => (
-                            <Pressable
-                                key={item.id}
-                                style={[
-                                    styles.menuItem,
-                                    index === menuItems.length - 1 && styles.menuItemLast
-                                ]}
-                            >
-                                <View style={styles.menuIconContainer}>
-                                    <Text style={styles.menuIcon}>{item.icon}</Text>
-                                </View>
-                                <View style={styles.menuContent}>
-                                    <Text style={styles.menuTitle}>{item.title}</Text>
-                                    {item.subtitle && (
-                                        <Text style={styles.menuSubtitle}>{item.subtitle}</Text>
-                                    )}
-                                </View>
-                                <Text style={styles.menuArrow}>›</Text>
-                            </Pressable>
-                        ))}
-                    </View>
-                </View>
-
-                {/* Support Section */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Soporte</Text>
-                    <View style={styles.menuCard}>
-                        {supportItems.map((item, index) => (
-                            <Pressable
-                                key={item.id}
-                                style={[
-                                    styles.menuItem,
-                                    index === supportItems.length - 1 && styles.menuItemLast
-                                ]}
-                            >
-                                <View style={styles.menuIconContainer}>
-                                    <Text style={styles.menuIcon}>{item.icon}</Text>
-                                </View>
-                                <View style={styles.menuContent}>
-                                    <Text style={styles.menuTitle}>{item.title}</Text>
-                                </View>
-                                <Text style={styles.menuArrow}>›</Text>
-                            </Pressable>
-                        ))}
-                    </View>
-                </View>
-
-                {/* Logout Button */}
-                <Pressable style={styles.logoutButton} onPress={handleLogout}>
-                    <Text style={styles.logoutIcon}>🚪</Text>
-                    <Text style={styles.logoutText}>Cerrar sesión</Text>
-                </Pressable>
-
-                {/* App Version */}
-                <Text style={styles.versionText}>Buskdos v1.0.0</Text>
-            </ScrollView>
-
-            <HomeTabBar activeRoute="/profile" />
-        </View>
+                <HomeTabBar activeRoute="/profile" />
+            </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: Platform.OS === 'android' ? 0 : 0,
+    },
     container: {
         flex: 1,
         backgroundColor: '#f8f8f8',

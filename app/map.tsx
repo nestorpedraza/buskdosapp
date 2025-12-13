@@ -4,6 +4,7 @@ import {
     Animated,
     Dimensions,
     Image,
+    Platform,
     Pressable,
     ScrollView,
     StyleSheet,
@@ -11,6 +12,7 @@ import {
     TextInput,
     View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
 
@@ -319,114 +321,121 @@ export default function MapScreen() {
     };
 
     return (
-        <View style={styles.container}>
-            {/* Header */}
-            <HomeHeader />
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+                {/* Header */}
+                <HomeHeader />
 
-            {/* Map Placeholder */}
-            <View style={styles.mapContainer}>
-                <Image
-                    source={require('../assets/images/mapa.png')}
-                    style={styles.mapImage}
-                    resizeMode="cover"
-                />
+                {/* Map Placeholder */}
+                <View style={styles.mapContainer}>
+                    <Image
+                        source={require('../assets/images/mapa.png')}
+                        style={styles.mapImage}
+                        resizeMode="cover"
+                    />
 
 
-                {/* Floating Search Bar */}
-                <View style={styles.floatingSearchContainer}>
-                    <View style={styles.searchBar}>
-                        <Text style={styles.searchIcon}>🔍</Text>
-                        <TextInput
-                            style={styles.searchInput}
-                            placeholder="Buscar lugares cercanos..."
-                            value={searchQuery}
-                            onChangeText={setSearchQuery}
-                            placeholderTextColor="#888"
-                        />
+                    {/* Floating Search Bar */}
+                    <View style={styles.floatingSearchContainer}>
+                        <View style={styles.searchBar}>
+                            <Text style={styles.searchIcon}>🔍</Text>
+                            <TextInput
+                                style={styles.searchInput}
+                                placeholder="Buscar lugares cercanos..."
+                                value={searchQuery}
+                                onChangeText={setSearchQuery}
+                                placeholderTextColor="#888"
+                            />
+                        </View>
                     </View>
-                </View>
 
 
-                {/* Category Pills */}
-                <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    style={styles.categoryScrollView}
-                    contentContainerStyle={styles.categoryContent}
-                >
-                    {categories.map((cat) => (
-                        <Pressable
-                            key={cat.id}
-                            style={[
-                                styles.categoryPill,
-                                selectedCategory === cat.id && styles.categoryPillActive
-                            ]}
-                            onPress={() => setSelectedCategory(cat.id)}
-                        >
-                            <Text style={styles.categoryIcon}>{cat.icon}</Text>
-                            <Text style={[
-                                styles.categoryText,
-                                selectedCategory === cat.id && styles.categoryTextActive
-                            ]}>
-                                {cat.name}
-                            </Text>
-                        </Pressable>
-                    ))}
-                </ScrollView>
-
-                {/* Recenter Button */}
-                <Pressable style={styles.recenterButton}>
-                    <Text style={styles.recenterIcon}>📍</Text>
-                </Pressable>
-            </View>
-
-            {/* Bottom Sheet with nearby places */}
-            <Animated.View style={[styles.bottomSheet, {
-                height: bottomSheetAnim.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [80, height * 0.85],
-                }),
-            }]}>
-                <Pressable onPress={toggleBottomSheet} style={styles.bottomSheetHeader}>
-                    <Text style={styles.bottomSheetTitle}>Lugares cercanos</Text>
-                    <Text style={styles.expandIcon}>{isExpanded ? '▼' : '▲'}</Text>
-                </Pressable>
-                {isExpanded && (
+                    {/* Category Pills */}
                     <ScrollView
-                        showsVerticalScrollIndicator={false}
-                        contentContainerStyle={styles.placesContent}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        style={styles.categoryScrollView}
+                        contentContainerStyle={styles.categoryContent}
                     >
-                        {filteredPlaces.map((place) => (
-                            <Pressable key={place.id} style={styles.placeCard}>
-                                <View style={styles.placeIcon}>
-                                    <Text style={styles.placeIconText}>
-                                        {place.category === 'restaurant' ? '🍽️' :
-                                            place.category === 'cafe' ? '☕' :
-                                                place.category === 'shop' ? '🛍️' :
-                                                    place.category === 'gym' ? '💪' : '🏥'}
-                                    </Text>
-                                </View>
-                                <View style={styles.placeInfo}>
-                                    <Text style={styles.placeName}>{place.name}</Text>
-                                    <View style={styles.placeDetails}>
-                                        <Text style={styles.placeRating}>⭐ {place.rating}</Text>
-                                        <Text style={styles.placeDistance}>📍 {place.distance}</Text>
-                                    </View>
-                                </View>
-                                <Text style={styles.placeArrow}>›</Text>
+                        {categories.map((cat) => (
+                            <Pressable
+                                key={cat.id}
+                                style={[
+                                    styles.categoryPill,
+                                    selectedCategory === cat.id && styles.categoryPillActive
+                                ]}
+                                onPress={() => setSelectedCategory(cat.id)}
+                            >
+                                <Text style={styles.categoryIcon}>{cat.icon}</Text>
+                                <Text style={[
+                                    styles.categoryText,
+                                    selectedCategory === cat.id && styles.categoryTextActive
+                                ]}>
+                                    {cat.name}
+                                </Text>
                             </Pressable>
                         ))}
                     </ScrollView>
-                )}
-            </Animated.View>
 
-            {/* Bottom Tab Bar */}
-            <HomeTabBar activeRoute="/map" />
-        </View>
+                    {/* Recenter Button */}
+                    <Pressable style={styles.recenterButton}>
+                        <Text style={styles.recenterIcon}>📍</Text>
+                    </Pressable>
+                </View>
+
+                {/* Bottom Sheet with nearby places */}
+                <Animated.View style={[styles.bottomSheet, {
+                    height: bottomSheetAnim.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [80, height * 0.85],
+                    }),
+                }]}>
+                    <Pressable onPress={toggleBottomSheet} style={styles.bottomSheetHeader}>
+                        <Text style={styles.bottomSheetTitle}>Lugares cercanos</Text>
+                        <Text style={styles.expandIcon}>{isExpanded ? '▼' : '▲'}</Text>
+                    </Pressable>
+                    {isExpanded && (
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            contentContainerStyle={styles.placesContent}
+                        >
+                            {filteredPlaces.map((place) => (
+                                <Pressable key={place.id} style={styles.placeCard}>
+                                    <View style={styles.placeIcon}>
+                                        <Text style={styles.placeIconText}>
+                                            {place.category === 'restaurant' ? '🍽️' :
+                                                place.category === 'cafe' ? '☕' :
+                                                    place.category === 'shop' ? '🛍️' :
+                                                        place.category === 'gym' ? '💪' : '🏥'}
+                                        </Text>
+                                    </View>
+                                    <View style={styles.placeInfo}>
+                                        <Text style={styles.placeName}>{place.name}</Text>
+                                        <View style={styles.placeDetails}>
+                                            <Text style={styles.placeRating}>⭐ {place.rating}</Text>
+                                            <Text style={styles.placeDistance}>📍 {place.distance}</Text>
+                                        </View>
+                                    </View>
+                                    <Text style={styles.placeArrow}>›</Text>
+                                </Pressable>
+                            ))}
+                        </ScrollView>
+                    )}
+                </Animated.View>
+
+                {/* Bottom Tab Bar */}
+                <HomeTabBar activeRoute="/map" />
+            </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: Platform.OS === 'android' ? 0 : 0,
+    },
     container: {
         flex: 1,
         backgroundColor: '#fff',

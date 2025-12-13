@@ -35,7 +35,7 @@ export default function HomeHeader() {
 
 const styles = StyleSheet.create({
     headerGradient: {
-        paddingTop: 50,
+        paddingTop: 10,
         paddingBottom: 1,
         paddingHorizontal: 20,
         borderBottomLeftRadius: 30,
