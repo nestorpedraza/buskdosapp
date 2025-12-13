@@ -52,7 +52,7 @@ export default function HomeTabBar({ activeRoute = '/' }: HomeTabBarProps) {
             ))}
 
             {/* Tab central activo */}
-            <Pressable style={styles.tabItemCenter}>
+            <Pressable style={styles.tabItemCenter} onPress={() => router.push('/homescreen')}>
                 <LinearGradient
                     colors={getGradientColors()}
                     start={{ x: 0, y: 0 }}
