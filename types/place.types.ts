@@ -90,6 +90,7 @@ export interface DeliveryAppLinks {
 }
 
 export interface GalleryItem {
+    title: string;
     id: string;
     type: 'image' | 'video';
     url: ImageSourcePropType;

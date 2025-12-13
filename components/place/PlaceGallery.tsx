@@ -12,6 +12,7 @@ import {
     View,
 } from 'react-native';
 import { GalleryItem } from '../../types/place.types';
+import GalleryViewer from './GalleryViewer';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const ITEM_SIZE = (SCREEN_WIDTH - 48) / 3;
@@ -23,12 +24,16 @@ interface PlaceGalleryProps {
 
 export default function PlaceGallery({ items, onItemPress }: PlaceGalleryProps) {
     const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
+    const [viewerVisible, setViewerVisible] = useState(false);
+    const [viewerIndex, setViewerIndex] = useState(0);
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [likedItems, setLikedItems] = useState<Set<string>>(new Set());
     const [favoriteItems, setFavoriteItems] = useState<Set<string>>(new Set());
 
     const handleItemPress = (item: GalleryItem) => {
         setSelectedItem(item);
+        setViewerIndex(items.findIndex(i => i.id === item.id));
+        setViewerVisible(true);
         onItemPress?.(item);
     };
 
@@ -177,85 +182,13 @@ export default function PlaceGallery({ items, onItemPress }: PlaceGalleryProps) 
                 pagingEnabled
             />
 
-            {/* Modal de visualización */}
-            <Modal
-                visible={!!selectedItem}
-                transparent
-                animationType="fade"
-                onRequestClose={() => setSelectedItem(null)}
-            >
-                <View style={styles.modalContainer}>
-                    <TouchableOpacity
-                        style={styles.modalClose}
-                        onPress={() => setSelectedItem(null)}
-                    >
-                        <Text style={styles.modalCloseIcon}>✕</Text>
-                    </TouchableOpacity>
-
-                    {selectedItem && (
-                        <View style={styles.modalContent}>
-                            <Image
-                                source={selectedItem.url}
-                                style={styles.modalImage}
-                                resizeMode="contain"
-                            />
-
-                            {/* Acciones estilo TikTok */}
-                            <View style={styles.actionsSidebar}>
-                                <TouchableOpacity
-                                    style={styles.actionButton}
-                                    onPress={() => handleLike(selectedItem.id)}
-                                >
-                                    <Text style={[
-                                        styles.actionIcon,
-                                        likedItems.has(selectedItem.id) && styles.likedIcon
-                                    ]}>
-                                        {likedItems.has(selectedItem.id) ? '❤️' : '🤍'}
-                                    </Text>
-                                    <Text style={styles.actionCount}>
-                                        {selectedItem.likes + (likedItems.has(selectedItem.id) ? 1 : 0)}
-                                    </Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity style={styles.actionButton}>
-                                    <Text style={styles.actionIcon}>💬</Text>
-                                    <Text style={styles.actionCount}>{selectedItem.comments}</Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    style={styles.actionButton}
-                                    onPress={() => handleFavorite(selectedItem.id)}
-                                >
-                                    <Text style={[
-                                        styles.actionIcon,
-                                        favoriteItems.has(selectedItem.id) && styles.favoriteIcon
-                                    ]}>
-                                        {favoriteItems.has(selectedItem.id) ? '⭐' : '☆'}
-                                    </Text>
-                                    <Text style={styles.actionCount}>Guardar</Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    style={styles.actionButton}
-                                    onPress={() => setShowShareMenu(true)}
-                                >
-                                    <Text style={styles.actionIcon}>↗️</Text>
-                                    <Text style={styles.actionCount}>{selectedItem.shares}</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                            {/* Descripción */}
-                            {selectedItem.description && (
-                                <View style={styles.descriptionContainer}>
-                                    <Text style={styles.descriptionText}>
-                                        {selectedItem.description}
-                                    </Text>
-                                </View>
-                            )}
-                        </View>
-                    )}
-                </View>
-            </Modal>
+            {/* GalleryViewer tipo TikTok */}
+            <GalleryViewer
+                visible={viewerVisible}
+                items={items}
+                initialIndex={viewerIndex}
+                onClose={() => setViewerVisible(false)}
+            />
 
             {/* Modal de compartir */}
             <Modal
