@@ -188,11 +188,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     listContent: {
-        padding: 0,
-        paddingBottom: 0,
+        padding: 20,
+        paddingBottom: 100,
     },
     columnWrapper: {
         justifyContent: 'space-between',
-        marginBottom: 0,
+        marginBottom: 15,
     },
 });

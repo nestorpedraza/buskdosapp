@@ -323,9 +323,7 @@ export default function MapScreen() {
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
-                {/* Header */}
                 <HomeHeader />
-
                 {/* Map Placeholder */}
                 <View style={styles.mapContainer}>
                     <Image
@@ -333,7 +331,6 @@ export default function MapScreen() {
                         style={styles.mapImage}
                         resizeMode="cover"
                     />
-
 
                     {/* Floating Search Bar */}
                     <View style={styles.floatingSearchContainer}>
@@ -348,7 +345,6 @@ export default function MapScreen() {
                             />
                         </View>
                     </View>
-
 
                     {/* Category Pills */}
                     <ScrollView
@@ -387,7 +383,7 @@ export default function MapScreen() {
                 <Animated.View style={[styles.bottomSheet, {
                     height: bottomSheetAnim.interpolate({
                         inputRange: [0, 1],
-                        outputRange: [80, height * 0.85],
+                        outputRange: [80, height * 0.75],
                     }),
                 }]}>
                     <Pressable onPress={toggleBottomSheet} style={styles.bottomSheetHeader}>
@@ -556,7 +552,7 @@ const styles = StyleSheet.create({
     },
     bottomSheet: {
         position: 'absolute',
-        bottom: 80,
+        bottom: 60,
         left: 0,
         right: 0,
         backgroundColor: 'rgba(255, 255, 255, 0.95)',
@@ -574,7 +570,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 12,
         paddingHorizontal: 20,
-        paddingBottom: 12,
+        paddingBottom: 10,
         justifyContent: 'space-between',
         backgroundColor: 'rgba(255, 255, 255, 0.21)',
         borderTopLeftRadius: 25,
