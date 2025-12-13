@@ -29,6 +29,7 @@ interface PlaceContactInfoProps {
     };
     isOpen?: boolean;
     website: string;
+    emails?: { type: string; email: string }[];
 }
 
 export default function PlaceContactInfo({
@@ -39,6 +40,7 @@ export default function PlaceContactInfo({
     schedule,
     isOpen,
     website,
+    emails,
 }: PlaceContactInfoProps) {
     const handleOpenMaps = () => {
         const url = `https://www.google.com/maps/search/?api=1&query=${coordinates.latitude},${coordinates.longitude}`;
@@ -83,6 +85,21 @@ export default function PlaceContactInfo({
 
             {/* Lista de contactos */}
             <View style={styles.contactList}>
+                {/* Correos electrónicos */}
+                {emails && emails.length > 0 && emails.map((item, idx) => (
+                    <View style={styles.contactItem} key={item.email}>
+                        <View style={styles.contactIcon}>
+                            <Text style={styles.iconEmoji}>✉️</Text>
+                        </View>
+                        <View style={styles.contactContent}>
+                            <Text style={styles.contactLabel}>{item.type}</Text>
+                            <Text style={styles.contactValue}>{item.email}</Text>
+                        </View>
+                        <TouchableOpacity style={styles.actionButton} onPress={() => Linking.openURL(`mailto:${item.email}`)}>
+                            <Text style={styles.actionButtonText}>Email</Text>
+                        </TouchableOpacity>
+                    </View>
+                ))}
                 {/* Dirección */}
                 <View style={styles.contactItem}>
                     <View style={styles.contactIcon}>

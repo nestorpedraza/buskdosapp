@@ -12,6 +12,7 @@ import FloatingChatButton from '../../components/place/FloatingChatButton';
 import PlaceApps from '../../components/place/PlaceApps';
 import PlaceComments from '../../components/place/PlaceComments';
 import PlaceContactInfo from '../../components/place/PlaceContactInfo';
+import PlaceEcommerceApps from '../../components/place/PlaceEcommerceApps';
 import PlaceGallery from '../../components/place/PlaceGallery';
 import PlaceHeader from '../../components/place/PlaceHeader';
 import PlacePromotions from '../../components/place/PlacePromotions';
@@ -129,6 +130,12 @@ export default function PlaceDetailScreen() {
         },
         isOpen: true,
         website: 'www.lacasaitaliana.com.co',
+
+        emails: [
+            { type: 'Principal', email: 'info@lacasaitaliana.com.co' },
+            { type: 'Ventas', email: 'ventas@lacasaitaliana.com.co' },
+            { type: 'Jurídica', email: 'legal@lacasaitaliana.com.co' },
+        ],
 
         socialMedia: {
             facebook: 'https://facebook.com/lacasaitaliana',
@@ -383,14 +390,19 @@ export default function PlaceDetailScreen() {
                     schedule={placeData.schedule}
                     isOpen={placeData.isOpen}
                     website={placeData.website}
+                    emails={placeData.emails}
                 />
 
                 <View style={styles.divider} />
+
 
                 <PlaceApps
                     socialMedia={placeData.socialMedia}
                     deliveryApps={placeData.deliveryApps}
                 />
+
+                {/* E-commerce apps */}
+                <PlaceEcommerceApps />
 
                 {/* Comentarios y reseñas al final */}
                 <View style={styles.divider} />

@@ -31,6 +31,8 @@ export interface PlaceDetails {
     schedule: string | PlaceSchedule;
     isOpen?: boolean;
     website: string;
+    /** Correos electrónicos de contacto, con tipo/rol */
+    emails?: { type: string; email: string }[];
 
     // Redes sociales
     socialMedia: SocialMediaLinks;
