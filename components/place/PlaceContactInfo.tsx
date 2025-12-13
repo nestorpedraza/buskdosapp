@@ -8,6 +8,12 @@ import {
     View,
 } from 'react-native';
 
+interface PlaceSchedule {
+    weekdays: string;
+    saturday?: string;
+    sunday?: string;
+}
+
 interface PlaceContactInfoProps {
     address: string;
     coordinates: {
@@ -16,7 +22,12 @@ interface PlaceContactInfoProps {
     };
     phone: string;
     whatsapp: string;
-    schedule: string;
+    schedule: string | {
+        weekdays?: string;
+        saturday?: string;
+        sunday?: string;
+    };
+    isOpen?: boolean;
     website: string;
 }
 
@@ -26,6 +37,7 @@ export default function PlaceContactInfo({
     phone,
     whatsapp,
     schedule,
+    isOpen,
     website,
 }: PlaceContactInfoProps) {
     const handleOpenMaps = () => {
@@ -118,17 +130,30 @@ export default function PlaceContactInfo({
                     </TouchableOpacity>
                 </View>
 
-                {/* Horario */}
-                <View style={styles.contactItem}>
+                <View style={[styles.contactItem, { position: 'relative' }]}>
                     <View style={styles.contactIcon}>
                         <Text style={styles.iconEmoji}>🕐</Text>
                     </View>
-                    <View style={styles.contactContent}>
+                    <View style={[styles.contactContent, { flex: 1 }]}>
                         <Text style={styles.contactLabel}>Horario</Text>
-                        <Text style={styles.contactValue}>{schedule}</Text>
+                        {typeof schedule === 'string' ? (
+                            <Text style={styles.contactValue}>{schedule}</Text>
+                        ) : (
+                            <View>
+                                {schedule.weekdays && (
+                                    <Text style={styles.contactValue}>Lun-Vie: {schedule.weekdays}</Text>
+                                )}
+                                {schedule.saturday && (
+                                    <Text style={styles.contactValue}>Sáb: {schedule.saturday}</Text>
+                                )}
+                                {schedule.sunday && (
+                                    <Text style={styles.contactValue}>Dom: {schedule.sunday}</Text>
+                                )}
+                            </View>
+                        )}
                     </View>
-                    <View style={styles.statusBadge}>
-                        <Text style={styles.statusText}>Abierto</Text>
+                    <View style={styles.statusBadgeFloating}>
+                        <Text style={[styles.statusText, { color: isOpen ? '#22c55e' : '#ef4444' }]}>{isOpen ? 'Abierto' : 'Cerrado'}</Text>
                     </View>
                 </View>
 
@@ -153,6 +178,24 @@ export default function PlaceContactInfo({
 }
 
 const styles = StyleSheet.create({
+    statusBadgeFloating: {
+        position: 'absolute',
+        right: 0,
+        top: '50%',
+        transform: [{ translateY: -16 }],
+        backgroundColor: '#fff',
+        borderRadius: 16,
+        borderWidth: 1.5,
+        borderColor: '#e5e7eb',
+        paddingHorizontal: 14,
+        paddingVertical: 4,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.08,
+        shadowRadius: 4,
+        elevation: 2,
+        zIndex: 2,
+    },
     container: {
         backgroundColor: '#fff',
         paddingVertical: 16,

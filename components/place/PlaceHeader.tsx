@@ -9,6 +9,12 @@ import {
     View,
 } from 'react-native';
 
+interface PlaceSchedule {
+    weekdays: string;
+    saturday?: string;
+    sunday?: string;
+}
+
 interface PlaceHeaderProps {
     logo: ImageSourcePropType;
     coverImage?: ImageSourcePropType;
@@ -18,7 +24,9 @@ interface PlaceHeaderProps {
     rating: number;
     reviews: number;
     category: string;
-    schedule?: string;
+    organization?: string;
+    onOrganizationPress?: () => void;
+    schedule?: string | PlaceSchedule;
     isOpen?: boolean;
     onShare: () => void;
     onFavorite: () => void;
@@ -45,6 +53,8 @@ export default function PlaceHeader({
     rating,
     reviews,
     category,
+    organization,
+    onOrganizationPress,
     schedule,
     isOpen = true,
     onShare,
@@ -106,7 +116,15 @@ export default function PlaceHeader({
 
                 {/* Info del lugar */}
                 <View style={styles.infoContainer}>
-                    <Text style={styles.name} numberOfLines={1}>{name}</Text>
+                    <Text style={styles.name} numberOfLines={2}>{name}</Text>
+
+                    {organization && (
+                        <TouchableOpacity onPress={onOrganizationPress} activeOpacity={0.7}>
+                            <Text style={styles.organizationText} numberOfLines={1}>
+                                {organization}
+                            </Text>
+                        </TouchableOpacity>
+                    )}
 
                     <View style={styles.categoryBadge}>
                         <Text style={styles.categoryText}>{category}</Text>
@@ -132,7 +150,27 @@ export default function PlaceHeader({
                     </Text>
                     <Text style={styles.scheduleDivider}>•</Text>
                     <Text style={styles.scheduleIcon}>🕒</Text>
-                    <Text style={[styles.scheduleText, !isOpen && styles.scheduleTextClosed]}>{schedule}</Text>
+                    <View style={styles.scheduleDetails}>
+                        {typeof schedule === 'string' ? (
+                            <Text style={[styles.scheduleText, !isOpen && styles.scheduleTextClosed]}>{schedule}</Text>
+                        ) : (
+                            <>
+                                <Text style={[styles.scheduleText, !isOpen && styles.scheduleTextClosed]}>
+                                    Lun-Vie: {schedule.weekdays}
+                                </Text>
+                                {schedule.saturday && (
+                                    <Text style={[styles.scheduleText, !isOpen && styles.scheduleTextClosed]}>
+                                        Sáb: {schedule.saturday}
+                                    </Text>
+                                )}
+                                {schedule.sunday && (
+                                    <Text style={[styles.scheduleText, !isOpen && styles.scheduleTextClosed]}>
+                                        Dom: {schedule.sunday}
+                                    </Text>
+                                )}
+                            </>
+                        )}
+                    </View>
                 </View>
             )}
 
@@ -212,15 +250,22 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: 'bold',
     },
+    organizationText: {
+        fontSize: 12,
+        color: '#8b5cf6',
+        marginBottom: 6,
+        textDecorationLine: 'underline',
+    },
     infoContainer: {
         flex: 1,
         paddingTop: 50,
     },
     name: {
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#1a1a1a',
-        marginBottom: 6,
+        marginBottom: 2,
+        flexWrap: 'wrap',
     },
     categoryBadge: {
         alignSelf: 'flex-start',
@@ -269,7 +314,7 @@ const styles = StyleSheet.create({
     },
     scheduleContainer: {
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         backgroundColor: '#f0fdf4',
         paddingHorizontal: 12,
         paddingVertical: 8,
@@ -311,6 +356,10 @@ const styles = StyleSheet.create({
     scheduleIcon: {
         fontSize: 12,
         marginRight: 4,
+    },
+    scheduleDetails: {
+        flexDirection: 'column',
+        flex: 1,
     },
     scheduleText: {
         fontSize: 12,

@@ -34,6 +34,7 @@ export default function PlaceDetailScreen() {
         reviews: 847,
         category: 'Restaurantes',
         subcategory: 'Italiana',
+        organization: 'Buskados Company',
         price: '$35 promedio',
 
         address: 'Calle 85 #15-32, Zona Rosa, Bogotá',
@@ -43,7 +44,11 @@ export default function PlaceDetailScreen() {
         },
         phone: '+57 1 234 5678',
         whatsapp: '+57 320 123 4567',
-        schedule: 'Lun - Sáb: 12:00 - 22:00',
+        schedule: {
+            weekdays: '12:00 - 22:00',
+            saturday: '12:00 - 23:00',
+            sunday: '12:00 - 20:00',
+        },
         isOpen: true,
         website: 'www.lacasaitaliana.com.co',
 
@@ -209,6 +214,11 @@ export default function PlaceDetailScreen() {
         );
     };
 
+    const handleOrganizationPress = () => {
+        // Por ahora muestra un alert, después navegará al perfil de la organización
+        Alert.alert('Organización', `Ver perfil de ${placeData.organization}`);
+    };
+
     const handleSubmitReview = (rating: number, comment: string) => {
         Alert.alert('Gracias', `Tu reseña de ${rating} estrellas ha sido enviada.`);
         console.log('New review:', { rating, comment });
@@ -237,6 +247,8 @@ export default function PlaceDetailScreen() {
                     rating={placeData.rating}
                     reviews={placeData.reviews}
                     category={placeData.category}
+                    organization={placeData.organization}
+                    onOrganizationPress={handleOrganizationPress}
                     schedule={placeData.schedule}
                     isOpen={placeData.isOpen}
                     onShare={handleShare}
@@ -272,6 +284,7 @@ export default function PlaceDetailScreen() {
                     phone={placeData.phone}
                     whatsapp={placeData.whatsapp}
                     schedule={placeData.schedule}
+                    isOpen={placeData.isOpen}
                     website={placeData.website}
                 />
 

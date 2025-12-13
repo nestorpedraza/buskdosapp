@@ -1,5 +1,11 @@
 import { ImageSourcePropType } from 'react-native';
 
+export interface PlaceSchedule {
+    weekdays: string;      // Lun - Vie
+    saturday?: string;     // Sábado
+    sunday?: string;       // Domingo
+}
+
 export interface PlaceDetails {
     id: string;
     name: string;
@@ -11,6 +17,7 @@ export interface PlaceDetails {
     reviews: number;
     category: string;
     subcategory: string;
+    organization?: string;
     price: string;
 
     // Contacto
@@ -21,7 +28,7 @@ export interface PlaceDetails {
     };
     phone: string;
     whatsapp: string;
-    schedule: string;
+    schedule: string | PlaceSchedule;
     isOpen?: boolean;
     website: string;
 
