@@ -2,10 +2,12 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import {
     Alert,
+    Platform,
     ScrollView,
     StyleSheet,
-    View,
+    View
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import HomeTabBar from '../../components/HomeTabBar';
 import FloatingChatButton from '../../components/place/FloatingChatButton';
@@ -122,7 +124,17 @@ export default function PlaceDetailScreen() {
             longitude: -74.0482,
         },
         phone: '+57 1 234 5678',
+        phones: [
+            { type: 'Principal', phone: '+57 1 234 5678' },
+            { type: 'Reservas', phone: '+57 320 111 2233' },
+            { type: 'Gerencia', phone: '+57 320 999 8888' },
+        ],
         whatsapp: '+57 320 123 4567',
+        whatsapps: [
+            { type: 'Principal', whatsapp: '+57 320 123 4567' },
+            { type: 'Reservas', whatsapp: '+57 320 222 3344' },
+            { type: 'Gerencia', whatsapp: '+57 320 555 6666' },
+        ],
         schedule: {
             weekdays: '12:00 - 22:00',
             saturday: '12:00 - 23:00',
@@ -330,108 +342,117 @@ export default function PlaceDetailScreen() {
     };
 
     return (
-        <View style={styles.container}>
-            <ScrollView
-                style={styles.scrollView}
-                showsVerticalScrollIndicator={false}
-            >
-                <PlaceHeader
-                    logo={placeData.logo}
-                    coverImage={placeData.coverImage}
-                    name={placeData.name}
-                    description={placeData.description}
-                    isVerified={placeData.isVerified}
-                    rating={placeData.rating}
-                    reviews={placeData.reviews}
-                    category={placeData.category}
-                    organization={placeData.organization}
-                    onOrganizationPress={handleOrganizationPress}
-                    schedule={placeData.schedule}
-                    isOpen={placeData.isOpen}
-                    onShare={handleShare}
-                    onFavorite={handleToggleFavorite}
-                    onRecommend={handleRecommend}
-                    onReport={handleReport}
-                    isFavorite={isFavorite}
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+                <ScrollView
+                    style={styles.scrollView}
+                    showsVerticalScrollIndicator={false}
+                >
+                    <PlaceHeader
+                        logo={placeData.logo}
+                        coverImage={placeData.coverImage}
+                        name={placeData.name}
+                        description={placeData.description}
+                        isVerified={placeData.isVerified}
+                        rating={placeData.rating}
+                        reviews={placeData.reviews}
+                        category={placeData.category}
+                        organization={placeData.organization}
+                        onOrganizationPress={handleOrganizationPress}
+                        schedule={placeData.schedule}
+                        isOpen={placeData.isOpen}
+                        onShare={handleShare}
+                        onFavorite={handleToggleFavorite}
+                        onRecommend={handleRecommend}
+                        onReport={handleReport}
+                        isFavorite={isFavorite}
+                    />
+
+                    {/* Promociones */}
+                    {placeData.promotions && placeData.promotions.length > 0 && (
+                        <>
+                            <View style={styles.divider} />
+                            <PlacePromotions
+                                promotions={placeData.promotions}
+                                onPromotionPress={handlePromotionPress}
+                            />
+                        </>
+                    )}
+
+                    <View style={styles.divider} />
+
+
+                    <PlaceGallery
+                        items={placeData.gallery}
+                        onItemPress={handleGalleryItemPress}
+                    />
+
+                    {/* Otros lugares de la misma cuenta */}
+                    <RelatedPlacesCarousel
+                        places={relatedPlaces}
+                        onPlacePress={handleRelatedPlacePress}
+                    />
+
+                    <View style={styles.divider} />
+
+                    <PlaceContactInfo
+                        address={placeData.address}
+                        coordinates={placeData.coordinates}
+                        phone={placeData.phone}
+                        phones={placeData.phones}
+                        whatsapp={placeData.whatsapp}
+                        whatsapps={placeData.whatsapps}
+                        schedule={placeData.schedule}
+                        isOpen={placeData.isOpen}
+                        website={placeData.website}
+                        emails={placeData.emails}
+                    />
+
+                    <View style={styles.divider} />
+
+
+                    <PlaceApps
+                        socialMedia={placeData.socialMedia}
+                        deliveryApps={placeData.deliveryApps}
+                    />
+
+                    {/* E-commerce apps */}
+                    <PlaceEcommerceApps />
+
+                    {/* Comentarios y reseñas al final */}
+                    <View style={styles.divider} />
+                    <PlaceComments
+                        reviews={placeData.reviewsList || []}
+                        totalReviews={placeData.reviews}
+                        averageRating={placeData.rating}
+                        onSubmitReview={handleSubmitReview}
+                        onLikeReview={handleLikeReview}
+                        onReplyReview={handleReplyReview}
+                    />
+
+                    {/* Espacio extra para el botón flotante */}
+                    <View style={styles.bottomSpacer} />
+                </ScrollView>
+
+                {/* Botón de chat flotante */}
+                <FloatingChatButton
+                    onPress={handleChatPress}
+                    unreadCount={3}
                 />
 
-                {/* Promociones */}
-                {placeData.promotions && placeData.promotions.length > 0 && (
-                    <>
-                        <View style={styles.divider} />
-                        <PlacePromotions
-                            promotions={placeData.promotions}
-                            onPromotionPress={handlePromotionPress}
-                        />
-                    </>
-                )}
-
-                <View style={styles.divider} />
-
-
-                <PlaceGallery
-                    items={placeData.gallery}
-                    onItemPress={handleGalleryItemPress}
-                />
-
-                {/* Otros lugares de la misma cuenta */}
-                <RelatedPlacesCarousel
-                    places={relatedPlaces}
-                    onPlacePress={handleRelatedPlacePress}
-                />
-
-                <View style={styles.divider} />
-
-                <PlaceContactInfo
-                    address={placeData.address}
-                    coordinates={placeData.coordinates}
-                    phone={placeData.phone}
-                    whatsapp={placeData.whatsapp}
-                    schedule={placeData.schedule}
-                    isOpen={placeData.isOpen}
-                    website={placeData.website}
-                    emails={placeData.emails}
-                />
-
-                <View style={styles.divider} />
-
-
-                <PlaceApps
-                    socialMedia={placeData.socialMedia}
-                    deliveryApps={placeData.deliveryApps}
-                />
-
-                {/* E-commerce apps */}
-                <PlaceEcommerceApps />
-
-                {/* Comentarios y reseñas al final */}
-                <View style={styles.divider} />
-                <PlaceComments
-                    reviews={placeData.reviewsList || []}
-                    totalReviews={placeData.reviews}
-                    averageRating={placeData.rating}
-                    onSubmitReview={handleSubmitReview}
-                    onLikeReview={handleLikeReview}
-                    onReplyReview={handleReplyReview}
-                />
-
-                {/* Espacio extra para el botón flotante */}
-                <View style={styles.bottomSpacer} />
-            </ScrollView>
-
-            {/* Botón de chat flotante */}
-            <FloatingChatButton
-                onPress={handleChatPress}
-                unreadCount={3}
-            />
-
-            {/* Tab Bar de navegación */}
-            <HomeTabBar activeRoute="/homescreen" />
-        </View>
+                {/* Tab Bar de navegación */}
+                <HomeTabBar activeRoute="/homescreen" />
+            </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: Platform.OS === 'android' ? 0 : 0,
+    },
     container: {
         flex: 1,
         backgroundColor: '#fff',

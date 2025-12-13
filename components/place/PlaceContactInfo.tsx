@@ -21,7 +21,9 @@ interface PlaceContactInfoProps {
         longitude: number;
     };
     phone: string;
+    phones?: { type: string; phone: string }[];
     whatsapp: string;
+    whatsapps?: { type: string; whatsapp: string }[];
     schedule: string | {
         weekdays?: string;
         saturday?: string;
@@ -36,7 +38,9 @@ export default function PlaceContactInfo({
     address,
     coordinates,
     phone,
+    phones,
     whatsapp,
+    whatsapps,
     schedule,
     isOpen,
     website,
@@ -85,6 +89,19 @@ export default function PlaceContactInfo({
 
             {/* Lista de contactos */}
             <View style={styles.contactList}>
+                {/* Dirección */}
+                <View style={styles.contactItem}>
+                    <View style={styles.contactIcon}>
+                        <Text style={styles.iconEmoji}>📍</Text>
+                    </View>
+                    <View style={styles.contactContent}>
+                        <Text style={styles.contactLabel}>Dirección</Text>
+                        <Text style={styles.contactValue}>{address}</Text>
+                    </View>
+                    <TouchableOpacity style={styles.actionButton} onPress={handleOpenMaps}>
+                        <Text style={styles.actionButtonText}>Ir</Text>
+                    </TouchableOpacity>
+                </View>
                 {/* Correos electrónicos */}
                 {emails && emails.length > 0 && emails.map((item, idx) => (
                     <View style={styles.contactItem} key={item.email}>
@@ -100,52 +117,84 @@ export default function PlaceContactInfo({
                         </TouchableOpacity>
                     </View>
                 ))}
-                {/* Dirección */}
-                <View style={styles.contactItem}>
-                    <View style={styles.contactIcon}>
-                        <Text style={styles.iconEmoji}>📍</Text>
-                    </View>
-                    <View style={styles.contactContent}>
-                        <Text style={styles.contactLabel}>Dirección</Text>
-                        <Text style={styles.contactValue}>{address}</Text>
-                    </View>
-                    <TouchableOpacity style={styles.actionButton} onPress={handleOpenMaps}>
-                        <Text style={styles.actionButtonText}>Ir</Text>
-                    </TouchableOpacity>
-                </View>
 
-                {/* Teléfono */}
-                <View style={styles.contactItem}>
-                    <View style={styles.contactIcon}>
-                        <Text style={styles.iconEmoji}>📞</Text>
-                    </View>
-                    <View style={styles.contactContent}>
-                        <Text style={styles.contactLabel}>Teléfono</Text>
-                        <Text style={styles.contactValue}>{phone}</Text>
-                    </View>
-                    <TouchableOpacity style={styles.actionButton} onPress={handleCall}>
-                        <Text style={styles.actionButtonText}>Llamar</Text>
-                    </TouchableOpacity>
-                </View>
+                {/* Teléfonos */}
+                {phones && phones.length > 0
+                    ? phones.map((item, idx) => (
+                        <View style={styles.contactItem} key={item.phone}>
+                            <View style={styles.contactIcon}>
+                                <Text style={styles.iconEmoji}>📞</Text>
+                            </View>
+                            <View style={styles.contactContent}>
+                                <Text style={styles.contactLabel}>{item.type}</Text>
+                                <Text style={styles.contactValue}>{item.phone}</Text>
+                            </View>
+                            <TouchableOpacity style={styles.actionButton} onPress={() => Linking.openURL(`tel:${item.phone}`)}>
+                                <Text style={styles.actionButtonText}>Llamar</Text>
+                            </TouchableOpacity>
+                        </View>
+                    ))
+                    : (
+                        <View style={styles.contactItem}>
+                            <View style={styles.contactIcon}>
+                                <Text style={styles.iconEmoji}>📞</Text>
+                            </View>
+                            <View style={styles.contactContent}>
+                                <Text style={styles.contactLabel}>Teléfono</Text>
+                                <Text style={styles.contactValue}>{phone}</Text>
+                            </View>
+                            <TouchableOpacity style={styles.actionButton} onPress={() => Linking.openURL(`tel:${phone}`)}>
+                                <Text style={styles.actionButtonText}>Llamar</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
 
                 {/* WhatsApp */}
-                <View style={styles.contactItem}>
-                    <View style={[styles.contactIcon, styles.whatsappIcon]}>
-                        <Text style={styles.iconEmoji}>💬</Text>
-                    </View>
-                    <View style={styles.contactContent}>
-                        <Text style={styles.contactLabel}>WhatsApp</Text>
-                        <Text style={styles.contactValue}>{whatsapp}</Text>
-                    </View>
-                    <TouchableOpacity
-                        style={[styles.actionButton, styles.whatsappButton]}
-                        onPress={handleWhatsApp}
-                    >
-                        <Text style={[styles.actionButtonText, styles.whatsappButtonText]}>
-                            Chat
-                        </Text>
-                    </TouchableOpacity>
-                </View>
+                {whatsapps && whatsapps.length > 0
+                    ? whatsapps.map((item, idx) => (
+                        <View style={styles.contactItem} key={item.whatsapp}>
+                            <View style={[styles.contactIcon, styles.whatsappIcon]}>
+                                <Text style={styles.iconEmoji}>💬</Text>
+                            </View>
+                            <View style={styles.contactContent}>
+                                <Text style={styles.contactLabel}>{item.type}</Text>
+                                <Text style={styles.contactValue}>{item.whatsapp}</Text>
+                            </View>
+                            <TouchableOpacity
+                                style={[styles.actionButton, styles.whatsappButton]}
+                                onPress={() => {
+                                    const cleanNumber = item.whatsapp.replace(/\D/g, '');
+                                    Linking.openURL(`whatsapp://send?phone=${cleanNumber}`);
+                                }}
+                            >
+                                <Text style={[styles.actionButtonText, styles.whatsappButtonText]}>
+                                    Chat
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    ))
+                    : (
+                        <View style={styles.contactItem}>
+                            <View style={[styles.contactIcon, styles.whatsappIcon]}>
+                                <Text style={styles.iconEmoji}>💬</Text>
+                            </View>
+                            <View style={styles.contactContent}>
+                                <Text style={styles.contactLabel}>WhatsApp</Text>
+                                <Text style={styles.contactValue}>{whatsapp}</Text>
+                            </View>
+                            <TouchableOpacity
+                                style={[styles.actionButton, styles.whatsappButton]}
+                                onPress={() => {
+                                    const cleanNumber = whatsapp.replace(/\D/g, '');
+                                    Linking.openURL(`whatsapp://send?phone=${cleanNumber}`);
+                                }}
+                            >
+                                <Text style={[styles.actionButtonText, styles.whatsappButtonText]}>
+                                    Chat
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
 
                 <View style={[styles.contactItem, { position: 'relative' }]}>
                     <View style={styles.contactIcon}>

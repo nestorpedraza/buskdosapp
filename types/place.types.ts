@@ -26,8 +26,11 @@ export interface PlaceDetails {
         latitude: number;
         longitude: number;
     };
+    /** Teléfonos de contacto, con tipo/rol */
+    phones?: { type: string; phone: string }[];
     phone: string;
     whatsapp: string;
+    whatsapps?: { type: string; whatsapp: string }[];
     schedule: string | PlaceSchedule;
     isOpen?: boolean;
     website: string;
