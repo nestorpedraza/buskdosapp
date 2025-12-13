@@ -196,7 +196,7 @@ export default function LikesScreen() {
                     showsVerticalScrollIndicator={false}
                 />
             ) : (
-                <LikesEmptyState onExplore={() => router.push('/HomeScreen')} />
+                <LikesEmptyState onExplore={() => router.push('/homescreen')} />
             )}
 
             {/* Bottom Tab Bar */}

@@ -15,14 +15,92 @@ import PlaceContactInfo from '../../components/place/PlaceContactInfo';
 import PlaceGallery from '../../components/place/PlaceGallery';
 import PlaceHeader from '../../components/place/PlaceHeader';
 import PlacePromotions from '../../components/place/PlacePromotions';
+import RelatedPlacesCarousel, { RelatedPlace } from '../../components/place/RelatedPlacesCarousel';
 import { GalleryItem, PlaceDetails, Promotion } from '../../types/place.types';
+// Mock de otros lugares de la misma cuenta
+const relatedPlaces: RelatedPlace[] = [
+    {
+        id: '2',
+        name: 'Pizzería Don Mario',
+        image: require('../../assets/images/city.png'),
+        category: 'Pizzería',
+    },
+    {
+        id: '3',
+        name: 'Trattoria Bella Notte',
+        image: require('../../assets/images/city.png'),
+        category: 'Italiana',
+    },
+    {
+        id: '4',
+        name: 'Gelato & Caffè',
+        image: require('../../assets/images/city.png'),
+        category: 'Café',
+    },
+    {
+        id: '5',
+        name: 'Ristorante Da Vinci',
+        image: require('../../assets/images/city.png'),
+        category: 'Italiana',
+    },
+    {
+        id: '6',
+        name: 'Panadería San Marco',
+        image: require('../../assets/images/city.png'),
+        category: 'Panadería',
+    },
+    {
+        id: '7',
+        name: 'Café Roma',
+        image: require('../../assets/images/city.png'),
+        category: 'Café',
+    },
+    {
+        id: '8',
+        name: 'Bistro Firenze',
+        image: require('../../assets/images/city.png'),
+        category: 'Bistró',
+    },
+    {
+        id: '9',
+        name: 'La Tagliatella',
+        image: require('../../assets/images/city.png'),
+        category: 'Italiana',
+    },
+    {
+        id: '10',
+        name: 'Pizza e Vino',
+        image: require('../../assets/images/city.png'),
+        category: 'Pizzería',
+    },
+    {
+        id: '11',
+        name: 'Dolce Vita',
+        image: require('../../assets/images/city.png'),
+        category: 'Postres',
+    },
+    {
+        id: '12',
+        name: 'Osteria Milano',
+        image: require('../../assets/images/city.png'),
+        category: 'Italiana',
+    },
+    {
+        id: '13',
+        name: 'Bar Torino',
+        image: require('../../assets/images/city.png'),
+        category: 'Bar',
+    },
+];
 
 export default function PlaceDetailScreen() {
     const { id } = useLocalSearchParams<{ id: string }>();
     const router = useRouter();
     const [isFavorite, setIsFavorite] = useState(false);
 
-    // Mock data - en producción vendría de una API
+    const handleRelatedPlacePress = (place: RelatedPlace) => {
+        router.push({ pathname: '/place/[id]', params: { id: place.id } });
+    };
     const placeData: PlaceDetails = useMemo(() => ({
         id: id || '1',
         name: 'Restaurante La Casa Italiana',
@@ -78,6 +156,18 @@ export default function PlaceDetailScreen() {
             { id: '7', type: 'image', url: require('../../assets/images/city.png'), likes: 267, comments: 41, shares: 15 },
             { id: '8', type: 'image', url: require('../../assets/images/city.png'), likes: 198, comments: 29, shares: 11 },
             { id: '9', type: 'video', url: require('../../assets/images/city.png'), likes: 456, comments: 78, shares: 29 },
+            { id: '10', type: 'image', url: require('../../assets/images/city.png'), likes: 321, comments: 22, shares: 10, description: 'Risotto de setas' },
+            { id: '11', type: 'image', url: require('../../assets/images/city.png'), likes: 412, comments: 35, shares: 18, description: 'Ensalada caprese fresca' },
+            { id: '12', type: 'video', url: require('../../assets/images/city.png'), likes: 278, comments: 17, shares: 7, description: 'Show de cocina en vivo' },
+            { id: '13', type: 'image', url: require('../../assets/images/city.png'), likes: 134, comments: 12, shares: 4, description: 'Bruschettas variadas' },
+            { id: '14', type: 'image', url: require('../../assets/images/city.png'), likes: 256, comments: 28, shares: 13, description: 'Mesa de postres' },
+            { id: '15', type: 'video', url: require('../../assets/images/city.png'), likes: 367, comments: 44, shares: 21, description: 'Cata de vinos' },
+            { id: '16', type: 'image', url: require('../../assets/images/city.png'), likes: 145, comments: 16, shares: 6, description: 'Pizza margarita' },
+            { id: '17', type: 'image', url: require('../../assets/images/city.png'), likes: 299, comments: 31, shares: 14, description: 'Antipasto italiano' },
+            { id: '18', type: 'image', url: require('../../assets/images/city.png'), likes: 210, comments: 19, shares: 9, description: 'Café espresso' },
+            { id: '19', type: 'video', url: require('../../assets/images/city.png'), likes: 388, comments: 52, shares: 25, description: 'Receta de lasaña' },
+            { id: '20', type: 'image', url: require('../../assets/images/city.png'), likes: 175, comments: 20, shares: 8, description: 'Helado artesanal' },
+            { id: '21', type: 'image', url: require('../../assets/images/city.png'), likes: 222, comments: 27, shares: 11, description: 'Pan focaccia' },
         ],
 
         promotions: [
@@ -271,9 +361,16 @@ export default function PlaceDetailScreen() {
 
                 <View style={styles.divider} />
 
+
                 <PlaceGallery
                     items={placeData.gallery}
                     onItemPress={handleGalleryItemPress}
+                />
+
+                {/* Otros lugares de la misma cuenta */}
+                <RelatedPlacesCarousel
+                    places={relatedPlaces}
+                    onPlacePress={handleRelatedPlacePress}
                 />
 
                 <View style={styles.divider} />
@@ -338,3 +435,4 @@ const styles = StyleSheet.create({
         height: 120,
     },
 });
+

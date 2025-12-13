@@ -111,8 +111,10 @@ export default function PlaceGallery({ items, onItemPress }: PlaceGalleryProps) 
         >
             <Image source={item.url} style={styles.gridImage} />
             {item.type === 'video' && (
-                <View style={styles.videoIndicator}>
-                    <Text style={styles.videoIcon}>▶</Text>
+                <View style={styles.videoIndicatorCentered}>
+                    <View style={styles.videoIndicatorCircle}>
+                        <Text style={styles.videoIcon}>▶</Text>
+                    </View>
                 </View>
             )}
             <View style={styles.gridStats}>
@@ -132,18 +134,47 @@ export default function PlaceGallery({ items, onItemPress }: PlaceGalleryProps) 
         { id: 'more', icon: '•••', label: 'Más opciones', color: '#6b7280' },
     ];
 
+
+    // Agrupar los ítems en páginas de 9 (3x3)
+    const chunkedItems: GalleryItem[][] = [];
+    for (let i = 0; i < items.length; i += 9) {
+        chunkedItems.push(items.slice(i, i + 9));
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.sectionTitle}>Galería</Text>
             <Text style={styles.sectionSubtitle}>Productos, servicios y más</Text>
 
             <FlatList
-                data={items}
-                renderItem={renderGalleryItem}
-                keyExtractor={(item) => item.id}
-                numColumns={3}
-                scrollEnabled={false}
-                contentContainerStyle={styles.gridContainer}
+                data={chunkedItems}
+                renderItem={({ item, index: pageIdx }) => (
+                    <View style={{ width: SCREEN_WIDTH - 32, marginRight: 16 }} key={`gallery-page-${pageIdx}`}>
+                        {[0, 1, 2].map(rowIdx => {
+                            const rowItems = item.slice(rowIdx * 3, rowIdx * 3 + 3);
+                            if (rowItems.length === 0) return null;
+                            return (
+                                <View style={styles.carouselRow} key={`gallery-row-${pageIdx}-${rowIdx}`}>
+                                    {rowItems.map((galleryItem, colIdx) => (
+                                        <View
+                                            key={galleryItem.id}
+                                            style={{ marginRight: colIdx < 2 ? 8 : 0 }}
+                                        >
+                                            {renderGalleryItem({ item: galleryItem })}
+                                        </View>
+                                    ))}
+                                </View>
+                            );
+                        })}
+                    </View>
+                )}
+                keyExtractor={(_, idx) => `gallery-page-${idx}`}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.carouselContainer}
+                snapToInterval={SCREEN_WIDTH - 32}
+                decelerationRate="fast"
+                pagingEnabled
             />
 
             {/* Modal de visualización */}
@@ -288,13 +319,18 @@ const styles = StyleSheet.create({
         marginBottom: 16,
         paddingHorizontal: 16,
     },
-    gridContainer: {
+    carouselContainer: {
         paddingHorizontal: 16,
+    },
+    carouselRow: {
+        flexDirection: 'row',
+        width: SCREEN_WIDTH - 32,
+        justifyContent: 'space-between',
     },
     gridItem: {
         width: ITEM_SIZE,
         height: ITEM_SIZE * 1.3,
-        marginRight: 8,
+        // El margen derecho ahora se maneja en el contenedor de la columna
         marginBottom: 8,
         borderRadius: 8,
         overflow: 'hidden',
@@ -304,20 +340,27 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-    videoIndicator: {
+    videoIndicatorCentered: {
         position: 'absolute',
-        top: 8,
-        right: 8,
-        width: 24,
-        height: 24,
-        borderRadius: 12,
-        backgroundColor: 'rgba(0,0,0,0.6)',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    videoIndicatorCircle: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: 'rgba(255,0,0,0.85)',
         justifyContent: 'center',
         alignItems: 'center',
     },
     videoIcon: {
         color: '#fff',
-        fontSize: 10,
+        fontSize: 18,
+        textAlign: 'center',
     },
     gridStats: {
         position: 'absolute',

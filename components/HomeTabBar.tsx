@@ -30,7 +30,7 @@ export default function HomeTabBar({ activeRoute = '/' }: HomeTabBarProps) {
 
     // Obtener los tabs inactivos
     const inactiveTabs = [
-        { route: '/homescreen', icon: '🏠', label: 'Home', path: '/HomeScreen' as const },
+        { route: '/homescreen', icon: '🏠', label: 'Home', path: '/homescreen' as const },
         { route: '/likes', icon: '❤️', label: 'Likes', path: '/likes' as const },
         { route: '/map', icon: '📍', label: 'Map', path: '/map' as const },
         { route: '/nav', icon: '🧭', label: 'Nav', path: '/nav' as const },
