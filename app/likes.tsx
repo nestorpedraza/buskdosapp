@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import {
     Dimensions,
     FlatList,
+    Platform,
     StyleSheet,
-    View,
+    View
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
 import LikedCard from '../components/LikedCard';
@@ -37,43 +39,10 @@ export default function LikesScreen() {
             title: 'Boutique Fashion',
             subtitle: 'Ropa y accesorios',
             price: '$50 promedio',
-            rating: 4.8,
-            reviews: 984,
-            image: require('../assets/images/city.png'),
-            distance: '0.5 km',
-        },
-        {
-            id: '2',
-            tag: 'Restaurante',
-            title: 'La Casa del Sabor',
-            subtitle: 'Comida tradicional',
-            price: '$25 por persona',
-            rating: 4.9,
-            reviews: 688,
+            rating: 4.7,
+            reviews: 120,
             image: require('../assets/images/city.png'),
             distance: '1.2 km',
-        },
-        {
-            id: '3',
-            tag: 'Cafetería',
-            title: 'Café Aroma',
-            subtitle: 'Café especialidad',
-            price: '$8 promedio',
-            rating: 4.7,
-            reviews: 452,
-            image: require('../assets/images/city.png'),
-            distance: '0.8 km',
-        },
-        {
-            id: '4',
-            tag: 'Gimnasio',
-            title: 'FitLife Center',
-            subtitle: 'Entrena sin límites',
-            price: '$30/mes',
-            rating: 4.6,
-            reviews: 320,
-            image: require('../assets/images/city.png'),
-            distance: '2.1 km',
         },
         {
             id: '5',
@@ -176,46 +145,54 @@ export default function LikesScreen() {
     const keyExtractor = (item: LikedItem) => item.id;
 
     return (
-        <View style={styles.container}>
-            {/* Header */}
-            <HomeHeader />
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+                <HomeHeader />
 
-            {/* Section Title */}
-            <TitlesHeader likedCount={likedItems.length} title="Mis Lugares"
-                subtitle="Tus destinos favoritos" />
+                {/* Section Title */}
+                <TitlesHeader likedCount={likedItems.length} title="Mis Lugares"
+                    subtitle="Tus destinos favoritos" />
 
-            {/* Content */}
-            {likedItems.length > 0 ? (
-                <FlatList
-                    data={likedItems}
-                    renderItem={renderItem}
-                    keyExtractor={keyExtractor}
-                    numColumns={2}
-                    contentContainerStyle={styles.listContent}
-                    columnWrapperStyle={styles.columnWrapper}
-                    showsVerticalScrollIndicator={false}
-                />
-            ) : (
-                <LikesEmptyState onExplore={() => router.push('/homescreen')} />
-            )}
+                {/* Content */}
+                {likedItems.length > 0 ? (
+                    <FlatList
+                        data={likedItems}
+                        renderItem={renderItem}
+                        keyExtractor={keyExtractor}
+                        numColumns={2}
+                        contentContainerStyle={styles.listContent}
+                        columnWrapperStyle={styles.columnWrapper}
+                        showsVerticalScrollIndicator={false}
+                    />
+                ) : (
+                    <LikesEmptyState onExplore={() => router.push('/homescreen')} />
+                )}
 
-            {/* Bottom Tab Bar */}
-            <HomeTabBar activeRoute="/likes" />
-        </View>
+                {/* Bottom Tab Bar */}
+                <HomeTabBar activeRoute="/likes" />
+            </View>
+        </SafeAreaView>
     );
-}
+};
+
+// export default LikesScreen; // Removed duplicate default export
 
 const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: Platform.OS === 'android' ? 0 : 0,
+    },
     container: {
         flex: 1,
         backgroundColor: '#fff',
     },
     listContent: {
-        padding: 20,
-        paddingBottom: 100,
+        padding: 0,
+        paddingBottom: 0,
     },
     columnWrapper: {
         justifyContent: 'space-between',
-        marginBottom: 15,
+        marginBottom: 0,
     },
 });

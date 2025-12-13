@@ -461,7 +461,7 @@ const styles = StyleSheet.create({
     },
     floatingSearchContainer: {
         position: 'absolute',
-        top: 20,
+        top: 60,
         left: 20,
         right: 20,
     },
@@ -471,7 +471,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 25,
         paddingHorizontal: 20,
-        paddingVertical: 5,
+        paddingVertical: 12,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
@@ -489,7 +489,7 @@ const styles = StyleSheet.create({
     },
     categoryScrollView: {
         position: 'absolute',
-        top: 90,
+        top: 130,
         left: 0,
         right: 0,
     },

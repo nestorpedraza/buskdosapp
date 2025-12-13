@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import React, { useCallback, useMemo, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CategoriesCarousel from '../components/CategoriesCarousel';
 import HomeHeader from '../components/HomeHeader';
@@ -32,7 +33,6 @@ export default function HomeScreen() {
     const categories = useMemo<Category[]>(() => getCategories(), []);
 
     const popularItems = useMemo<PopularItem[]>(() => getPopularItems(), []);
-
 
     const nearbyItems = useMemo<NearbyItem[]>(() => getNearbyItems(), []);
 
@@ -108,59 +108,66 @@ export default function HomeScreen() {
     }, [router]);
 
     return (
-        <View style={styles.container}>
-            {/* Header con búsqueda */}
-            <HomeHeader />
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+                {/* Header con búsqueda */}
+                <HomeHeader />
 
-            {/* Content con todas las secciones */}
-            <ScrollView
-                style={styles.scrollView}
-                contentContainerStyle={styles.scrollContent}
-                showsVerticalScrollIndicator={false}
-            >
-                {/* Carousel de Categorías */}
-                <CategoriesCarousel
-                    categories={categories}
-                    onCategoryPress={handleCategoryPress}
-                    onSubcategoryPress={handleSubcategoryPress}
-                />
+                {/* Content con todas las secciones */}
+                <ScrollView
+                    style={styles.scrollView}
+                    contentContainerStyle={styles.scrollContent}
+                    showsVerticalScrollIndicator={false}
+                >
+                    {/* Carousel de Categorías */}
+                    <CategoriesCarousel
+                        categories={categories}
+                        onCategoryPress={handleCategoryPress}
+                        onSubcategoryPress={handleSubcategoryPress}
+                    />
 
-                {/* Carousel Nuevos */}
-                <PopularCarousel
-                    title={selectedCategoryId ? `Nuevos en ${categories.find(c => c.id === selectedCategoryId)?.name}` : "Nuevos"}
-                    items={filteredPopularItems}
-                    onItemPress={handlePopularPress}
-                />
+                    {/* Carousel Nuevos */}
+                    <PopularCarousel
+                        title={selectedCategoryId ? `Nuevos en ${categories.find(c => c.id === selectedCategoryId)?.name}` : "Nuevos"}
+                        items={filteredPopularItems}
+                        onItemPress={handlePopularPress}
+                    />
 
-                {/* Carousel Más Populares */}
-                <PopularCarousel
-                    title={selectedCategoryId ? `Más Populares en ${categories.find(c => c.id === selectedCategoryId)?.name}` : "Más Populares"}
-                    items={filteredPopularItems}
-                    onItemPress={handlePopularPress}
-                />
+                    {/* Carousel Más Populares */}
+                    <PopularCarousel
+                        title={selectedCategoryId ? `Más Populares en ${categories.find(c => c.id === selectedCategoryId)?.name}` : "Más Populares"}
+                        items={filteredPopularItems}
+                        onItemPress={handlePopularPress}
+                    />
 
-                {/* Carousel Favoritos */}
-                <PopularCarousel
-                    title={selectedCategoryId ? `Favoritos en ${categories.find(c => c.id === selectedCategoryId)?.name}` : "Favoritos"}
-                    items={filteredPopularItems}
-                    onItemPress={handlePopularPress}
-                />
+                    {/* Carousel Favoritos */}
+                    <PopularCarousel
+                        title={selectedCategoryId ? `Favoritos en ${categories.find(c => c.id === selectedCategoryId)?.name}` : "Favoritos"}
+                        items={filteredPopularItems}
+                        onItemPress={handlePopularPress}
+                    />
 
-                {/* Grid Sitios Cercanos */}
-                <NearbySection
-                    items={filteredNearbyItems}
-                    onItemPress={handleNearbyPress}
-                />
-            </ScrollView>
+                    {/* Grid Sitios Cercanos */}
+                    <NearbySection
+                        items={filteredNearbyItems}
+                        onItemPress={handleNearbyPress}
+                    />
+                </ScrollView>
 
-            {/* Bottom Tab Bar */}
-            <HomeTabBar activeRoute="/homescreen" />
-        </View>
+                {/* Bottom Tab Bar */}
+                <HomeTabBar activeRoute="/homescreen" />
+            </View>
+        </SafeAreaView>
     );
 }
 
 
 const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: Platform.OS === 'android' ? 0 : 0,
+    },
     container: {
         flex: 1,
         backgroundColor: '#fff',
