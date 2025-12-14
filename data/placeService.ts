@@ -1,5 +1,5 @@
 import { RelatedPlace } from '../components/place/RelatedPlacesCarousel';
-import { GalleryItem, PlaceDetails } from '../types/place.types';
+import { Comment, GalleryItem, PlaceDetails } from '../types/place.types';
 
 const relatedPlacesData: RelatedPlace[] = [
     { id: '2', name: 'Pizzería Don Mario', image: require('../assets/images/city.png'), category: 'Pizzería' },
@@ -16,7 +16,41 @@ const relatedPlacesData: RelatedPlace[] = [
     { id: '13', name: 'Bar Torino', image: require('../assets/images/city.png'), category: 'Bar' },
 ];
 
-const galleryItems: GalleryItem[] = [
+// Generador de comentarios simulados
+const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+const generateComments = (itemId: string, count: number): Comment[] => {
+    const userNames = ['UsuarioFeliz', 'AmanteDeLaComida', 'CríticoGourmet', 'Visitante01', 'FoodieLatam'];
+    const sampleTexts = [
+        '¡Se ve delicioso! ¿Qué ingredientes lleva?',
+        'La mejor pasta que he probado en la ciudad.',
+        'Me encantó el ambiente, totalmente recomendado.',
+        'Tengo que volver solo por este plato.',
+        '¡Qué maravilla de presentación!',
+        'El chef es un artista, increíble sabor.',
+        '¿Aceptan reservaciones para grupos grandes?',
+        'Suban la receta del postre, por favor 😋.',
+        'Perfecto para una cena especial.',
+        'El vino que maridaron con esto estaba espectacular.',
+    ];
+    const commentsArray: Comment[] = [];
+    for (let i = 0; i < count; i++) {
+        const nameIdx = randomInt(0, userNames.length - 1);
+        const textIdx = randomInt(0, sampleTexts.length - 1);
+        const month = String(randomInt(1, 12)).padStart(2, '0');
+        const day = String(randomInt(1, 28)).padStart(2, '0');
+        commentsArray.push({
+            id: `${itemId}-c${i + 1}`,
+            userName: `${userNames[nameIdx]}${randomInt(1, 999)}`,
+            text: sampleTexts[textIdx],
+            timestamp: `2025-${month}-${day}`,
+        });
+    }
+    return commentsArray;
+};
+
+// Items base con conteo de comentarios previo
+const rawGalleryItems = [
     { id: '1', title: 'Pasta carbonara', type: 'image', url: require('../assets/images/city.png'), likes: 234, comments: 45, shares: 12, description: 'Nuestra famosa pasta carbonara 🍝' },
     { id: '2', title: 'Pizza napolitana', type: 'video', url: require('../assets/images/city.png'), likes: 567, comments: 89, shares: 34, description: 'Preparación de pizza napolitana' },
     { id: '3', title: 'Tiramisú casero', type: 'image', url: require('../assets/images/city.png'), likes: 189, comments: 23, shares: 8, description: 'Tiramisú casero' },
@@ -39,6 +73,17 @@ const galleryItems: GalleryItem[] = [
     { id: '20', title: 'Helado artesanal', type: 'image', url: require('../assets/images/city.png'), likes: 175, comments: 20, shares: 8, description: 'Helado artesanal' },
     { id: '21', title: 'Pan focaccia', type: 'image', url: require('../assets/images/city.png'), likes: 222, comments: 27, shares: 11, description: 'Pan focaccia' },
 ];
+
+// Mapear a GalleryItem con comments[] y commentsCount
+const galleryItems: GalleryItem[] = rawGalleryItems.map((item: any) => {
+    const count = 10; // mínimo 10 por ítem; puedes usar item.comments para variar
+    const { comments: _legacyCount, ...rest } = item;
+    return {
+        ...rest,
+        comments: generateComments(item.id, count),
+        commentsCount: count,
+    } as GalleryItem;
+});
 
 export async function fetchRelatedPlaces(): Promise<RelatedPlace[]> {
     await new Promise(r => setTimeout(r, 300));

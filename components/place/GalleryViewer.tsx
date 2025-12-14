@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Dimensions, FlatList, Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { GalleryItem, PlaceReview } from '../../types/place.types';
+import { GalleryItem } from '../../types/place.types';
 
 const { width, height } = Dimensions.get('window');
 
@@ -14,6 +14,7 @@ interface GalleryViewerProps {
 export default function GalleryViewer({ visible, items, initialIndex, onClose }: GalleryViewerProps) {
     const flatListRef = useRef<FlatList<GalleryItem>>(null);
     const [currentIndex, setCurrentIndex] = React.useState(initialIndex);
+    const commentsRef = useRef<ScrollView>(null);
 
     useEffect(() => {
         if (visible && flatListRef.current) {
@@ -24,6 +25,9 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
         }
     }, [visible, initialIndex]);
 
+    useEffect(() => {
+        commentsRef.current?.scrollTo({ y: 0, animated: false });
+    }, [currentIndex]);
     const onViewableItemsChanged = useRef(({ viewableItems }: any) => {
         if (viewableItems && viewableItems.length > 0) {
             setCurrentIndex(viewableItems[0].index);
@@ -42,27 +46,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
         }
     }).current;
 
-    const buildComments = (itemId: string): PlaceReview[] => {
-        const names = ['María González', 'Juan Pérez', 'Laura Rodríguez', 'Carlos García', 'Ana Martínez'];
-        const texts = [
-            'Excelente lugar, la atención fue impecable.',
-            'La pasta carbonara es increíble.',
-            'Buen ambiente y música agradable.',
-            'Precios razonables para la calidad.',
-            'El servicio fue muy atento.',
-        ];
-        return new Array(5).fill(0).map((_, i) => ({
-            id: `${itemId}-cm-${i}`,
-            userName: names[i % names.length],
-            userAvatar: { uri: `https://i.pravatar.cc/60?img=${(i + 20) % 70}` },
-            rating: 4 + (i % 2),
-            comment: texts[i % texts.length],
-            date: `Hace ${i + 1} días`,
-            likes: 5 + i,
-        }));
-    };
-
-    const comments = useMemo(() => buildComments(currentItem?.id || 'item'), [currentItem?.id]);
+    const comments = currentItem?.comments || [];
 
     return (
         <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
@@ -123,7 +107,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                         <View style={styles.iconCircle}>
                             <Text style={styles.actionIcon}>💬</Text>
                         </View>
-                        <Text style={styles.actionCount}>{currentItem?.comments ?? 19}</Text>
+                        <Text style={styles.actionCount}>{currentItem?.comments?.length ?? currentItem?.commentsCount ?? 0}</Text>
                     </TouchableOpacity>
 
                     {/* Favoritos */}
@@ -161,15 +145,16 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
 
                 <View style={styles.commentsOverlay}>
                     <Text style={styles.commentsTitle}>Comentarios</Text>
-                    <ScrollView style={styles.commentsScroll} showsVerticalScrollIndicator={false}>
-                        {comments.map(c => (
-                            <View key={c.id} style={styles.commentRow}>
+                    <ScrollView ref={commentsRef} style={styles.commentsScroll} showsVerticalScrollIndicator={false}>
+                        {comments.map((c: any, idx: number) => (
+                            <View key={idx} style={styles.commentRow}>
                                 <View style={styles.commentLeft}>
                                     <View style={styles.commentAvatarSmall} />
                                 </View>
                                 <View style={{ flex: 1 }}>
                                     <Text style={styles.commentNameSmall}>{c.userName}</Text>
-                                    <Text style={styles.commentTextSmall}>{c.comment}</Text>
+                                    <Text style={styles.commentTextSmall}>{c.text}</Text>
+                                    <Text style={styles.commentTextExtraSmall}>{c.timestamp}</Text>
                                 </View>
                             </View>
                         ))}
@@ -412,5 +397,11 @@ const styles = StyleSheet.create({
         color: '#e5e7eb',
         fontSize: 12,
         lineHeight: 16,
+    },
+    commentTextExtraSmall: {
+        color: '#e5e7eb',
+        fontSize: 8,
+        lineHeight: 16,
+        fontWeight: '700',
     },
 });

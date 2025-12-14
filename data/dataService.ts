@@ -35,5 +35,5 @@ export const getNearbyItems = (): NearbyItem[] =>
 export const getCategories = (): Category[] =>
     categoriesData.map(category => ({
         ...category,
-        image: categoryImages[category.imageKey] || categoryImages.default,
+        image: (categoryImages[category.imageKey] || categoryImages.default) as any,
     }));

@@ -96,11 +96,12 @@ export interface GalleryItem {
     url: ImageSourcePropType;
     thumbnail?: ImageSourcePropType;
     likes: number;
-    comments: number;
+    commentsCount?: number;
     shares: number;
     description?: string;
     isLiked?: boolean;
     isFavorite?: boolean;
+    comments?: Comment[];
 }
 
 export interface PlaceReview {
@@ -111,4 +112,11 @@ export interface PlaceReview {
     comment: string;
     date: string;
     likes: number;
+}
+
+export interface Comment {
+    id: string;
+    userName: string;
+    text: string;
+    timestamp: string;
 }
