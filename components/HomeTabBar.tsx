@@ -13,7 +13,7 @@ export default function HomeTabBar({ activeRoute = '/' }: HomeTabBarProps) {
     // Definir colores de gradiente según la ruta activa
     const getGradientColors = (): readonly [string, string] => {
         switch (activeRoute) {
-            case '/homescreen':
+            case '/home':
                 return ['#9900ff', '#ff00f774'] as const; // Home - Morado/Rosa
             case '/likes':
                 return ['#ff0080', '#ff4d946f'] as const; // Likes - Rosa intenso
@@ -30,7 +30,7 @@ export default function HomeTabBar({ activeRoute = '/' }: HomeTabBarProps) {
 
     // Obtener los tabs inactivos
     const inactiveTabs = [
-        { route: '/homescreen', icon: '🏠', label: 'Home', path: '/homescreen' as const },
+        { route: '/home', icon: '🏠', label: 'Home', path: '/home' as const },
         { route: '/likes', icon: '❤️', label: 'Likes', path: '/likes' as const },
         { route: '/map', icon: '📍', label: 'Map', path: '/map' as const },
         { route: '/nav', icon: '🧭', label: 'Nav', path: '/nav' as const },
@@ -52,7 +52,7 @@ export default function HomeTabBar({ activeRoute = '/' }: HomeTabBarProps) {
             ))}
 
             {/* Tab central activo */}
-            <Pressable style={styles.tabItemCenter} onPress={() => router.push('/homescreen')}>
+            <Pressable style={styles.tabItemCenter} onPress={() => router.push('/home')}>
                 <LinearGradient
                     colors={getGradientColors()}
                     start={{ x: 0, y: 0 }}
@@ -60,7 +60,7 @@ export default function HomeTabBar({ activeRoute = '/' }: HomeTabBarProps) {
                     style={styles.tabCenterButton}
                 >
                     <Text style={styles.tabCenterIcon}>
-                        {activeRoute === '/homescreen' && '🏠'}
+                        {activeRoute === '/home' && '🏠'}
                         {activeRoute === '/likes' && '❤️'}
                         {activeRoute === '/map' && '📍'}
                         {activeRoute === '/nav' && '🧭'}

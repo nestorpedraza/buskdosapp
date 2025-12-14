@@ -1,0 +1,114 @@
+import { RelatedPlace } from '../components/place/RelatedPlacesCarousel';
+import { GalleryItem, PlaceDetails } from '../types/place.types';
+
+const relatedPlacesData: RelatedPlace[] = [
+    { id: '2', name: 'Pizzería Don Mario', image: require('../assets/images/city.png'), category: 'Pizzería' },
+    { id: '3', name: 'Trattoria Bella Notte', image: require('../assets/images/city.png'), category: 'Italiana' },
+    { id: '4', name: 'Gelato & Caffè', image: require('../assets/images/city.png'), category: 'Café' },
+    { id: '5', name: 'Ristorante Da Vinci', image: require('../assets/images/city.png'), category: 'Italiana' },
+    { id: '6', name: 'Panadería San Marco', image: require('../assets/images/city.png'), category: 'Panadería' },
+    { id: '7', name: 'Café Roma', image: require('../assets/images/city.png'), category: 'Café' },
+    { id: '8', name: 'Bistro Firenze', image: require('../assets/images/city.png'), category: 'Bistró' },
+    { id: '9', name: 'La Tagliatella', image: require('../assets/images/city.png'), category: 'Italiana' },
+    { id: '10', name: 'Pizza e Vino', image: require('../assets/images/city.png'), category: 'Pizzería' },
+    { id: '11', name: 'Dolce Vita', image: require('../assets/images/city.png'), category: 'Postres' },
+    { id: '12', name: 'Osteria Milano', image: require('../assets/images/city.png'), category: 'Italiana' },
+    { id: '13', name: 'Bar Torino', image: require('../assets/images/city.png'), category: 'Bar' },
+];
+
+const galleryItems: GalleryItem[] = [
+    { id: '1', title: 'Pasta carbonara', type: 'image', url: require('../assets/images/city.png'), likes: 234, comments: 45, shares: 12, description: 'Nuestra famosa pasta carbonara 🍝' },
+    { id: '2', title: 'Pizza napolitana', type: 'video', url: require('../assets/images/city.png'), likes: 567, comments: 89, shares: 34, description: 'Preparación de pizza napolitana' },
+    { id: '3', title: 'Tiramisú casero', type: 'image', url: require('../assets/images/city.png'), likes: 189, comments: 23, shares: 8, description: 'Tiramisú casero' },
+    { id: '4', title: 'Ambiente del restaurante', type: 'image', url: require('../assets/images/city.png'), likes: 345, comments: 56, shares: 19, description: 'Ambiente del restaurante' },
+    { id: '5', title: 'Chef en acción', type: 'video', url: require('../assets/images/city.png'), likes: 890, comments: 134, shares: 67, description: 'Nuestro chef en acción 👨‍🍳' },
+    { id: '6', title: 'Vinos seleccionados', type: 'image', url: require('../assets/images/city.png'), likes: 123, comments: 18, shares: 5, description: 'Vinos seleccionados' },
+    { id: '7', title: 'Especial de la casa', type: 'image', url: require('../assets/images/city.png'), likes: 267, comments: 41, shares: 15 },
+    { id: '8', title: 'Mesa preparada', type: 'image', url: require('../assets/images/city.png'), likes: 198, comments: 29, shares: 11 },
+    { id: '9', title: 'Video del servicio', type: 'video', url: require('../assets/images/city.png'), likes: 456, comments: 78, shares: 29 },
+    { id: '10', title: 'Risotto de setas', type: 'image', url: require('../assets/images/city.png'), likes: 321, comments: 22, shares: 10, description: 'Risotto de setas' },
+    { id: '11', title: 'Ensalada caprese', type: 'image', url: require('../assets/images/city.png'), likes: 412, comments: 35, shares: 18, description: 'Ensalada caprese fresca' },
+    { id: '12', title: 'Cocina en vivo', type: 'video', url: require('../assets/images/city.png'), likes: 278, comments: 17, shares: 7, description: 'Show de cocina en vivo' },
+    { id: '13', title: 'Bruschettas variadas', type: 'image', url: require('../assets/images/city.png'), likes: 134, comments: 12, shares: 4, description: 'Bruschettas variadas' },
+    { id: '14', title: 'Mesa de postres', type: 'image', url: require('../assets/images/city.png'), likes: 256, comments: 28, shares: 13, description: 'Mesa de postres' },
+    { id: '15', title: 'Cata de vinos', type: 'video', url: require('../assets/images/city.png'), likes: 367, comments: 44, shares: 21, description: 'Cata de vinos' },
+    { id: '16', title: 'Pizza margarita', type: 'image', url: require('../assets/images/city.png'), likes: 145, comments: 16, shares: 6, description: 'Pizza margarita' },
+    { id: '17', title: 'Antipasto italiano', type: 'image', url: require('../assets/images/city.png'), likes: 299, comments: 31, shares: 14, description: 'Antipasto italiano' },
+    { id: '18', title: 'Café espresso', type: 'image', url: require('../assets/images/city.png'), likes: 210, comments: 19, shares: 9, description: 'Café espresso' },
+    { id: '19', title: 'Receta de lasaña', type: 'video', url: require('../assets/images/city.png'), likes: 388, comments: 52, shares: 25, description: 'Receta de lasaña' },
+    { id: '20', title: 'Helado artesanal', type: 'image', url: require('../assets/images/city.png'), likes: 175, comments: 20, shares: 8, description: 'Helado artesanal' },
+    { id: '21', title: 'Pan focaccia', type: 'image', url: require('../assets/images/city.png'), likes: 222, comments: 27, shares: 11, description: 'Pan focaccia' },
+];
+
+export async function fetchRelatedPlaces(): Promise<RelatedPlace[]> {
+    await new Promise(r => setTimeout(r, 300));
+    return relatedPlacesData;
+}
+
+export async function fetchPlaceDetails(id: string): Promise<PlaceDetails> {
+    await new Promise(r => setTimeout(r, 300));
+    return {
+        id: id || '1',
+        name: 'Restaurante La Casa Italiana',
+        description: 'Auténtica cocina italiana con más de 20 años de tradición. Pasta fresca hecha diariamente, pizzas al horno de leña y los mejores vinos importados.',
+        logo: require('../assets/images/city.png'),
+        coverImage: require('../assets/images/city.png'),
+        isVerified: true,
+        rating: 4.8,
+        reviews: 847,
+        category: 'Restaurantes',
+        subcategory: 'Italiana',
+        organization: 'Buskados Company',
+        price: '$35 promedio',
+        address: 'Calle 85 #15-32, Zona Rosa, Bogotá',
+        coordinates: { latitude: 4.6769, longitude: -74.0482 },
+        phone: '+57 1 234 5678',
+        phones: [
+            { type: 'Principal', phone: '+57 1 234 5678' },
+            { type: 'Reservas', phone: '+57 320 111 2233' },
+            { type: 'Gerencia', phone: '+57 320 999 8888' },
+        ],
+        whatsapp: '+57 320 123 4567',
+        whatsapps: [
+            { type: 'Principal', whatsapp: '+57 320 123 4567' },
+            { type: 'Reservas', whatsapp: '+57 320 222 3344' },
+            { type: 'Gerencia', whatsapp: '+57 320 555 6666' },
+        ],
+        schedule: { weekdays: '12:00 - 22:00', saturday: '12:00 - 23:00', sunday: '12:00 - 20:00' },
+        isOpen: true,
+        website: 'www.lacasaitaliana.com.co',
+        emails: [
+            { type: 'Principal', email: 'info@lacasaitaliana.com.co' },
+            { type: 'Ventas', email: 'ventas@lacasaitaliana.com.co' },
+            { type: 'Jurídica', email: 'legal@lacasaitaliana.com.co' },
+        ],
+        socialMedia: {
+            facebook: 'https://facebook.com/lacasaitaliana',
+            instagram: 'https://instagram.com/lacasaitaliana',
+            tiktok: 'https://tiktok.com/@lacasaitaliana',
+            twitter: 'https://twitter.com/lacasaitaliana',
+            youtube: 'https://youtube.com/lacasaitaliana',
+        },
+        deliveryApps: {
+            rappi: 'https://rappi.com.co/restaurantes/la-casa-italiana',
+            didifood: 'https://didifood.com/co/la-casa-italiana',
+            ubereats: 'https://ubereats.com/co/la-casa-italiana',
+            ifood: 'https://ifood.com.co/la-casa-italiana',
+            domicilios: 'https://domicilios.com/la-casa-italiana',
+        },
+        gallery: galleryItems,
+        promotions: [
+            { id: 'promo1', title: 'Pasta Lovers', description: 'Todas las pastas con 30% de descuento los martes', discount: '30% OFF', image: require('../assets/images/city.png'), validUntil: '2025-12-31', code: 'PASTA30', type: 'regular' },
+            { id: 'promo2', title: '2x1 en Pizzas', description: 'Lleva 2 pizzas por el precio de 1. Solo hoy!', discount: '2x1', image: require('../assets/images/city.png'), validUntil: '2025-12-15', type: 'flash' },
+            { id: 'promo3', title: 'Menú Especial de Navidad', description: 'Entrada + Plato fuerte + Postre + Copa de vino', discount: '$89.900', image: require('../assets/images/city.png'), validUntil: '2025-12-25', code: 'NAVIDAD2025', type: 'exclusive' },
+            { id: 'promo4', title: 'Happy Hour', description: 'Cocteles y vinos al 50% de 5pm a 7pm', discount: '50% OFF', image: require('../assets/images/city.png'), validUntil: '2025-12-31', type: 'regular' },
+        ],
+        reviewsList: [
+            { id: 'rev1', userName: 'María González', userAvatar: require('../assets/images/city.png'), rating: 5, comment: '¡Excelente lugar! La pasta carbonara es increíble, igual que en Italia. El servicio es muy atento y el ambiente es perfecto para una cena romántica.', date: '2025-12-10', likes: 24 },
+            { id: 'rev2', userName: 'Carlos Rodríguez', userAvatar: require('../assets/images/city.png'), rating: 4, comment: 'Muy buena comida italiana. Los precios son un poco altos pero la calidad lo vale. Recomiendo las pizzas al horno de leña.', date: '2025-12-08', likes: 15 },
+            { id: 'rev3', userName: 'Ana Martínez', userAvatar: require('../assets/images/city.png'), rating: 5, comment: 'El mejor tiramisú que he probado en Bogotá. Definitivamente volveré.', date: '2025-12-05', likes: 32 },
+            { id: 'rev4', userName: 'Pedro López', userAvatar: require('../assets/images/city.png'), rating: 4, comment: 'Ambiente acogedor y buena selección de vinos. El servicio puede mejorar un poco en horas pico.', date: '2025-11-28', likes: 8 },
+            { id: 'rev5', userName: 'Laura Sánchez', userAvatar: require('../assets/images/city.png'), rating: 5, comment: 'Celebramos nuestro aniversario aquí y fue perfecto. El chef salió a saludarnos. ¡Muy recomendado!', date: '2025-11-20', likes: 45 },
+        ],
+    };
+}

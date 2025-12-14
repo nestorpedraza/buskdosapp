@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
-import { Dimensions, FlatList, Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { GalleryItem } from '../../types/place.types';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { Dimensions, FlatList, Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { GalleryItem, PlaceReview } from '../../types/place.types';
 
 const { width, height } = Dimensions.get('window');
 
@@ -34,6 +34,36 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
 
     const currentItem = items[currentIndex] || items[0];
 
+    const onScrollHandler = useRef((e: any) => {
+        const offsetY = e?.nativeEvent?.contentOffset?.y || 0;
+        const idx = Math.round(offsetY / height);
+        if (idx >= 0 && idx < items.length) {
+            setCurrentIndex(idx);
+        }
+    }).current;
+
+    const buildComments = (itemId: string): PlaceReview[] => {
+        const names = ['María González', 'Juan Pérez', 'Laura Rodríguez', 'Carlos García', 'Ana Martínez'];
+        const texts = [
+            'Excelente lugar, la atención fue impecable.',
+            'La pasta carbonara es increíble.',
+            'Buen ambiente y música agradable.',
+            'Precios razonables para la calidad.',
+            'El servicio fue muy atento.',
+        ];
+        return new Array(5).fill(0).map((_, i) => ({
+            id: `${itemId}-cm-${i}`,
+            userName: names[i % names.length],
+            userAvatar: { uri: `https://i.pravatar.cc/60?img=${(i + 20) % 70}` },
+            rating: 4 + (i % 2),
+            comment: texts[i % texts.length],
+            date: `Hace ${i + 1} días`,
+            likes: 5 + i,
+        }));
+    };
+
+    const comments = useMemo(() => buildComments(currentItem?.id || 'item'), [currentItem?.id]);
+
     return (
         <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
             <View style={styles.overlay}>
@@ -53,6 +83,8 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                     horizontal={false}
                     onViewableItemsChanged={onViewableItemsChanged}
                     viewabilityConfig={viewConfigRef.current}
+                    onScroll={onScrollHandler}
+                    scrollEventThrottle={16}
                     decelerationRate="fast"
                     snapToInterval={height}
                     snapToAlignment="start"
@@ -63,16 +95,6 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                 <View style={styles.topBar}>
                     <TouchableOpacity style={styles.backButton} onPress={onClose}>
                         <Text style={styles.backIcon}>←</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.topButton}>
-                        <Text style={styles.topButtonText}>Following</Text>
-                    </TouchableOpacity>
-                    <View style={styles.divider} />
-                    <TouchableOpacity style={styles.topButton}>
-                        <Text style={[styles.topButtonText, styles.activeTab]}>For You</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.searchButton}>
-                        <Text style={styles.searchIcon}>🔍</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -120,12 +142,6 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                         <Text style={styles.actionCount}>{currentItem?.shares ?? 82}</Text>
                     </TouchableOpacity>
 
-                    {/* Disco giratorio */}
-                    <TouchableOpacity style={styles.discContainer}>
-                        <View style={styles.iconCircle}>
-                            <Text style={styles.discIcon}>🎵</Text>
-                        </View>
-                    </TouchableOpacity>
                 </View>
 
                 {/* Información inferior */}
@@ -141,6 +157,23 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                             original sound - username
                         </Text>
                     </View>
+                </View>
+
+                <View style={styles.commentsOverlay}>
+                    <Text style={styles.commentsTitle}>Comentarios</Text>
+                    <ScrollView style={styles.commentsScroll} showsVerticalScrollIndicator={false}>
+                        {comments.map(c => (
+                            <View key={c.id} style={styles.commentRow}>
+                                <View style={styles.commentLeft}>
+                                    <View style={styles.commentAvatarSmall} />
+                                </View>
+                                <View style={{ flex: 1 }}>
+                                    <Text style={styles.commentNameSmall}>{c.userName}</Text>
+                                    <Text style={styles.commentTextSmall}>{c.comment}</Text>
+                                </View>
+                            </View>
+                        ))}
+                    </ScrollView>
                 </View>
             </View>
         </Modal>
@@ -228,7 +261,7 @@ const styles = StyleSheet.create({
     actionsSidebar: {
         position: 'absolute',
         right: 12,
-        bottom: 120,
+        bottom: 300,
         alignItems: 'center',
         zIndex: 5,
     },
@@ -287,19 +320,22 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: '600',
     },
-    discContainer: {
-        marginTop: 10,
-    },
-    discIcon: {
-        fontSize: 20,
-    },
     // Información inferior
     infoContainer: {
         position: 'absolute',
         left: 16,
-        bottom: 120,
+        bottom: 160,
         right: 90,
-        zIndex: 5,
+        zIndex: 7,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        borderRadius: 16,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        overflow: 'hidden',
+        shadowColor: '#000',
+        shadowOpacity: 0.2,
+        shadowRadius: 6,
+        shadowOffset: { width: 0, height: 2 },
     },
     username: {
         color: '#fff',
@@ -331,5 +367,50 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 13,
         flex: 1,
+    },
+    commentsOverlay: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        borderRadius: 16,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        overflow: 'hidden',
+        zIndex: 7,
+    },
+    commentsTitle: {
+        color: '#fff',
+        fontSize: 14,
+        fontWeight: '700',
+        marginBottom: 6,
+    },
+    commentsScroll: {
+        maxHeight: 100,
+    },
+    commentRow: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        marginBottom: 8,
+    },
+    commentLeft: {
+        marginRight: 8,
+    },
+    commentAvatarSmall: {
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        backgroundColor: '#d1d5db',
+    },
+    commentNameSmall: {
+        color: '#fff',
+        fontSize: 13,
+        fontWeight: '700',
+    },
+    commentTextSmall: {
+        color: '#e5e7eb',
+        fontSize: 12,
+        lineHeight: 16,
     },
 });

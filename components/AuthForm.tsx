@@ -23,7 +23,7 @@ export default function AuthForm({ type }: AuthFormProps) {
             setValidationError('');
             // Lógica de envío...
             if (type === 'login') {
-                router.push('/homescreen');
+                router.push('/home');
             }
         }
     };
