@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import {
     Animated,
@@ -11,9 +11,9 @@ import {
     TextInput,
     View
 } from 'react-native';
+import type MapView from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AppMap, { MapMarker } from '../components/AppMap';
-import type MapView from 'react-native-maps';
 import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
 
@@ -21,8 +21,10 @@ const { width, height } = Dimensions.get('window');
 
 export default function MapScreen() {
     const router = useRouter();
+    const { placeId } = useLocalSearchParams<{ placeId?: string }>();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [selectedPlaceId, setSelectedPlaceId] = useState<string | null>(null);
     const [isExpanded, setIsExpanded] = useState(false);
     const bottomSheetAnim = React.useRef(new Animated.Value(0)).current;
     const mapRef = React.useRef<MapView | null>(null);
@@ -306,6 +308,10 @@ export default function MapScreen() {
         ? nearbyPlaces.filter(place => place.category === selectedCategory)
         : nearbyPlaces;
 
+    const markersToShow = selectedPlaceId
+        ? filteredPlaces.filter(p => p.id === selectedPlaceId)
+        : filteredPlaces;
+
     const toggleBottomSheet = () => {
         const toValue = isExpanded ? 0 : 1;
         Animated.timing(bottomSheetAnim, {
@@ -325,6 +331,32 @@ export default function MapScreen() {
         }, 500);
     };
 
+    const handleSelectPlace = (place: MapMarker) => {
+        setSelectedPlaceId(place.id);
+        mapRef.current?.animateToRegion({
+            latitude: place.lat,
+            longitude: place.lng,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02,
+        }, 500);
+    };
+
+    React.useEffect(() => {
+        if (placeId) {
+            setSelectedPlaceId(String(placeId));
+            const target = nearbyPlaces.find(p => p.id === String(placeId));
+            if (target) {
+                mapRef.current?.animateToRegion({
+                    latitude: target.lat,
+                    longitude: target.lng,
+                    latitudeDelta: 0.02,
+                    longitudeDelta: 0.02,
+                }, 500);
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [placeId]);
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
@@ -332,7 +364,7 @@ export default function MapScreen() {
                 <View style={styles.mapContainer}>
                     <AppMap
                         style={styles.mapImage}
-                        markers={filteredPlaces}
+                        markers={markersToShow}
                         onMapRef={(ref) => { mapRef.current = ref; }}
                     />
 
@@ -364,7 +396,10 @@ export default function MapScreen() {
                                     styles.categoryPill,
                                     selectedCategory === cat.id && styles.categoryPillActive
                                 ]}
-                                onPress={() => setSelectedCategory(cat.id)}
+                                onPress={() => {
+                                    setSelectedCategory(cat.id);
+                                    setSelectedPlaceId(null);
+                                }}
                             >
                                 <Text style={styles.categoryIcon}>{cat.icon}</Text>
                                 <Text style={[
@@ -400,7 +435,7 @@ export default function MapScreen() {
                             contentContainerStyle={styles.placesContent}
                         >
                             {filteredPlaces.map((place) => (
-                                <Pressable key={place.id} style={styles.placeCard}>
+                                <Pressable key={place.id} style={styles.placeCard} onPress={() => handleSelectPlace(place)}>
                                     <View style={styles.placeIcon}>
                                         <Text style={styles.placeIconText}>
                                             {place.category === 'restaurant' ? '🍽️' :

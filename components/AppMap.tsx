@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import { Image, StyleProp, ViewStyle } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE, UrlTile } from 'react-native-maps';
 
 export interface MapMarker {
@@ -71,7 +71,14 @@ export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
                     coordinate={{ latitude: marker.lat, longitude: marker.lng }}
                     title={marker.name}
                     description={`${marker.category} - ⭐ ${marker.rating}`}
-                />
+                    anchor={{ x: 0.5, y: 0.5 }}
+                    flat
+                >
+                    <Image
+                        source={require('../assets/images/icon-map.png')}
+                        style={{ width: 28, height: 28 }}
+                    />
+                </Marker>
             ))}
         </MapView>
     );

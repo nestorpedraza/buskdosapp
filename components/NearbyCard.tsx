@@ -11,15 +11,15 @@ import {
 import { ImageLoadState, NEARBY_GRID_CONFIG, NearbyCardProps } from '../types/home.types';
 
 const { width: screenWidth } = Dimensions.get('window');
-// Calcular ancho de card basado en pantalla (2 columnas con padding y gap)
-const CARD_WIDTH = (screenWidth - 40 - NEARBY_GRID_CONFIG.CARD_GAP) / NEARBY_GRID_CONFIG.NUM_COLUMNS;
 
 /**
  * NearbyCard - Componente memoizado para items cercanos
  * Diseño similar a PopularCard con distancia
  */
-const NearbyCard: React.FC<NearbyCardProps> = memo(({ item, onPress }) => {
+const NearbyCard: React.FC<NearbyCardProps> = memo(({ item, onPress, columns }) => {
     const [imageState, setImageState] = useState<ImageLoadState>('idle');
+    const computedColumns = columns || NEARBY_GRID_CONFIG.NUM_COLUMNS;
+    const CARD_WIDTH = (screenWidth - 40 - NEARBY_GRID_CONFIG.CARD_GAP) / computedColumns;
 
     const handlePress = useCallback(() => {
         onPress?.(item);
@@ -42,7 +42,7 @@ const NearbyCard: React.FC<NearbyCardProps> = memo(({ item, onPress }) => {
 
     return (
         <Pressable
-            style={styles.card}
+            style={[styles.card, { width: CARD_WIDTH }]}
             onPress={handlePress}
             android_ripple={{ color: 'rgba(153, 0, 255, 0.1)' }}
         >
@@ -105,7 +105,6 @@ NearbyCard.displayName = 'NearbyCard';
 
 const styles = StyleSheet.create({
     card: {
-        width: CARD_WIDTH,
         backgroundColor: '#fff',
         borderRadius: NEARBY_GRID_CONFIG.BORDER_RADIUS,
         overflow: 'hidden',

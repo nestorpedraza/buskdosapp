@@ -113,6 +113,7 @@ export interface PopularCardProps {
 export interface NearbyCardProps {
     item: NearbyItem;
     onPress?: (item: NearbyItem) => void;
+    columns?: number;
 }
 
 /**
