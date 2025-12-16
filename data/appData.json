@@ -1,0 +1,52 @@
+{
+  "categories": [
+    { "id": "1", "name": "Tiendas", "imageKey": "tiendas",
+      "subcategories": [
+        { "id": "1-1", "name": "Ropa", "icon": "👕" },
+        { "id": "1-2", "name": "Zapatos", "icon": "👟" },
+        { "id": "1-3", "name": "Electrónica", "icon": "📱" }
+      ]
+    },
+    { "id": "2", "name": "Restaurantes", "imageKey": "restaurantes",
+      "subcategories": [
+        { "id": "2-1", "name": "Italiana", "icon": "🍝" },
+        { "id": "2-2", "name": "Mexicana", "icon": "🌮" },
+        { "id": "2-3", "name": "Sushi", "icon": "🍣" },
+        { "id": "2-4", "name": "Pizza", "icon": "🍕" }
+      ]
+    },
+    { "id": "3", "name": "Cafeterías", "imageKey": "cafeterias",
+      "subcategories": [
+        { "id": "3-1", "name": "Café Espresso", "icon": "☕" },
+        { "id": "3-2", "name": "Desayunos", "icon": "🥐" }
+      ]
+    },
+    { "id": "4", "name": "Salud", "imageKey": "salud",
+      "subcategories": [
+        { "id": "4-1", "name": "Farmacias", "icon": "💊" },
+        { "id": "4-2", "name": "Clínicas", "icon": "🏥" }
+      ]
+    },
+    { "id": "7", "name": "Deportes", "imageKey": "deportes",
+      "subcategories": [
+        { "id": "7-1", "name": "Gimnasios", "icon": "💪" },
+        { "id": "7-2", "name": "Yoga", "icon": "🧘" }
+      ]
+    }
+  ],
+  "places": [
+    { "id": "p-1", "name": "Boutique Fashion", "category": "shop", "tag": "Ropa", "subtitle": "Moda contemporánea", "price": "$50 promedio", "rating": 4.8, "reviews": 984, "distance": "0.3 km" },
+    { "id": "p-2", "name": "Fashion Store", "category": "shop", "tag": "Ropa", "subtitle": "Ropa casual", "price": "$45 promedio", "rating": 4.7, "reviews": 856, "distance": "0.4 km" },
+    { "id": "p-3", "name": "Café Aroma", "category": "cafe", "tag": "Café Espresso", "subtitle": "Café de especialidad", "price": "$", "rating": 4.7, "reviews": 432, "distance": "0.8 km" },
+    { "id": "p-4", "name": "Pizzería Italia", "category": "restaurant", "tag": "Pizza", "subtitle": "Auténtica italiana", "price": "$$", "rating": 4.6, "reviews": 610, "distance": "0.9 km" },
+    { "id": "p-5", "name": "Sushi Palace", "category": "restaurant", "tag": "Sushi", "subtitle": "Clásicos japoneses", "price": "$$", "rating": 4.9, "reviews": 720, "distance": "0.5 km" },
+    { "id": "p-6", "name": "Farmacia Moderna", "category": "health", "tag": "Farmacias", "subtitle": "Medicinas y salud", "price": "$", "rating": 4.7, "reviews": 350, "distance": "0.6 km" },
+    { "id": "p-7", "name": "FitLife Center", "category": "gym", "tag": "Gimnasios", "subtitle": "Fitness completo", "price": "$$", "rating": 4.6, "reviews": 480, "distance": "1.2 km" },
+    { "id": "p-8", "name": "Coffee Lab", "category": "cafe", "tag": "Café Espresso", "subtitle": "Laboratorio de café", "price": "$", "rating": 4.9, "reviews": 512, "distance": "0.6 km" },
+    { "id": "p-9", "name": "Veggie Delight", "category": "restaurant", "tag": "Italiana", "subtitle": "Opciones vegetarianas", "price": "$$", "rating": 4.7, "reviews": 420, "distance": "0.9 km" },
+    { "id": "p-10", "name": "Tech Store", "category": "shop", "tag": "Electrónica", "subtitle": "Gadgets y más", "price": "$$$", "rating": 4.9, "reviews": 650, "distance": "1.4 km" },
+    { "id": "p-11", "name": "Centro de Boxeo", "category": "gym", "tag": "Gimnasios", "subtitle": "Entrenamiento profesional", "price": "$$", "rating": 4.6, "reviews": 300, "distance": "1.0 km" },
+    { "id": "p-12", "name": "Clínica Central", "category": "health", "tag": "Clínicas", "subtitle": "Atención general", "price": "$$$", "rating": 4.8, "reviews": 410, "distance": "1.1 km" }
+  ],
+  "popularIds": ["p-1", "p-5", "p-8", "p-10"]
+}

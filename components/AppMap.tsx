@@ -6,6 +6,7 @@ export interface MapMarker {
     id: string;
     name: string;
     category: string;
+    tag?: string;
     rating: number;
     distance: string;
     lat: number;
