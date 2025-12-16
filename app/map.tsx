@@ -3,16 +3,16 @@ import React, { useMemo, useState } from 'react';
 import {
     Animated,
     Dimensions,
-    Image,
     Platform,
     Pressable,
     ScrollView,
     StyleSheet,
     Text,
     TextInput,
-    View,
+    View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AppMap from '../components/AppMap';
 import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
 
@@ -324,13 +324,8 @@ export default function MapScreen() {
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
                 <HomeHeader />
-                {/* Map Placeholder */}
                 <View style={styles.mapContainer}>
-                    <Image
-                        source={require('../assets/images/mapa.png')}
-                        style={styles.mapImage}
-                        resizeMode="cover"
-                    />
+                    <AppMap style={styles.mapImage} />
 
                     {/* Floating Search Bar */}
                     <View style={styles.floatingSearchContainer}>
