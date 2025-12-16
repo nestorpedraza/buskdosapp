@@ -16,14 +16,17 @@ const { width: screenWidth } = Dimensions.get('window');
  * NearbyCard - Componente memoizado para items cercanos
  * Diseño similar a PopularCard con distancia
  */
-const NearbyCard: React.FC<NearbyCardProps> = memo(({ item, onPress, columns }) => {
+const NearbyCard: React.FC<NearbyCardProps> = memo(({ item, columns, onDetailPress, onMapPress }) => {
     const [imageState, setImageState] = useState<ImageLoadState>('idle');
     const computedColumns = columns || NEARBY_GRID_CONFIG.NUM_COLUMNS;
     const CARD_WIDTH = (screenWidth - 40 - NEARBY_GRID_CONFIG.CARD_GAP) / computedColumns;
 
-    const handlePress = useCallback(() => {
-        onPress?.(item);
-    }, [item, onPress]);
+    const handleDetailPress = useCallback(() => {
+        onDetailPress?.(item);
+    }, [item, onDetailPress]);
+    const handleMapPress = useCallback(() => {
+        onMapPress?.(item);
+    }, [item, onMapPress]);
 
     const handleLoadStart = useCallback(() => setImageState('loading'), []);
     const handleLoadEnd = useCallback(() => setImageState('loaded'), []);
@@ -41,10 +44,8 @@ const NearbyCard: React.FC<NearbyCardProps> = memo(({ item, onPress, columns }) 
     };
 
     return (
-        <Pressable
+        <View
             style={[styles.card, { width: CARD_WIDTH }]}
-            onPress={handlePress}
-            android_ripple={{ color: 'rgba(153, 0, 255, 0.1)' }}
         >
             {/* Imagen */}
             <View style={styles.imageContainer}>
@@ -96,8 +97,16 @@ const NearbyCard: React.FC<NearbyCardProps> = memo(({ item, onPress, columns }) 
                     <Text style={styles.ratingStars}>{renderStars()}</Text>
                     <Text style={styles.ratingCount}>({item.reviews})</Text>
                 </View>
+                <View style={styles.actions}>
+                    <Pressable style={styles.actionButton} onPress={handleDetailPress}>
+                        <Text style={styles.actionText}>Detalle</Text>
+                    </Pressable>
+                    <Pressable style={[styles.actionButton, styles.actionButtonRight]} onPress={handleMapPress}>
+                        <Text style={styles.actionText}>Mapa</Text>
+                    </Pressable>
+                </View>
             </View>
-        </Pressable>
+        </View>
     );
 });
 
@@ -204,6 +213,32 @@ const styles = StyleSheet.create({
         fontSize: 10,
         color: '#666',
         marginLeft: 4,
+    },
+    actions: {
+        flexDirection: 'row',
+        gap: 8,
+        marginTop: 8,
+    },
+    actionButton: {
+        flex: 1,
+        height: 34,
+        borderRadius: 17,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderColor: '#9900ff',
+        shadowColor: '#9900ff',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.15,
+        shadowRadius: 4,
+        elevation: 2,
+    },
+    actionButtonRight: {},
+    actionText: {
+        fontSize: 12,
+        color: '#333',
+        fontWeight: '700',
     },
 });
 

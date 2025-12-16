@@ -69,7 +69,10 @@ export default function Home() {
         router.push({ pathname: '/place/[id]', params: { id: item.id } });
     }, [router]);
 
-    const handleNearbyPress = useCallback((item: NearbyItem) => {
+    const handleNearbyDetailPress = useCallback((item: NearbyItem) => {
+        router.push({ pathname: '/place/[id]', params: { id: item.id } });
+    }, [router]);
+    const handleNearbyMapPress = useCallback((item: NearbyItem) => {
         router.push({ pathname: '/map', params: { placeId: item.id } });
     }, [router]);
 
@@ -87,7 +90,12 @@ export default function Home() {
                     contentContainerStyle={styles.listContent}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => (
-                        <NearbyCard item={item} onPress={handleNearbyPress} columns={nearbyColumns} />
+                        <NearbyCard
+                            item={item}
+                            onDetailPress={handleNearbyDetailPress}
+                            onMapPress={handleNearbyMapPress}
+                            columns={nearbyColumns}
+                        />
                     )}
                     removeClippedSubviews={true}
                     maxToRenderPerBatch={8}

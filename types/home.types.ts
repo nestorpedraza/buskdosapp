@@ -114,6 +114,8 @@ export interface NearbyCardProps {
     item: NearbyItem;
     onPress?: (item: NearbyItem) => void;
     columns?: number;
+    onDetailPress?: (item: NearbyItem) => void;
+    onMapPress?: (item: NearbyItem) => void;
 }
 
 /**
