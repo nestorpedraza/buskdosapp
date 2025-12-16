@@ -12,21 +12,12 @@ import {
     View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AppMap from '../components/AppMap';
+import AppMap, { MapMarker } from '../components/AppMap';
+import type MapView from 'react-native-maps';
 import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
 
 const { width, height } = Dimensions.get('window');
-
-interface MapMarker {
-    id: string;
-    name: string;
-    category: string;
-    rating: number;
-    distance: string;
-    lat: number;
-    lng: number;
-}
 
 export default function MapScreen() {
     const router = useRouter();
@@ -34,6 +25,7 @@ export default function MapScreen() {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [isExpanded, setIsExpanded] = useState(false);
     const bottomSheetAnim = React.useRef(new Animated.Value(0)).current;
+    const mapRef = React.useRef<MapView | null>(null);
 
     const categories = useMemo(() => [
         { id: 'all', name: 'Todos', icon: '🌐' },
@@ -304,7 +296,11 @@ export default function MapScreen() {
         { id: '248', name: 'Medicina Alternativa', category: 'health', rating: 4.6, distance: '0.8 km', lat: 0, lng: 0 },
         { id: '249', name: 'Farmacia Santa Fe', category: 'health', rating: 4.8, distance: '1.2 km', lat: 0, lng: 0 },
         { id: '250', name: 'Hospital General', category: 'health', rating: 4.9, distance: '1.1 km', lat: 0, lng: 0 },
-    ], []);
+    ].map(place => ({
+        ...place,
+        lat: 6.2442 + (Math.random() - 0.5) * 0.05,
+        lng: -75.5812 + (Math.random() - 0.5) * 0.05
+    })), []);
 
     const filteredPlaces = selectedCategory && selectedCategory !== 'all'
         ? nearbyPlaces.filter(place => place.category === selectedCategory)
@@ -320,12 +316,25 @@ export default function MapScreen() {
         setIsExpanded(!isExpanded);
     };
 
+    const recenterMedellin = () => {
+        mapRef.current?.animateToRegion({
+            latitude: 6.2442,
+            longitude: -75.5812,
+            latitudeDelta: 0.08,
+            longitudeDelta: 0.08,
+        }, 500);
+    };
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
                 <HomeHeader />
                 <View style={styles.mapContainer}>
-                    <AppMap style={styles.mapImage} />
+                    <AppMap
+                        style={styles.mapImage}
+                        markers={filteredPlaces}
+                        onMapRef={(ref) => { mapRef.current = ref; }}
+                    />
 
                     {/* Floating Search Bar */}
                     <View style={styles.floatingSearchContainer}>
@@ -369,7 +378,7 @@ export default function MapScreen() {
                     </ScrollView>
 
                     {/* Recenter Button */}
-                    <Pressable style={styles.recenterButton}>
+                    <Pressable style={styles.recenterButton} onPress={recenterMedellin}>
                         <Text style={styles.recenterIcon}>📍</Text>
                     </Pressable>
                 </View>
