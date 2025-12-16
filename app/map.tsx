@@ -173,7 +173,7 @@ export default function MapScreen() {
                         <ScrollView
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            style={[styles.categoryScrollView, { top: 180 }]}
+                            style={[styles.categoryScrollView, { top: 150 }]}
                             contentContainerStyle={styles.categoryContent}
                         >
                             {((categories as any[]).find((c: any) => c.id === selectedCategory)?.subcategories || []).map((sc: any) => (
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     },
     floatingSearchContainer: {
         position: 'absolute',
-        top: 60,
+        top: 10,
         left: 20,
         right: 20,
     },
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
     },
     categoryScrollView: {
         position: 'absolute',
-        top: 130,
+        top: 90,
         left: 0,
         right: 0,
     },
