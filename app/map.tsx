@@ -19,6 +19,8 @@ import HomeTabBar from '../components/HomeTabBar';
 import { getCategories, getMapMarkers } from '../data/dataService';
 
 const { width, height } = Dimensions.get('window');
+const SLIDER_WIDTH = 300;
+const DRAG_THRESHOLD = 4;
 
 export default function MapScreen() {
     const router = useRouter();
@@ -27,6 +29,10 @@ export default function MapScreen() {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [selectedSubcategoryId, setSelectedSubcategoryId] = useState<string | null>(null);
     const [selectedPlaceId, setSelectedPlaceId] = useState<string | null>(null);
+    const [showDistance, setShowDistance] = useState(false);
+    const [distanceKm, setDistanceKm] = useState(10);
+    const [sliderWidth, setSliderWidth] = useState(300);
+    const dragStartX = React.useRef(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const mapRef = React.useRef<MapView | null>(null);
 
@@ -63,8 +69,16 @@ export default function MapScreen() {
             const subName = cat.subcategories.find((s: any) => s.id === selectedSubcategoryId)?.name;
             if (subName) out = out.filter(p => (p.tag || '').toLowerCase() === subName.toLowerCase());
         }
+        if (showDistance) {
+            const maxKm = distanceKm;
+            out = out.filter(p => {
+                const match = String(p.distance || '').toLowerCase().match(/([\d.]+)\s*km/);
+                const km = match ? parseFloat(match[1]) : 0;
+                return km <= maxKm;
+            });
+        }
         return out;
-    }, [nearbyPlaces, categories, selectedCategory, selectedSubcategoryId]);
+    }, [nearbyPlaces, categories, selectedCategory, selectedSubcategoryId, showDistance, distanceKm]);
 
     const markersToShow = selectedPlaceId
         ? filteredPlaces.filter(p => p.id === selectedPlaceId)
@@ -193,9 +207,45 @@ export default function MapScreen() {
                         <Text style={styles.recenterIcon}>📍</Text>
                     </Pressable>
                     <Pressable style={styles.nearbyFab} onPress={openNearbyModal}>
-                        <Text style={styles.nearbyFabIcon}>📋</Text>
+                        <Text style={styles.nearbyFabIcon}>👁️</Text>
                     </Pressable>
+                    <Pressable style={styles.distanceFab} onPress={() => setShowDistance(s => !s)}>
+                        <Text style={styles.distanceFabText}>KM</Text>
+                    </Pressable>
+                    {showDistance && (
+                        <View style={styles.distancePanel}>
+                            <View style={styles.distanceHeader}>
+                                <Pressable style={styles.stepButton} onPress={() => setDistanceKm(v => Math.max(0, v - 5))}>
+                                    <Text style={styles.stepButtonText}>−</Text>
+                                </Pressable>
+                                <Text style={styles.distanceLabel}>Radio: {distanceKm} km</Text>
+                                <View style={styles.distanceHeaderRight}>
+                                    <Pressable style={styles.stepButton} onPress={() => setDistanceKm(v => Math.min(100, v + 5))}>
+                                        <Text style={styles.stepButtonText}>+</Text>
+                                    </Pressable>
+                                    <Pressable style={styles.closeButton} onPress={() => setShowDistance(false)}>
+                                        <Text style={styles.distanceClose}>✕</Text>
+                                    </Pressable>
+                                </View>
+                            </View>
+                            <View
+                                style={styles.sliderTrack}
+                                onLayout={(e) => setSliderWidth(e.nativeEvent.layout.width)}
+                                pointerEvents="none"
+                            >
+                                <View style={[styles.sliderProgress, { width: `${distanceKm}%` }]} />
+                                <View style={[styles.sliderThumb, { left: (distanceKm / 100) * sliderWidth - 10 }]} />
+                            </View>
+                            <View style={styles.sliderScale}>
+                                <Text style={styles.scaleText}>0</Text>
+                                <Text style={styles.scaleText}>50</Text>
+                                <Text style={styles.scaleText}>100</Text>
+                            </View>
+                        </View>
+                    )}
                 </View>
+
+
 
                 <Modal
                     visible={isModalOpen}
@@ -312,12 +362,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 10,
         borderRadius: 20,
-        shadowColor: '#000',
+        shadowColor: '#9900ff',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
+        shadowOpacity: 0.15,
+        shadowRadius: 5,
         elevation: 3,
         marginRight: 10,
+        borderWidth: 0.1,
+        borderColor: '#9900ff',
     },
     categoryPillActive: {
         backgroundColor: '#9900ff',
@@ -344,11 +396,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: '#000',
+        shadowColor: '#9900ff',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.15,
-        shadowRadius: 5,
+        shadowOpacity: 0.2,
+        shadowRadius: 6,
         elevation: 5,
+        borderWidth: 0.1,
+        borderColor: '#9900ff',
     },
     recenterIcon: {
         fontSize: 22,
@@ -363,15 +417,153 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: '#000',
+        shadowColor: '#9900ff',
         shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.2,
-        shadowRadius: 6,
+        shadowOpacity: 0.25,
+        shadowRadius: 7,
         elevation: 6,
         zIndex: 20,
+        borderWidth: 0.1,
+        borderColor: '#9900ff',
     },
     nearbyFabIcon: {
         fontSize: 22,
+    },
+    distanceFab: {
+        position: 'absolute',
+        right: 20,
+        bottom: 80,
+        width: 56,
+        height: 56,
+        borderRadius: 28,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#9900ff',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 6,
+        elevation: 5,
+        zIndex: 20,
+        borderWidth: 0.1,
+        borderColor: '#9900ff',
+    },
+    distanceFabText: {
+        fontSize: 16,
+        fontWeight: '700',
+        color: '#333',
+    },
+    distancePanel: {
+        position: 'absolute',
+        left: 20,
+        right: 90,
+        bottom: 80,
+        backgroundColor: '#fff',
+        borderRadius: 14,
+        padding: 12,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        elevation: 6,
+        zIndex: 25,
+    },
+    distanceHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 8,
+    },
+    distanceHeaderRight: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+    },
+    distanceLabel: {
+        fontSize: 13,
+        color: '#333',
+        fontWeight: '600',
+    },
+    stepButton: {
+        width: 28,
+        height: 28,
+        borderRadius: 14,
+        backgroundColor: '#f4f4f8',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 8,
+        borderWidth: 0.1,
+        borderColor: '#9900ff',
+        shadowColor: '#9900ff',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.15,
+        shadowRadius: 3,
+        elevation: 2,
+    },
+    stepButtonText: {
+        fontSize: 16,
+        color: '#9900ff',
+        fontWeight: '700',
+    },
+    closeButton: {
+        width: 28,
+        height: 28,
+        borderRadius: 14,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 0.1,
+        borderColor: '#9900ff',
+        shadowColor: '#9900ff',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.15,
+        shadowRadius: 3,
+        elevation: 2,
+    },
+    distanceClose: {
+        fontSize: 16,
+        color: '#9900ff',
+    },
+    sliderTrack: {
+        position: 'relative',
+        width: '100%',
+        height: 10,
+        backgroundColor: '#eee',
+        borderRadius: 5,
+        overflow: 'visible',
+        alignSelf: 'center',
+    },
+    sliderProgress: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        bottom: 0,
+        backgroundColor: '#9900ff',
+        borderRadius: 5,
+    },
+    sliderThumb: {
+        position: 'absolute',
+        top: -2,
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        backgroundColor: '#fff',
+        borderWidth: 0.1,
+        borderColor: '#9900ff',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        elevation: 2,
+    },
+    sliderScale: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 8,
+        marginTop: 6,
+    },
+    scaleText: {
+        fontSize: 10,
+        color: '#666',
     },
     modalBackdrop: {
         position: 'absolute',
