@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Image, StyleProp, ViewStyle } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE, UrlTile } from 'react-native-maps';
 
@@ -25,22 +25,47 @@ export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
     };
 
     const mapRef = useRef<MapView>(null);
+    const [tracksView, setTracksView] = useState(true);
 
     useEffect(() => {
         onMapRef?.(mapRef.current);
     }, [onMapRef]);
 
     useEffect(() => {
-        if (mapRef.current && markers && markers.length > 0) {
-            const coords = markers.map(m => ({
+        if (!mapRef.current || !markers) return;
+        if (markers.length === 0) {
+            mapRef.current.animateToRegion({
+                latitude: 6.2442,
+                longitude: -75.5812,
+                latitudeDelta: 0.08,
+                longitudeDelta: 0.08,
+            }, 300);
+            return;
+        }
+        if (markers.length === 1) {
+            const m = markers[0];
+            mapRef.current.animateToRegion({
                 latitude: m.lat,
                 longitude: m.lng,
-            }));
-            mapRef.current.fitToCoordinates(coords, {
-                edgePadding: { top: 80, right: 80, bottom: 240, left: 80 },
-                animated: true,
-            });
+                latitudeDelta: 0.02,
+                longitudeDelta: 0.02,
+            }, 300);
+            return;
         }
+        const coords = markers.map(m => ({
+            latitude: m.lat,
+            longitude: m.lng,
+        }));
+        mapRef.current.fitToCoordinates(coords, {
+            edgePadding: { top: 80, right: 80, bottom: 240, left: 80 },
+            animated: true,
+        });
+    }, [markers]);
+
+    useEffect(() => {
+        setTracksView(true);
+        const t = setTimeout(() => setTracksView(false), 600);
+        return () => clearTimeout(t);
     }, [markers]);
 
     return (
@@ -65,14 +90,16 @@ export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
             />
 
             {/* Marcadores dinámicos */}
-            {markers?.map((marker) => (
+            {markers?.map((marker, idx) => (
                 <Marker
                     key={marker.id}
                     coordinate={{ latitude: marker.lat, longitude: marker.lng }}
                     title={marker.name}
                     description={`${marker.category} - ⭐ ${marker.rating}`}
-                    anchor={{ x: 0.5, y: 0.5 }}
+                    anchor={{ x: 0.5, y: 1.0 }}
                     flat
+                    tracksViewChanges={tracksView}
+                    zIndex={1000 - idx}
                 >
                     <Image
                         source={require('../assets/images/icon-map.png')}
