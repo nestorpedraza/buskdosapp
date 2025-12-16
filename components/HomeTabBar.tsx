@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 interface HomeTabBarProps {
     activeRoute?: string;
@@ -89,11 +89,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#fff',
         paddingVertical: 10,
-        paddingBottom: 0,
+        paddingBottom: Platform.OS === 'ios' ? 16 : 10,
         borderTopWidth: 1,
         borderTopColor: '#eee',
         alignItems: 'center',
         justifyContent: 'space-around',
+        zIndex: 50,
+        elevation: 0,
     },
     tabItem: {
         alignItems: 'center',

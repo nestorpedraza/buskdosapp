@@ -1,8 +1,8 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import {
-    Animated,
     Dimensions,
+    Modal,
     Platform,
     Pressable,
     ScrollView,
@@ -27,8 +27,7 @@ export default function MapScreen() {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [selectedSubcategoryId, setSelectedSubcategoryId] = useState<string | null>(null);
     const [selectedPlaceId, setSelectedPlaceId] = useState<string | null>(null);
-    const [isExpanded, setIsExpanded] = useState(false);
-    const bottomSheetAnim = React.useRef(new Animated.Value(0)).current;
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const mapRef = React.useRef<MapView | null>(null);
 
     const categoryIconByName: Record<string, string> = {
@@ -71,15 +70,8 @@ export default function MapScreen() {
         ? filteredPlaces.filter(p => p.id === selectedPlaceId)
         : filteredPlaces;
 
-    const toggleBottomSheet = () => {
-        const toValue = isExpanded ? 0 : 1;
-        Animated.timing(bottomSheetAnim, {
-            toValue,
-            duration: 300,
-            useNativeDriver: false,
-        }).start();
-        setIsExpanded(!isExpanded);
-    };
+    const openNearbyModal = () => setIsModalOpen(true);
+    const closeNearbyModal = () => setIsModalOpen(false);
 
     const recenterMedellin = () => {
         mapRef.current?.animateToRegion({
@@ -200,25 +192,34 @@ export default function MapScreen() {
                     <Pressable style={styles.recenterButton} onPress={recenterMedellin}>
                         <Text style={styles.recenterIcon}>📍</Text>
                     </Pressable>
+                    <Pressable style={styles.nearbyFab} onPress={openNearbyModal}>
+                        <Text style={styles.nearbyFabIcon}>📋</Text>
+                    </Pressable>
                 </View>
 
-                <Animated.View style={[styles.bottomSheet, {
-                    height: bottomSheetAnim.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [80, height * 0.75],
-                    }),
-                }]}>
-                    <Pressable onPress={toggleBottomSheet} style={styles.bottomSheetHeader}>
-                        <Text style={styles.bottomSheetTitle}>Lugares cercanos</Text>
-                        <Text style={styles.expandIcon}>{isExpanded ? '▼' : '▲'}</Text>
-                    </Pressable>
-                    {isExpanded && (
+                <Modal
+                    visible={isModalOpen}
+                    animationType="slide"
+                    transparent
+                    onRequestClose={closeNearbyModal}
+                >
+                    <Pressable style={styles.modalBackdrop} onPress={closeNearbyModal} />
+                    <View style={styles.modalSheet}>
+                        <View style={styles.modalHeader}>
+                            <Text style={styles.bottomSheetTitle}>Lugares cercanos</Text>
+                            <Pressable onPress={closeNearbyModal}>
+                                <Text style={styles.expandIcon}>✕</Text>
+                            </Pressable>
+                        </View>
                         <ScrollView
                             showsVerticalScrollIndicator={false}
                             contentContainerStyle={styles.placesContent}
                         >
                             {filteredPlaces.map((place) => (
-                                <Pressable key={place.id} style={styles.placeCard} onPress={() => handleSelectPlace(place)}>
+                                <Pressable key={place.id} style={styles.placeCard} onPress={() => {
+                                    closeNearbyModal();
+                                    handleSelectPlace(place);
+                                }}>
                                     <View style={styles.placeIcon}>
                                         <Text style={styles.placeIconText}>
                                             {place.category === 'restaurant' ? '🍽️' :
@@ -238,8 +239,8 @@ export default function MapScreen() {
                                 </Pressable>
                             ))}
                         </ScrollView>
-                    )}
-                </Animated.View>
+                    </View>
+                </Modal>
 
                 <HomeTabBar activeRoute="/map" />
             </View>
@@ -352,22 +353,50 @@ const styles = StyleSheet.create({
     recenterIcon: {
         fontSize: 22,
     },
-    bottomSheet: {
+    nearbyFab: {
         position: 'absolute',
+        right: 20,
+        bottom: 140,
+        width: 56,
+        height: 56,
+        borderRadius: 28,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.2,
+        shadowRadius: 6,
+        elevation: 6,
+        zIndex: 20,
+    },
+    nearbyFabIcon: {
+        fontSize: 22,
+    },
+    modalBackdrop: {
+        position: 'absolute',
+        top: 0,
         left: 0,
         right: 0,
         bottom: 0,
+        backgroundColor: 'rgba(0,0,0,0.25)',
+    },
+    modalSheet: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: Platform.OS === 'ios' ? 110 : 96,
         backgroundColor: '#fff',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: -2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-        elevation: 8,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        maxHeight: height * 0.7,
+        paddingBottom: 20,
         overflow: 'hidden',
+        marginHorizontal: 16,
     },
-    bottomSheetHeader: {
+    modalHeader: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
