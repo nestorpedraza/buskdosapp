@@ -1,52 +1,275 @@
 {
   "categories": [
-    { "id": "1", "name": "Tiendas", "imageKey": "tiendas",
+    {
+      "id": "1",
+      "name": "Tiendas",
+      "imageKey": "tiendas",
       "subcategories": [
-        { "id": "1-1", "name": "Ropa", "icon": "👕" },
-        { "id": "1-2", "name": "Zapatos", "icon": "👟" },
-        { "id": "1-3", "name": "Electrónica", "icon": "📱" }
+        {
+          "id": "1-1",
+          "name": "Ropa",
+          "icon": "👕"
+        },
+        {
+          "id": "1-2",
+          "name": "Zapatos",
+          "icon": "👟"
+        },
+        {
+          "id": "1-3",
+          "name": "Electrónica",
+          "icon": "📱"
+        }
       ]
     },
-    { "id": "2", "name": "Restaurantes", "imageKey": "restaurantes",
+    {
+      "id": "2",
+      "name": "Restaurantes",
+      "imageKey": "restaurantes",
       "subcategories": [
-        { "id": "2-1", "name": "Italiana", "icon": "🍝" },
-        { "id": "2-2", "name": "Mexicana", "icon": "🌮" },
-        { "id": "2-3", "name": "Sushi", "icon": "🍣" },
-        { "id": "2-4", "name": "Pizza", "icon": "🍕" }
+        {
+          "id": "2-1",
+          "name": "Italiana",
+          "icon": "🍝"
+        },
+        {
+          "id": "2-2",
+          "name": "Mexicana",
+          "icon": "🌮"
+        },
+        {
+          "id": "2-3",
+          "name": "Sushi",
+          "icon": "🍣"
+        },
+        {
+          "id": "2-4",
+          "name": "Pizza",
+          "icon": "🍕"
+        }
       ]
     },
-    { "id": "3", "name": "Cafeterías", "imageKey": "cafeterias",
+    {
+      "id": "3",
+      "name": "Cafeterías",
+      "imageKey": "cafeterias",
       "subcategories": [
-        { "id": "3-1", "name": "Café Espresso", "icon": "☕" },
-        { "id": "3-2", "name": "Desayunos", "icon": "🥐" }
+        {
+          "id": "3-1",
+          "name": "Café Espresso",
+          "icon": "☕"
+        },
+        {
+          "id": "3-2",
+          "name": "Desayunos",
+          "icon": "🥐"
+        }
       ]
     },
-    { "id": "4", "name": "Salud", "imageKey": "salud",
+    {
+      "id": "4",
+      "name": "Salud",
+      "imageKey": "salud",
       "subcategories": [
-        { "id": "4-1", "name": "Farmacias", "icon": "💊" },
-        { "id": "4-2", "name": "Clínicas", "icon": "🏥" }
+        {
+          "id": "4-1",
+          "name": "Farmacias",
+          "icon": "💊"
+        },
+        {
+          "id": "4-2",
+          "name": "Clínicas",
+          "icon": "🏥"
+        }
       ]
     },
-    { "id": "7", "name": "Deportes", "imageKey": "deportes",
+    {
+      "id": "7",
+      "name": "Deportes",
+      "imageKey": "deportes",
       "subcategories": [
-        { "id": "7-1", "name": "Gimnasios", "icon": "💪" },
-        { "id": "7-2", "name": "Yoga", "icon": "🧘" }
+        {
+          "id": "7-1",
+          "name": "Gimnasios",
+          "icon": "💪"
+        },
+        {
+          "id": "7-2",
+          "name": "Yoga",
+          "icon": "🧘"
+        }
       ]
     }
   ],
   "places": [
-    { "id": "p-1", "name": "Boutique Fashion", "category": "shop", "tag": "Ropa", "subtitle": "Moda contemporánea", "price": "$50 promedio", "rating": 4.8, "reviews": 984, "distance": "0.3 km" },
-    { "id": "p-2", "name": "Fashion Store", "category": "shop", "tag": "Ropa", "subtitle": "Ropa casual", "price": "$45 promedio", "rating": 4.7, "reviews": 856, "distance": "0.4 km" },
-    { "id": "p-3", "name": "Café Aroma", "category": "cafe", "tag": "Café Espresso", "subtitle": "Café de especialidad", "price": "$", "rating": 4.7, "reviews": 432, "distance": "0.8 km" },
-    { "id": "p-4", "name": "Pizzería Italia", "category": "restaurant", "tag": "Pizza", "subtitle": "Auténtica italiana", "price": "$$", "rating": 4.6, "reviews": 610, "distance": "0.9 km" },
-    { "id": "p-5", "name": "Sushi Palace", "category": "restaurant", "tag": "Sushi", "subtitle": "Clásicos japoneses", "price": "$$", "rating": 4.9, "reviews": 720, "distance": "0.5 km" },
-    { "id": "p-6", "name": "Farmacia Moderna", "category": "health", "tag": "Farmacias", "subtitle": "Medicinas y salud", "price": "$", "rating": 4.7, "reviews": 350, "distance": "0.6 km" },
-    { "id": "p-7", "name": "FitLife Center", "category": "gym", "tag": "Gimnasios", "subtitle": "Fitness completo", "price": "$$", "rating": 4.6, "reviews": 480, "distance": "1.2 km" },
-    { "id": "p-8", "name": "Coffee Lab", "category": "cafe", "tag": "Café Espresso", "subtitle": "Laboratorio de café", "price": "$", "rating": 4.9, "reviews": 512, "distance": "0.6 km" },
-    { "id": "p-9", "name": "Veggie Delight", "category": "restaurant", "tag": "Italiana", "subtitle": "Opciones vegetarianas", "price": "$$", "rating": 4.7, "reviews": 420, "distance": "0.9 km" },
-    { "id": "p-10", "name": "Tech Store", "category": "shop", "tag": "Electrónica", "subtitle": "Gadgets y más", "price": "$$$", "rating": 4.9, "reviews": 650, "distance": "1.4 km" },
-    { "id": "p-11", "name": "Centro de Boxeo", "category": "gym", "tag": "Gimnasios", "subtitle": "Entrenamiento profesional", "price": "$$", "rating": 4.6, "reviews": 300, "distance": "1.0 km" },
-    { "id": "p-12", "name": "Clínica Central", "category": "health", "tag": "Clínicas", "subtitle": "Atención general", "price": "$$$", "rating": 4.8, "reviews": 410, "distance": "1.1 km" }
+    {
+      "id": "p-1",
+      "name": "Boutique Fashion",
+      "category": "shop",
+      "subcategory": "Italiana",
+      "tag": "Ropa",
+      "subtitle": "Moda contemporánea",
+      "price": "$50 promedio",
+      "rating": 4.8,
+      "reviews": 984,
+      "distance": "0.3 km",
+      "isVerified": true,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6769,
+        "longitude": -74.0482
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Auténtica cocina italiana con más de 20 años de tradición. Pasta fresca hecha diariamente, pizzas al horno de leña y los mejores vinos importados.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Calle 85 #15-32, Zona Rosa, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 234 5678"
+            },
+            {
+              "type": "Reservas",
+              "phone": "+57 320 111 2233"
+            },
+            {
+              "type": "Gerencia",
+              "phone": "+57 320 999 8888"
+            }
+          ],
+          "whatsapp": "+57 320 123 4567",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 123 4567"
+            },
+            {
+              "type": "Reservas",
+              "whatsapp": "+57 320 222 3344"
+            },
+            {
+              "type": "Gerencia",
+              "whatsapp": "+57 320 555 6666"
+            }
+          ],
+          "schedule": {
+            "weekdays": "12:00 - 22:00",
+            "saturday": "12:00 - 23:00",
+            "sunday": "12:00 - 20:00"
+          },
+          "website": "www.lacasaitaliana.com.co",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "info@lacasaitaliana.com.co"
+            },
+            {
+              "type": "Ventas",
+              "email": "ventas@lacasaitaliana.com.co"
+            },
+            {
+              "type": "Jurídica",
+              "email": "legal@lacasaitaliana.com.co"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "https://facebook.com/lacasaitaliana",
+            "instagram": "https://instagram.com/lacasaitaliana",
+            "tiktok": "https://tiktok.com/@lacasaitaliana",
+            "twitter": "https://twitter.com/lacasaitaliana",
+            "youtube": "https://youtube.com/lacasaitaliana"
+          },
+          "deliveryApps": {
+            "rappi": "https://rappi.com.co/restaurantes/la-casa-italiana",
+            "didifood": "https://didifood.com/co/la-casa-italiana",
+            "ubereats": "https://ubereats.com/co/la-casa-italiana",
+            "ifood": "https://ifood.com.co/la-casa-italiana",
+            "domicilios": "https://domicilios.com/la-casa-italiana"
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Pasta carbonara",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 234,
+              "commentsCount": 10,
+              "shares": 12,
+              "description": "Nuestra famosa pasta carbonara 🍝"
+            },
+            {
+              "id": "2",
+              "title": "Pizza napolitana",
+              "type": "video",
+              "url": "assets/images/city.png",
+              "likes": 567,
+              "commentsCount": 10,
+              "shares": 34,
+              "description": "Preparación de pizza napolitana"
+            },
+            {
+              "id": "3",
+              "title": "Tiramisú casero",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 189,
+              "commentsCount": 10,
+              "shares": 8,
+              "description": "Tiramisú casero"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo1",
+              "title": "Pasta Lovers",
+              "description": "Todas las pastas con 30% de descuento los martes",
+              "discount": "30% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2025-12-31",
+              "code": "PASTA30",
+              "type": "regular"
+            },
+            {
+              "id": "promo2",
+              "title": "2x1 en Pizzas",
+              "description": "Lleva 2 pizzas por el precio de 1. Solo hoy!",
+              "discount": "2x1",
+              "image": "assets/images/city.png",
+              "validUntil": "2025-12-15",
+              "type": "flash"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev1",
+              "userName": "María González",
+              "userAvatar": "assets/images/city.png",
+              "rating": 5,
+              "comment": "¡Excelente lugar! La pasta carbonara es increíble.",
+              "date": "2025-12-10",
+              "likes": 24
+            },
+            {
+              "id": "rev2",
+              "userName": "Carlos Rodríguez",
+              "userAvatar": "assets/images/city.png",
+              "rating": 4,
+              "comment": "Muy buena comida italiana. Recomiendo las pizzas.",
+              "date": "2025-12-08",
+              "likes": 15
+            }
+          ]
+        }
+      ]
+    }
   ],
-  "popularIds": ["p-1", "p-5", "p-8", "p-10"]
+  "popularIds": [
+    "p-1",
+    "p-5",
+    "p-8",
+    "p-10"
+  ]
 }
