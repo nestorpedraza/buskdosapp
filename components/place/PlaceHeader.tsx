@@ -137,7 +137,7 @@ export default function PlaceHeader({
                 <View style={styles.starsContainer}>
                     {renderStars()}
                 </View>
-                <Text style={styles.ratingText}>{rating.toFixed(1)}</Text>
+                <Text style={styles.ratingText}>{(typeof rating === 'number' ? rating : 0).toFixed(1)}</Text>
                 <Text style={styles.reviewsText}>({reviews} reseñas)</Text>
             </View>
 

@@ -43,25 +43,30 @@ const resolveAsset = (path?: string) => (path ? assetMap[path] : undefined as an
 
 export async function fetchRelatedPlaces(): Promise<RelatedPlace[]> {
     await new Promise(r => setTimeout(r, 300));
-    const rp = (appData as any).relatedPlaces || [];
-    return rp.map((p: any) => ({
-        id: p.id,
-        name: p.name,
-        image: resolveAsset(p.image),
-        category: p.category,
-    }));
+    const places = (appData as any).places || [];
+    return places.map((p: any) => {
+        const details = Array.isArray(p.placeDetails) ? p.placeDetails[0] : p.placeDetails;
+        const imagePath = details?.coverImage || details?.logo;
+        return {
+            id: p.id,
+            name: p.name,
+            image: resolveAsset(imagePath),
+            category: p.category,
+        };
+    });
 }
 
 export async function fetchPlaceDetails(id: string): Promise<PlaceDetails> {
     await new Promise(r => setTimeout(r, 300));
     const placeItem = (appData as any).places?.find((x: any) => x.id === id);
-    const nested = placeItem?.placeDetails;
-    const topLevelList = (appData as any).placeDetails || [];
-    const p = nested || topLevelList.find((x: any) => x.id === id) || topLevelList[0];
-    if (!p) {
-        throw new Error('No place details in appData.json');
+    if (!placeItem) {
+        throw new Error('Place not found in appData.json');
     }
-    const gallery: GalleryItem[] = (p.gallery || []).map((g: any) => ({
+    const details = Array.isArray(placeItem.placeDetails) ? placeItem.placeDetails[0] : placeItem.placeDetails;
+    if (!details) {
+        throw new Error('Place details not found for selected place');
+    }
+    const gallery: GalleryItem[] = (details.gallery || []).map((g: any) => ({
         id: String(g.id),
         title: g.title,
         type: g.type,
@@ -73,36 +78,36 @@ export async function fetchPlaceDetails(id: string): Promise<PlaceDetails> {
         comments: generateComments(String(g.id), g.commentsCount || 0),
     }));
     return {
-        id: p.id,
-        name: p.name,
-        description: p.description,
-        logo: resolveAsset(p.logo),
-        coverImage: resolveAsset(p.coverImage),
-        isVerified: !!p.isVerified,
-        rating: p.rating,
-        reviews: p.reviews,
-        category: p.category,
-        subcategory: p.subcategory,
-        organization: p.organization,
-        price: p.price,
-        address: p.address,
-        coordinates: p.coordinates,
-        phone: p.phone,
-        phones: p.phones,
-        whatsapp: p.whatsapp,
-        whatsapps: p.whatsapps,
-        schedule: p.schedule,
-        isOpen: p.isOpen,
-        website: p.website,
-        emails: p.emails,
-        socialMedia: p.socialMedia,
-        deliveryApps: p.deliveryApps,
+        id: placeItem.id,
+        name: placeItem.name,
+        description: details.description,
+        logo: resolveAsset(details.logo),
+        coverImage: resolveAsset(details.coverImage),
+        isVerified: !!placeItem.isVerified,
+        rating: placeItem.rating,
+        reviews: placeItem.reviews,
+        category: placeItem.category,
+        subcategory: placeItem.subcategory,
+        organization: placeItem.organization,
+        price: placeItem.price,
+        address: details.address,
+        coordinates: placeItem.coordinates,
+        phone: (details.phones?.[0]?.phone) || '',
+        phones: details.phones,
+        whatsapp: details.whatsapp,
+        whatsapps: details.whatsapps,
+        schedule: details.schedule,
+        isOpen: placeItem.isOpen,
+        website: details.website,
+        emails: details.emails,
+        socialMedia: details.socialMedia,
+        deliveryApps: details.deliveryApps,
         gallery,
-        promotions: (p.promotions || []).map((pr: any) => ({
+        promotions: (details.promotions || []).map((pr: any) => ({
             ...pr,
             image: resolveAsset(pr.image),
         })),
-        reviewsList: (p.reviewsList || []).map((r: any) => ({
+        reviewsList: (details.reviewsList || []).map((r: any) => ({
             ...r,
             userAvatar: resolveAsset(r.userAvatar),
         })),

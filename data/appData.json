@@ -264,12 +264,1514 @@
           ]
         }
       ]
+    },
+    {
+      "id": "p-2",
+      "name": "Ropa Boutique 1",
+      "category": "tiendas",
+      "subcategory": "Ropa",
+      "tag": "Ropa",
+      "subtitle": "Moda y accesorios",
+      "price": "Precio variable",
+      "rating": 4.2,
+      "reviews": 120,
+      "distance": "0.5 km",
+      "isVerified": true,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6779,
+        "longitude": -74.0492
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Tienda especializada en ropa moderna y accesorios para todas las edades.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Calle 80 #12-10, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 300 1111"
+            }
+          ],
+          "whatsapp": "+57 320 300 1111",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 300 1111"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/ropa-boutique-1",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@ropaboutique1.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Nuevas colecciones",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 20,
+              "commentsCount": 3,
+              "shares": 1,
+              "description": "Entradas de temporada"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-r1",
+              "title": "Descuento temporada",
+              "description": "20% en nuevas colecciones",
+              "discount": "20% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-01-15",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-r1",
+              "userName": "Ana Pérez",
+              "userAvatar": "assets/images/city.png",
+              "rating": 5,
+              "comment": "Excelente atención y productos.",
+              "date": "2025-12-10",
+              "likes": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-3",
+      "name": "Ropa Boutique 2",
+      "category": "tiendas",
+      "subcategory": "Ropa",
+      "tag": "Ropa",
+      "subtitle": "Moda casual",
+      "price": "Precio variable",
+      "rating": 4.1,
+      "reviews": 95,
+      "distance": "0.7 km",
+      "isVerified": false,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6789,
+        "longitude": -74.0472
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Moda casual y accesorios con estilos actuales.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Carrera 14 #85-20, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 300 2222"
+            }
+          ],
+          "whatsapp": "+57 320 300 2222",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 300 2222"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/ropa-boutique-2",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@ropaboutique2.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Colección casual",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 12,
+              "commentsCount": 1,
+              "shares": 0,
+              "description": "Look casual"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-r2",
+              "title": "Semana casual",
+              "description": "15% en línea casual",
+              "discount": "15% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-02-01",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-r2",
+              "userName": "Luis Gómez",
+              "userAvatar": "assets/images/city.png",
+              "rating": 4,
+              "comment": "Buenos precios.",
+              "date": "2025-12-11",
+              "likes": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-4",
+      "name": "Ropa Boutique 3",
+      "category": "tiendas",
+      "subcategory": "Ropa",
+      "tag": "Ropa",
+      "subtitle": "Moda premium",
+      "price": "Precio variable",
+      "rating": 4.4,
+      "reviews": 140,
+      "distance": "1.1 km",
+      "isVerified": true,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6799,
+        "longitude": -74.0462
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Moda premium con marcas exclusivas y atención personalizada.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Calle 90 #15-10, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 300 3333"
+            }
+          ],
+          "whatsapp": "+57 320 300 3333",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 300 3333"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/ropa-boutique-3",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@ropaboutique3.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Premium looks",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 30,
+              "commentsCount": 5,
+              "shares": 2,
+              "description": "Outfits exclusivos"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-r3",
+              "title": "Exclusivos -10%",
+              "description": "10% en marcas seleccionadas",
+              "discount": "10% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-03-01",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-r3",
+              "userName": "Marta Díaz",
+              "userAvatar": "assets/images/city.png",
+              "rating": 5,
+              "comment": "Excelente calidad.",
+              "date": "2025-12-12",
+              "likes": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-5",
+      "name": "Ropa Boutique 4",
+      "category": "tiendas",
+      "subcategory": "Ropa",
+      "tag": "Ropa",
+      "subtitle": "Estilo urbano",
+      "price": "Precio variable",
+      "rating": 4.0,
+      "reviews": 80,
+      "distance": "1.3 km",
+      "isVerified": false,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6809,
+        "longitude": -74.0452
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Estilo urbano con colección streetwear.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Calle 93 #12-5, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 300 4444"
+            }
+          ],
+          "whatsapp": "+57 320 300 4444",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 300 4444"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/ropa-boutique-4",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@ropaboutique4.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Streetwear",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 10,
+              "commentsCount": 2,
+              "shares": 1,
+              "description": "Moda urbana"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-r4",
+              "title": "Street -15%",
+              "description": "15% en ropa urbana",
+              "discount": "15% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-02-20",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-r4",
+              "userName": "Jorge León",
+              "userAvatar": "assets/images/city.png",
+              "rating": 4,
+              "comment": "Buen estilo.",
+              "date": "2025-12-13",
+              "likes": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-6",
+      "name": "Ropa Boutique 5",
+      "category": "tiendas",
+      "subcategory": "Ropa",
+      "tag": "Ropa",
+      "subtitle": "Clásicos y básicos",
+      "price": "Precio variable",
+      "rating": 4.3,
+      "reviews": 110,
+      "distance": "1.6 km",
+      "isVerified": true,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6819,
+        "longitude": -74.0442
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Clásicos y básicos para toda ocasión.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Carrera 12 #94-01, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 300 5555"
+            }
+          ],
+          "whatsapp": "+57 320 300 5555",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 300 5555"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/ropa-boutique-5",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@ropaboutique5.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Básicos",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 18,
+              "commentsCount": 2,
+              "shares": 1,
+              "description": "Prendas esenciales"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-r5",
+              "title": "Básicos -10%",
+              "description": "10% en básicos",
+              "discount": "10% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-01-30",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-r5",
+              "userName": "Sofía Rojas",
+              "userAvatar": "assets/images/city.png",
+              "rating": 5,
+              "comment": "Muy buena calidad.",
+              "date": "2025-12-14",
+              "likes": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-7",
+      "name": "Zapatería 1",
+      "category": "tiendas",
+      "subcategory": "Zapatos",
+      "tag": "Zapatos",
+      "subtitle": "Calzado para todos",
+      "price": "Precio variable",
+      "rating": 4.2,
+      "reviews": 130,
+      "distance": "0.9 km",
+      "isVerified": true,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6829,
+        "longitude": -74.0432
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Calzado para toda la familia con marcas reconocidas.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Calle 72 #13-40, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 301 1111"
+            }
+          ],
+          "whatsapp": "+57 320 301 1111",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 301 1111"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/zapateria-1",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@zapateria1.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Nuevas zapatillas",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 16,
+              "commentsCount": 2,
+              "shares": 0,
+              "description": "Colección deportiva"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-z1",
+              "title": "Deportivas -15%",
+              "description": "15% en calzado deportivo",
+              "discount": "15% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-02-10",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-z1",
+              "userName": "Pedro López",
+              "userAvatar": "assets/images/city.png",
+              "rating": 4,
+              "comment": "Buen surtido.",
+              "date": "2025-12-12",
+              "likes": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-8",
+      "name": "Zapatería 2",
+      "category": "tiendas",
+      "subcategory": "Zapatos",
+      "tag": "Zapatos",
+      "subtitle": "Calzado casual",
+      "price": "Precio variable",
+      "rating": 4.0,
+      "reviews": 90,
+      "distance": "1.0 km",
+      "isVerified": false,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6839,
+        "longitude": -74.0422
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Calzado casual y cómodo.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Carrera 10 #70-15, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 301 2222"
+            }
+          ],
+          "whatsapp": "+57 320 301 2222",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 301 2222"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/zapateria-2",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@zapateria2.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Casual",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 8,
+              "commentsCount": 1,
+              "shares": 0,
+              "description": "Modelos casuales"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-z2",
+              "title": "Casual -10%",
+              "description": "10% en línea casual",
+              "discount": "10% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-02-05",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-z2",
+              "userName": "Elena Ruiz",
+              "userAvatar": "assets/images/city.png",
+              "rating": 4,
+              "comment": "Cómodos y bonitos.",
+              "date": "2025-12-12",
+              "likes": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-9",
+      "name": "Zapatería 3",
+      "category": "tiendas",
+      "subcategory": "Zapatos",
+      "tag": "Zapatos",
+      "subtitle": "Calzado formal",
+      "price": "Precio variable",
+      "rating": 4.3,
+      "reviews": 115,
+      "distance": "1.4 km",
+      "isVerified": true,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6849,
+        "longitude": -74.0412
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Zapatos formales para eventos y trabajo.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Calle 68 #9-30, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 301 3333"
+            }
+          ],
+          "whatsapp": "+57 320 301 3333",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 301 3333"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/zapateria-3",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@zapateria3.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Formal",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 14,
+              "commentsCount": 1,
+              "shares": 0,
+              "description": "Colección formal"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-z3",
+              "title": "Formal -10%",
+              "description": "10% en formales",
+              "discount": "10% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-02-28",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-z3",
+              "userName": "Iván Salazar",
+              "userAvatar": "assets/images/city.png",
+              "rating": 5,
+              "comment": "Muy elegantes.",
+              "date": "2025-12-12",
+              "likes": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-10",
+      "name": "Zapatería 4",
+      "category": "tiendas",
+      "subcategory": "Zapatos",
+      "tag": "Zapatos",
+      "subtitle": "Deportivos",
+      "price": "Precio variable",
+      "rating": 4.1,
+      "reviews": 105,
+      "distance": "1.6 km",
+      "isVerified": false,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6859,
+        "longitude": -74.0402
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Zapatillas deportivas para entrenamiento y running.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Carrera 7 #66-10, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 301 4444"
+            }
+          ],
+          "whatsapp": "+57 320 301 4444",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 301 4444"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/zapateria-4",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@zapateria4.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Sport",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 11,
+              "commentsCount": 1,
+              "shares": 0,
+              "description": "Colección deportiva"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-z4",
+              "title": "Sport -12%",
+              "description": "12% en deportivos",
+              "discount": "12% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-03-10",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-z4",
+              "userName": "Nathalia Mora",
+              "userAvatar": "assets/images/city.png",
+              "rating": 4,
+              "comment": "Cómodos.",
+              "date": "2025-12-12",
+              "likes": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-11",
+      "name": "Zapatería 5",
+      "category": "tiendas",
+      "subcategory": "Zapatos",
+      "tag": "Zapatos",
+      "subtitle": "Infantil",
+      "price": "Precio variable",
+      "rating": 4.3,
+      "reviews": 118,
+      "distance": "1.9 km",
+      "isVerified": true,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6869,
+        "longitude": -74.0392
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Calzado infantil resistente y cómodo.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Calle 64 #8-02, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 301 5555"
+            }
+          ],
+          "whatsapp": "+57 320 301 5555",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 301 5555"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/zapateria-5",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@zapateria5.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Kids",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 9,
+              "commentsCount": 1,
+              "shares": 0,
+              "description": "Colección infantil"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-z5",
+              "title": "Kids -10%",
+              "description": "10% en infantil",
+              "discount": "10% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-01-20",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-z5",
+              "userName": "Paula Silva",
+              "userAvatar": "assets/images/city.png",
+              "rating": 5,
+              "comment": "Duraderos.",
+              "date": "2025-12-12",
+              "likes": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-12",
+      "name": "Electrónica 1",
+      "category": "tiendas",
+      "subcategory": "Electrónica",
+      "tag": "Electrónica",
+      "subtitle": "Gadgets y tecnología",
+      "price": "Precio variable",
+      "rating": 4.4,
+      "reviews": 160,
+      "distance": "0.8 km",
+      "isVerified": true,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6879,
+        "longitude": -74.0382
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Gadgets y tecnología de última generación.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Calle 60 #7-25, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 302 1111"
+            }
+          ],
+          "whatsapp": "+57 320 302 1111",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 302 1111"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/electronica-1",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@electronica1.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Nuevos gadgets",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 25,
+              "commentsCount": 3,
+              "shares": 1,
+              "description": "Tecnología"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-e1",
+              "title": "Gadgets -15%",
+              "description": "15% en gadgets",
+              "discount": "15% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-03-15",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-e1",
+              "userName": "Ricardo Díaz",
+              "userAvatar": "assets/images/city.png",
+              "rating": 4,
+              "comment": "Buen catálogo.",
+              "date": "2025-12-12",
+              "likes": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-13",
+      "name": "Electrónica 2",
+      "category": "tiendas",
+      "subcategory": "Electrónica",
+      "tag": "Electrónica",
+      "subtitle": "Audio y video",
+      "price": "Precio variable",
+      "rating": 4.2,
+      "reviews": 140,
+      "distance": "1.0 km",
+      "isVerified": false,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6889,
+        "longitude": -74.0372
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Equipos de audio y video de alta fidelidad.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Carrera 6 #58-10, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 302 2222"
+            }
+          ],
+          "whatsapp": "+57 320 302 2222",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 302 2222"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/electronica-2",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@electronica2.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Audio",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 20,
+              "commentsCount": 2,
+              "shares": 1,
+              "description": "Sonido premium"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-e2",
+              "title": "Audio -10%",
+              "description": "10% en audio",
+              "discount": "10% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-02-12",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-e2",
+              "userName": "Camila Herrera",
+              "userAvatar": "assets/images/city.png",
+              "rating": 5,
+              "comment": "Sonido espectacular.",
+              "date": "2025-12-12",
+              "likes": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-14",
+      "name": "Electrónica 3",
+      "category": "tiendas",
+      "subcategory": "Electrónica",
+      "tag": "Electrónica",
+      "subtitle": "Computadores",
+      "price": "Precio variable",
+      "rating": 4.3,
+      "reviews": 150,
+      "distance": "1.2 km",
+      "isVerified": true,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6899,
+        "longitude": -74.0362
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Computadores y accesorios.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Calle 56 #5-20, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 302 3333"
+            }
+          ],
+          "whatsapp": "+57 320 302 3333",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 302 3333"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/electronica-3",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@electronica3.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Computadores",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 15,
+              "commentsCount": 2,
+              "shares": 0,
+              "description": "PCs y accesorios"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-e3",
+              "title": "PC -12%",
+              "description": "12% en computadores",
+              "discount": "12% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-02-25",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-e3",
+              "userName": "Diego Ramos",
+              "userAvatar": "assets/images/city.png",
+              "rating": 4,
+              "comment": "Buen servicio.",
+              "date": "2025-12-12",
+              "likes": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-15",
+      "name": "Electrónica 4",
+      "category": "tiendas",
+      "subcategory": "Electrónica",
+      "tag": "Electrónica",
+      "subtitle": "Telefonía",
+      "price": "Precio variable",
+      "rating": 4.1,
+      "reviews": 110,
+      "distance": "1.4 km",
+      "isVerified": false,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6909,
+        "longitude": -74.0352
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Smartphones y accesorios.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Carrera 5 #54-08, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 302 4444"
+            }
+          ],
+          "whatsapp": "+57 320 302 4444",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 302 4444"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/electronica-4",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@electronica4.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Telefonía",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 13,
+              "commentsCount": 1,
+              "shares": 0,
+              "description": "Smartphones"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-e4",
+              "title": "Phones -10%",
+              "description": "10% en teléfonos",
+              "discount": "10% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-02-18",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-e4",
+              "userName": "Andrea Peña",
+              "userAvatar": "assets/images/city.png",
+              "rating": 4,
+              "comment": "Buenos precios.",
+              "date": "2025-12-12",
+              "likes": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-16",
+      "name": "Electrónica 5",
+      "category": "tiendas",
+      "subcategory": "Electrónica",
+      "tag": "Electrónica",
+      "subtitle": "Smart home",
+      "price": "Precio variable",
+      "rating": 4.3,
+      "reviews": 125,
+      "distance": "1.6 km",
+      "isVerified": true,
+      "organization": "Buskados Company",
+      "coordinates": {
+        "latitude": 4.6919,
+        "longitude": -74.0342
+      },
+      "isOpen": true,
+      "placeDetails": [
+        {
+          "description": "Dispositivos inteligentes para el hogar.",
+          "logo": "assets/images/city.png",
+          "coverImage": "assets/images/city.png",
+          "address": "Calle 52 #4-12, Bogotá",
+          "phones": [
+            {
+              "type": "Principal",
+              "phone": "+57 1 302 5555"
+            }
+          ],
+          "whatsapp": "+57 320 302 5555",
+          "whatsapps": [
+            {
+              "type": "Principal",
+              "whatsapp": "+57 320 302 5555"
+            }
+          ],
+          "schedule": {
+            "weekdays": "10:00 - 20:00",
+            "saturday": "10:00 - 21:00",
+            "sunday": "11:00 - 18:00"
+          },
+          "website": "https://example.com/electronica-5",
+          "emails": [
+            {
+              "type": "Principal",
+              "email": "contacto@electronica5.com"
+            }
+          ],
+          "socialMedia": {
+            "facebook": "",
+            "instagram": "",
+            "tiktok": "",
+            "twitter": "",
+            "youtube": ""
+          },
+          "deliveryApps": {
+            "rappi": "",
+            "didifood": "",
+            "ubereats": "",
+            "ifood": "",
+            "domicilios": ""
+          },
+          "gallery": [
+            {
+              "id": "1",
+              "title": "Smart Home",
+              "type": "image",
+              "url": "assets/images/city.png",
+              "likes": 17,
+              "commentsCount": 2,
+              "shares": 1,
+              "description": "Hogar inteligente"
+            }
+          ],
+          "promotions": [
+            {
+              "id": "promo-e5",
+              "title": "Smart -15%",
+              "description": "15% en smart home",
+              "discount": "15% OFF",
+              "image": "assets/images/city.png",
+              "validUntil": "2026-03-05",
+              "type": "regular"
+            }
+          ],
+          "reviewsList": [
+            {
+              "id": "rev-e5",
+              "userName": "Valentina Cruz",
+              "userAvatar": "assets/images/city.png",
+              "rating": 5,
+              "comment": "Muy útiles.",
+              "date": "2025-12-12",
+              "likes": 3
+            }
+          ]
+        }
+      ]
     }
   ],
   "popularIds": [
     "p-1",
     "p-5",
     "p-8",
-    "p-10"
+    "p-10",
+    "p-12",
+    "p-16"
   ]
 }

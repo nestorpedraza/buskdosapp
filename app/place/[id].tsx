@@ -34,8 +34,11 @@ export default function PlaceDetailScreen() {
         router.push({ pathname: '/place/[id]', params: { id: place.id } });
     };
     React.useEffect(() => {
-        fetchPlaceDetails(id || '1').then(setPlaceData);
-        fetchRelatedPlaces().then(setRelatedPlaces);
+        fetchPlaceDetails(id || 'p-1').then(setPlaceData);
+        fetchRelatedPlaces().then((list) => {
+            const currentId = id || 'p-1';
+            setRelatedPlaces(list.filter(p => p.id !== currentId));
+        });
     }, [id]);
 
 
