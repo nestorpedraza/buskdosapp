@@ -35,7 +35,7 @@ export default function ChatRow({
           </View>
           <View style={styles.messageLine}>
             <Text style={styles.message} numberOfLines={1}>{item.lastMessage}</Text>
-            {item.unreadCount > 0 && (
+            {item.unreadCount != null && item.unreadCount > 0 && (
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>{item.unreadCount}</Text>
               </View>
