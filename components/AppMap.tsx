@@ -60,13 +60,14 @@ export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
     useEffect(() => {
         if (!mapRef.current || !markers) return;
         if (markers.length === 0) {
-            const target = userLocation || medellinCoords;
-            mapRef.current.animateToRegion({
-                latitude: target.latitude,
-                longitude: target.longitude,
-                latitudeDelta: userLocation ? 0.02 : 0.08,
-                longitudeDelta: userLocation ? 0.02 : 0.08,
-            }, 300);
+            if (userLocation) {
+                mapRef.current.animateToRegion({
+                    latitude: userLocation.latitude,
+                    longitude: userLocation.longitude,
+                    latitudeDelta: 0.02,
+                    longitudeDelta: 0.02,
+                }, 300);
+            }
             return;
         }
         if (markers.length === 1) {

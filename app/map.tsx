@@ -106,14 +106,7 @@ export default function MapScreen() {
         }
     };
 
-    const recenterMedellin = () => {
-        mapRef.current?.animateToRegion({
-            latitude: 6.2442,
-            longitude: -75.5812,
-            latitudeDelta: 0.08,
-            longitudeDelta: 0.08,
-        }, 500);
-    };
+
 
     const recenterMyLocation = async () => {
         try {
@@ -121,10 +114,7 @@ export default function MapScreen() {
             const granted = currentPerm.status === 'granted'
                 ? true
                 : (await Location.requestForegroundPermissionsAsync()).status === 'granted';
-            if (!granted) {
-                recenterMedellin();
-                return;
-            }
+            if (!granted) return;
             const last = await Location.getLastKnownPositionAsync();
             if (last) {
                 mapRef.current?.animateToRegion({
@@ -141,9 +131,7 @@ export default function MapScreen() {
                 latitudeDelta: 0.02,
                 longitudeDelta: 0.02,
             }, 300);
-        } catch {
-            recenterMedellin();
-        }
+        } catch { }
     };
 
     const handleSelectPlace = (place: MapMarker) => {
@@ -172,6 +160,15 @@ export default function MapScreen() {
             }
         }
     }, [placeId]);
+
+    React.useEffect(() => {
+        if (!selectedPlaceId && !placeId) {
+            const t = setTimeout(() => {
+                recenterMyLocation();
+            }, 300);
+            return () => clearTimeout(t);
+        }
+    }, [selectedPlaceId, placeId]);
 
     return (
         <SafeAreaView style={styles.safeArea}>
