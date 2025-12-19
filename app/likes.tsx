@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
-import HomeTabBar from '../components/HomeTabBar';
 import LikedCard from '../components/likes/LikedCard';
 import LikesEmptyState from '../components/likes/LikesEmptyState';
+import TabBar from '../components/TabBar';
 import TitlesHeader from '../components/TitlesHeader';
 
 const { width } = Dimensions.get('window');
@@ -169,7 +169,7 @@ export default function LikesScreen() {
                 )}
 
                 {/* Bottom Tab Bar */}
-                <HomeTabBar activeRoute="/likes" />
+                <TabBar activeRoute="/likes" />
             </View>
         </SafeAreaView>
     );

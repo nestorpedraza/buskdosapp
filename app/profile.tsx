@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
-import HomeTabBar from '../components/HomeTabBar';
+import TabBar from '../components/TabBar';
 
 const { width } = Dimensions.get('window');
 
@@ -195,7 +195,7 @@ export default function ProfileScreen() {
                     <Text style={styles.versionText}>Buskdos v1.0.0</Text>
                 </ScrollView>
 
-                <HomeTabBar activeRoute="/profile" />
+                <TabBar activeRoute="/profile" />
             </View>
         </SafeAreaView>
     );

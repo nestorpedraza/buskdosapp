@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import HomeTabBar from '../../components/HomeTabBar';
+import TabBar from '../../components/TabBar';
 import FloatingChatButton from '../../components/place/FloatingChatButton';
 import PlaceApps from '../../components/place/PlaceApps';
 import PlaceComments from '../../components/place/PlaceComments';
@@ -217,7 +217,7 @@ export default function PlaceDetailScreen() {
                 />
 
                 {/* Tab Bar de navegación */}
-                <HomeTabBar activeRoute="/home" />
+                <TabBar activeRoute="/home" />
             </View>
         </SafeAreaView>
     );

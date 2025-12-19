@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
-import HomeTabBar from '../components/HomeTabBar';
+import TabBar from '../components/TabBar';
 import TitlesHeader from '../components/TitlesHeader';
 
 const { width } = Dimensions.get('window');
@@ -180,7 +180,7 @@ export default function NavScreen() {
                     </View>
                 </ScrollView>
 
-                <HomeTabBar activeRoute="/nav" />
+                <TabBar activeRoute="/nav" />
             </View>
         </SafeAreaView>
     );

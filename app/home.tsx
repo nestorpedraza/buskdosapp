@@ -7,7 +7,7 @@ import Header from '../components/Header';
 import CategoriesCarousel from '../components/home/CategoriesCarousel';
 import NearbyCard from '../components/home/NearbyCard';
 import PopularCarousel from '../components/home/PopularCarousel';
-import HomeTabBar from '../components/HomeTabBar';
+import TabBar from '../components/TabBar';
 import { getCategories, getNearbyItems, getPopularItems } from '../data/dataService';
 import { Category, NEARBY_GRID_CONFIG, NearbyItem, PopularItem, SubCategory } from '../types/home.types';
 
@@ -160,7 +160,7 @@ export default function Home() {
                     )}
                 />
 
-                <HomeTabBar activeRoute="/home" />
+                <TabBar activeRoute="/home" />
             </View>
         </SafeAreaView>
     );
