@@ -131,7 +131,7 @@ export default function AppMap({ style, markers, onMapRef, radiusKm }: AppMapPro
                     key={marker.id}
                     coordinate={{ latitude: marker.lat, longitude: marker.lng }}
                     title={marker.name}
-                    description={`${marker.category} - ⭐ ${marker.rating}`}
+                    description={`${marker.category} - ⭐ ${marker.rating} - 📌 ${marker.lat.toFixed(4)}, ${marker.lng.toFixed(4)}`}
                     anchor={{ x: 0.5, y: 1.0 }}
                     flat
                     tracksViewChanges={tracksView}

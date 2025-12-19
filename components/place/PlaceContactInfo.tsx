@@ -1,12 +1,13 @@
+import { useRouter } from 'expo-router';
 import React from 'react';
 import {
-    Image,
     Linking,
     StyleSheet,
     Text,
     TouchableOpacity,
     View,
 } from 'react-native';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 interface PlaceSchedule {
     weekdays: string;
@@ -20,6 +21,7 @@ interface PlaceContactInfoProps {
         latitude: number;
         longitude: number;
     };
+    placeId?: string;
     phone: string;
     phones?: { type: string; phone: string }[];
     whatsapp: string;
@@ -37,6 +39,7 @@ interface PlaceContactInfoProps {
 export default function PlaceContactInfo({
     address,
     coordinates,
+    placeId,
     phone,
     phones,
     whatsapp,
@@ -46,9 +49,17 @@ export default function PlaceContactInfo({
     website,
     emails,
 }: PlaceContactInfoProps) {
+    const router = useRouter();
     const handleOpenMaps = () => {
         const url = `https://www.google.com/maps/search/?api=1&query=${coordinates.latitude},${coordinates.longitude}`;
         Linking.openURL(url);
+    };
+    const handleOpenInternalMap = () => {
+        if (placeId) {
+            router.push({ pathname: '/map', params: { placeId } });
+        } else {
+            router.push({ pathname: '/map' });
+        }
     };
 
     const handleCall = () => {
@@ -73,19 +84,35 @@ export default function PlaceContactInfo({
             <Text style={styles.sectionTitle}>Información de Contacto</Text>
 
             {/* Mapa */}
-            <TouchableOpacity style={styles.mapContainer} onPress={handleOpenMaps}>
-                <Image
-                    source={require('../../assets/images/mapa.png')}
+            <View style={styles.mapContainer}>
+                <MapView
+                    provider={PROVIDER_GOOGLE}
                     style={styles.mapImage}
-                    resizeMode="cover"
-                />
+                    pointerEvents="none"
+                    scrollEnabled={false}
+                    zoomEnabled={false}
+                    rotateEnabled={false}
+                    pitchEnabled={false}
+                    initialRegion={{
+                        latitude: coordinates.latitude,
+                        longitude: coordinates.longitude,
+                        latitudeDelta: 0.01,
+                        longitudeDelta: 0.01,
+                    }}
+                >
+                    <Marker
+                        coordinate={{ latitude: coordinates.latitude, longitude: coordinates.longitude }}
+                        title="Ubicación"
+                        flat
+                    />
+                </MapView>
                 <View style={styles.mapOverlay}>
-                    <View style={styles.mapPin}>
-                        <Text style={styles.mapPinIcon}>📍</Text>
-                    </View>
-                    <Text style={styles.mapText}>Ver en Google Maps</Text>
+
+                    <TouchableOpacity style={styles.mapButton} onPress={handleOpenInternalMap}>
+                        <Text style={styles.mapText}>Ver en el mapa</Text>
+                    </TouchableOpacity>
                 </View>
-            </TouchableOpacity>
+            </View>
 
             {/* Lista de contactos */}
             <View style={styles.contactList}>
@@ -307,6 +334,14 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '600',
     },
+    mapButton: {
+        position: 'absolute',
+        bottom: 8,
+        paddingHorizontal: 14,
+        paddingVertical: 8,
+        backgroundColor: 'rgba(174, 0, 255, 0.45)',
+        borderRadius: 18,
+    },
     contactList: {
         paddingHorizontal: 16,
     },
@@ -348,7 +383,7 @@ const styles = StyleSheet.create({
     actionButton: {
         paddingHorizontal: 16,
         paddingVertical: 8,
-        backgroundColor: '#f3f4f6',
+        backgroundColor: '#ae00ffa8',
         borderRadius: 20,
     },
     actionButtonText: {

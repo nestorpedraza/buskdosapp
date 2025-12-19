@@ -351,6 +351,7 @@ export default function MapScreen() {
                                         <View style={styles.placeDetails}>
                                             <Text style={styles.placeRating}>⭐ {place.rating}</Text>
                                             <Text style={styles.placeDistance}>📍 {place.distance}</Text>
+                                            <Text style={styles.placeCoords}>📌 {place.lat.toFixed(4)}, {place.lng.toFixed(4)}</Text>
                                         </View>
                                     </View>
                                     <Text style={styles.placeArrow}>›</Text>
@@ -720,6 +721,11 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     placeDistance: {
+        fontSize: 12,
+        color: '#666',
+        fontWeight: '600',
+    },
+    placeCoords: {
         fontSize: 12,
         color: '#666',
         fontWeight: '600',

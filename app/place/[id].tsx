@@ -168,6 +168,7 @@ export default function PlaceDetailScreen() {
                         <PlaceContactInfo
                             address={placeData.address}
                             coordinates={placeData.coordinates}
+                            placeId={placeData.id}
                             phone={placeData.phone}
                             phones={placeData.phones}
                             whatsapp={placeData.whatsapp}

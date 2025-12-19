@@ -48,12 +48,6 @@ export const getCategories = (): Category[] =>
         image: resolveAsset(category.imageUrl) as any,
     }));
 
-// Map markers for Medellín
-const randomAroundMedellin = () => ({
-    latitude: 6.2442 + (Math.random() - 0.5) * 0.05,
-    longitude: -75.5812 + (Math.random() - 0.5) * 0.05,
-});
-
 export const getMapMarkers = (): MapMarker[] => {
     const fold = (s?: string) =>
         String(s || '')
@@ -70,20 +64,25 @@ export const getMapMarkers = (): MapMarker[] => {
             keyMap[fold(c.name)] = c.imageKey;
         }
     });
-    return (appData.places || []).map((p: any) => {
-        const coords = p.lat && p.lng
-            ? { latitude: p.lat, longitude: p.lng }
-            : randomAroundMedellin();
-        const catKey = keyMap[fold(p.category)] || p.category || (categoriesList[0]?.imageKey || 'tiendas');
-        return {
-            id: p.id,
-            name: p.name,
-            category: catKey,
-            tag: p.tag,
-            rating: p.rating,
-            distance: p.distance || '',
-            lat: coords.latitude,
-            lng: coords.longitude,
-        };
-    });
+    return (appData.places || [])
+        .map((p: any) => {
+            const hasCoords = p.coordinates && typeof p.coordinates.latitude === 'number' && typeof p.coordinates.longitude === 'number';
+            const hasLatLng = typeof p.lat === 'number' && typeof p.lng === 'number';
+            if (!hasCoords && !hasLatLng) return null;
+            const coords = hasCoords
+                ? { latitude: p.coordinates.latitude, longitude: p.coordinates.longitude }
+                : { latitude: p.lat, longitude: p.lng };
+            const catKey = keyMap[fold(p.category)] || p.category || (categoriesList[0]?.imageKey || 'tiendas');
+            return {
+                id: p.id,
+                name: p.name,
+                category: catKey,
+                tag: p.tag,
+                rating: p.rating,
+                distance: p.distance || '',
+                lat: coords.latitude,
+                lng: coords.longitude,
+            } as MapMarker;
+        })
+        .filter(Boolean) as MapMarker[];
 };
