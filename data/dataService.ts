@@ -1,4 +1,4 @@
-import type { MapMarker } from '../components/AppMap';
+import type { MapMarker } from '../components/map/AppMap';
 import { Category, NearbyItem, PopularItem } from '../types/home.types';
 import appData from './appData.json';
 

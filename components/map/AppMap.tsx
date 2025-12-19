@@ -127,7 +127,6 @@ export default function AppMap({ style, markers, onMapRef, radiusKm, onMarkerPre
         >
 
 
-            {/* Marcadores dinámicos */}
             {markers?.map((marker, idx) => (
                 <Marker
                     key={marker.id}
@@ -141,7 +140,7 @@ export default function AppMap({ style, markers, onMapRef, radiusKm, onMarkerPre
                     onCalloutPress={() => onMarkerPress?.(marker)}
                 >
                     <RNImage
-                        source={require('../assets/images/icon-map.png')}
+                        source={require('../../assets/images/icon-map.png')}
                     />
                 </Marker>
             ))}

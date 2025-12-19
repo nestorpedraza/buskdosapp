@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Image, ImageStyle, StyleProp } from 'react-native';
 
-// Definimos la misma interfaz para mantener compatibilidad
 export interface MapMarker {
     id: string;
     name: string;
@@ -26,7 +25,7 @@ export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
 
     return (
         <Image
-            source={require('../assets/images/mapa.png')}
+            source={require('../../assets/images/mapa.png')}
             style={style}
             resizeMode="cover"
         />

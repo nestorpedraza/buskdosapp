@@ -14,9 +14,9 @@ import {
 } from 'react-native';
 import type MapView from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AppMap, { MapMarker } from '../components/AppMap';
 import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
+import AppMap, { MapMarker } from '../components/map/AppMap';
 import { getCategories, getMapMarkers } from '../data/dataService';
 
 const { width, height } = Dimensions.get('window');

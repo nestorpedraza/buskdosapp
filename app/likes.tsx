@@ -10,8 +10,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
-import LikedCard from '../components/LikedCard';
-import LikesEmptyState from '../components/LikesEmptyState';
+import LikedCard from '../components/likes/LikedCard';
+import LikesEmptyState from '../components/likes/LikesEmptyState';
 import TitlesHeader from '../components/TitlesHeader';
 
 const { width } = Dimensions.get('window');

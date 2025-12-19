@@ -3,11 +3,11 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { FlatList, Platform, Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import CategoriesCarousel from '../components/CategoriesCarousel';
+import CategoriesCarousel from '../components/home/CategoriesCarousel';
+import NearbyCard from '../components/home/NearbyCard';
+import PopularCarousel from '../components/home/PopularCarousel';
 import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
-import NearbyCard from '../components/NearbyCard';
-import PopularCarousel from '../components/PopularCarousel';
 import { getCategories, getNearbyItems, getPopularItems } from '../data/dataService';
 import { Category, NEARBY_GRID_CONFIG, NearbyItem, PopularItem, SubCategory } from '../types/home.types';
 
