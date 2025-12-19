@@ -23,6 +23,7 @@ export const getPopularItems = (): PopularItem[] => {
             price: p.price || '',
             rating: p.rating,
             reviews: p.reviews || 0,
+            isVerified: !!p.isVerified,
             image: require('../assets/images/city.png'),
         }));
 };
@@ -33,10 +34,10 @@ export const getNearbyItems = (): NearbyItem[] => {
         tag: p.tag,
         title: p.name,
         subtitle: p.subtitle,
-        price: p.price || '',
         rating: p.rating,
         reviews: p.reviews || 0,
         distance: p.distance || '',
+        isVerified: !!p.isVerified,
         image: require('../assets/images/city.png'),
     }));
 };

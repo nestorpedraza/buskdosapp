@@ -92,7 +92,14 @@ const NearbyCard: React.FC<NearbyCardProps> = memo(({ item, columns, onDetailPre
                 <Text style={styles.subtitle} numberOfLines={1}>
                     {item.subtitle}
                 </Text>
-                <Text style={styles.price}>{item.price}</Text>
+                {item.isVerified && (
+                    <View style={styles.checkmarkContainer}>
+                        <View style={styles.checkmarkCircle}>
+                            <Text style={styles.checkmark}>✓</Text>
+                        </View>
+                        <Text style={styles.verifiedText}>Verificado</Text>
+                    </View>
+                )}
                 <View style={styles.ratingContainer}>
                     <Text style={styles.ratingStars}>{renderStars()}</Text>
                     <Text style={styles.ratingCount}>({item.reviews})</Text>
@@ -194,11 +201,29 @@ const styles = StyleSheet.create({
         color: '#666',
         marginTop: 2,
     },
-    price: {
-        fontSize: 11,
-        color: '#9900ff',
-        fontWeight: '600',
+    checkmarkContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
         marginTop: 4,
+    },
+    checkmarkCircle: {
+        width: 16,
+        height: 16,
+        borderRadius: 8,
+        backgroundColor: '#8b5cf6',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    checkmark: {
+        fontSize: 10,
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    verifiedText: {
+        fontSize: 11,
+        color: '#8b5cf6',
+        fontWeight: '600',
+        marginLeft: 6,
     },
     ratingContainer: {
         flexDirection: 'row',

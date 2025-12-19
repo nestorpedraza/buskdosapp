@@ -20,7 +20,7 @@ export const CAROUSEL_CONFIG = {
 export const POPULAR_CAROUSEL_CONFIG = {
     CARD_WIDTH: 180,
     CARD_MARGIN: 16,
-    CARD_HEIGHT: 220,
+    CARD_HEIGHT: 260,
     BORDER_RADIUS: 16,
     get SNAP_INTERVAL() {
         return this.CARD_WIDTH + this.CARD_MARGIN;
@@ -71,6 +71,7 @@ export interface PopularItem {
     price: string;
     rating: number;
     reviews: number;
+    isVerified?: boolean;
     image: ImageSourcePropType;
     imageUri?: string;
 }
@@ -83,10 +84,10 @@ export interface NearbyItem {
     tag: string;
     title: string;
     subtitle: string;
-    price: string;
     rating: number;
     reviews: number;
     distance: string;
+    isVerified?: boolean;
     image: ImageSourcePropType;
     imageUri?: string;
 }
@@ -106,6 +107,8 @@ export interface CategoryItemProps {
 export interface PopularCardProps {
     item: PopularItem;
     onPress?: (item: PopularItem) => void;
+    onDetailPress?: (item: PopularItem) => void;
+    onMapPress?: (item: PopularItem) => void;
 }
 
 /**

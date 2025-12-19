@@ -12,12 +12,18 @@ import { ImageLoadState, POPULAR_CAROUSEL_CONFIG, PopularCardProps } from '../ty
 /**
  * PopularCard - Componente memoizado para items populares
  */
-const PopularCard: React.FC<PopularCardProps> = memo(({ item, onPress }) => {
+const PopularCard: React.FC<PopularCardProps> = memo(({ item, onPress, onDetailPress, onMapPress }) => {
     const [imageState, setImageState] = useState<ImageLoadState>('idle');
 
     const handlePress = useCallback(() => {
         onPress?.(item);
     }, [item, onPress]);
+    const handleDetailPress = useCallback(() => {
+        onDetailPress?.(item);
+    }, [item, onDetailPress]);
+    const handleMapPress = useCallback(() => {
+        onMapPress?.(item);
+    }, [item, onMapPress]);
 
     const handleLoadStart = useCallback(() => setImageState('loading'), []);
     const handleLoadEnd = useCallback(() => setImageState('loaded'), []);
@@ -86,6 +92,14 @@ const PopularCard: React.FC<PopularCardProps> = memo(({ item, onPress }) => {
                 <View style={styles.ratingContainer}>
                     <Text style={styles.ratingStars}>{renderStars()}</Text>
                     <Text style={styles.ratingCount}>({item.reviews})</Text>
+                </View>
+                <View style={styles.actions}>
+                    <Pressable style={styles.actionButton} onPress={handleDetailPress}>
+                        <Text style={styles.actionText}>Detalle</Text>
+                    </Pressable>
+                    <Pressable style={[styles.actionButton, styles.actionButtonRight]} onPress={handleMapPress}>
+                        <Text style={styles.actionText}>Mapa</Text>
+                    </Pressable>
                 </View>
             </View>
         </Pressable>
@@ -200,6 +214,32 @@ const styles = StyleSheet.create({
         fontSize: 11,
         color: '#666',
         marginLeft: 4,
+    },
+    actions: {
+        flexDirection: 'row',
+        gap: 8,
+        marginTop: 8,
+    },
+    actionButton: {
+        flex: 1,
+        height: 34,
+        borderRadius: 17,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderColor: '#9900ff',
+        shadowColor: '#9900ff',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.15,
+        shadowRadius: 4,
+        elevation: 2,
+    },
+    actionButtonRight: {},
+    actionText: {
+        fontSize: 12,
+        color: '#333',
+        fontWeight: '700',
     },
 });
 

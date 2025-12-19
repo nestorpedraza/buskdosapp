@@ -68,6 +68,12 @@ export default function Home() {
     const handlePopularPress = useCallback((item: PopularItem) => {
         router.push({ pathname: '/place/[id]', params: { id: item.id } });
     }, [router]);
+    const handlePopularDetailPress = useCallback((item: PopularItem) => {
+        router.push({ pathname: '/place/[id]', params: { id: item.id } });
+    }, [router]);
+    const handlePopularMapPress = useCallback((item: PopularItem) => {
+        router.push({ pathname: '/map', params: { placeId: item.id } });
+    }, [router]);
 
     const handleNearbyDetailPress = useCallback((item: NearbyItem) => {
         router.push({ pathname: '/place/[id]', params: { id: item.id } });
@@ -144,6 +150,8 @@ export default function Home() {
                                 }
                                 items={filteredPopularItems}
                                 onItemPress={handlePopularPress}
+                                onDetailPress={handlePopularDetailPress}
+                                onMapPress={handlePopularMapPress}
                             />
                             <View style={styles.sectionTitleWrapper}>
                                 <Text style={styles.sectionTitle}>Sitios Cercanos</Text>

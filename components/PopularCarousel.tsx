@@ -16,9 +16,11 @@ interface PopularCarouselProps {
     title: string;
     items: PopularItem[];
     onItemPress?: (item: PopularItem) => void;
+    onDetailPress?: (item: PopularItem) => void;
+    onMapPress?: (item: PopularItem) => void;
 }
 
-export default function PopularCarousel({ title, items, onItemPress }: PopularCarouselProps) {
+export default function PopularCarousel({ title, items, onItemPress, onDetailPress, onMapPress }: PopularCarouselProps) {
     const listRef = React.useRef<Animated.FlatList<PopularItem>>(null);
     const scrollX = useSharedValue(0);
 
@@ -38,8 +40,8 @@ export default function PopularCarousel({ title, items, onItemPress }: PopularCa
     }, [onItemPress]);
 
     const renderItem = useCallback(({ item }: { item: PopularItem }) => (
-        <PopularCard item={item} onPress={handleItemPress} />
-    ), [handleItemPress]);
+        <PopularCard item={item} onPress={handleItemPress} onDetailPress={onDetailPress} onMapPress={onMapPress} />
+    ), [handleItemPress, onDetailPress, onMapPress]);
 
     const keyExtractor = useCallback((item: PopularItem) => item.id, []);
 
@@ -116,9 +118,9 @@ export default function PopularCarousel({ title, items, onItemPress }: PopularCa
 
 const styles = StyleSheet.create({
     section: {
-        paddingHorizontal: 20,
+        paddingHorizontal: 12,
         paddingTop: 28,
-        paddingBottom: 8,
+        paddingBottom: 24,
     },
     sectionTitle: {
         fontSize: 22,
@@ -127,7 +129,9 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     carouselContainer: {
-        paddingRight: POPULAR_CAROUSEL_CONFIG.CARD_WIDTH / 2,
+        paddingRight: POPULAR_CAROUSEL_CONFIG.CARD_MARGIN,
+        paddingBottom: 16,
+        paddingLeft: 0,
     },
     paginationContainer: {
         flexDirection: 'row',
