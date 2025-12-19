@@ -37,7 +37,9 @@ export default function ChatsScreen() {
               value={query}
               onChangeText={setQuery}
             />
-            <Text style={styles.searchIcon}>🔎</Text>
+            <Pressable accessibilityRole="button" style={styles.searchIconBtn}>
+              <Text style={styles.searchIconText}>{'\u{1F50D}'}</Text>
+            </Pressable>
           </View>
           <Pressable style={styles.sortBtn} onPress={toggleSort}>
             <Text style={styles.sortText}>{sortDesc ? 'Fecha ↓' : 'Fecha ↑'}</Text>
@@ -99,6 +101,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#6b7280',
     marginLeft: 8,
+  },
+  searchIconBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 8,
+  },
+  searchIconText: {
+    fontSize: 16,
+    color: '#6b7280',
   },
   sortBtn: {
     height: 44,

@@ -1,3 +1,4 @@
+import { JSX } from 'react';
 import type { ViewStyle } from 'react-native';
 declare module './ContactEmbeddedMap' {
   const ContactEmbeddedMap: (props: {
