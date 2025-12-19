@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import ContactEmbeddedMap from './ContactEmbeddedMap';
 
 interface PlaceSchedule {
     weekdays: string;
@@ -85,28 +85,7 @@ export default function PlaceContactInfo({
 
             {/* Mapa */}
             <View style={styles.mapContainer}>
-                <MapView
-                    provider={PROVIDER_GOOGLE}
-                    style={styles.mapImage}
-                    pointerEvents="none"
-                    scrollEnabled={false}
-                    zoomEnabled={false}
-                    rotateEnabled={false}
-                    pitchEnabled={false}
-                    initialRegion={{
-                        latitude: coordinates.latitude,
-                        longitude: coordinates.longitude,
-                        latitudeDelta: 0.02,
-                        longitudeDelta: 0.02,
-                    }}
-                >
-                    <Marker
-                        coordinate={{ latitude: coordinates.latitude, longitude: coordinates.longitude }}
-                        title="Ubicación"
-                        flat
-                        image={require('../../assets/images/icon-map.png')}
-                    />
-                </MapView>
+                <ContactEmbeddedMap coordinates={coordinates} style={styles.mapImage} />
                 <View style={styles.mapOverlay}>
 
                     <TouchableOpacity style={styles.mapButton} onPress={handleOpenInternalMap}>
