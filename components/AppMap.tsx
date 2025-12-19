@@ -1,7 +1,7 @@
 import * as Location from 'expo-location';
 import React, { useEffect, useRef, useState } from 'react';
 import { Image as RNImage, StyleProp, ViewStyle } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Circle, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 export interface MapMarker {
     id: string;
@@ -18,9 +18,10 @@ interface AppMapProps {
     style?: StyleProp<ViewStyle>;
     markers?: MapMarker[];
     onMapRef?: (ref: MapView | null) => void;
+    radiusKm?: number;
 }
 
-export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
+export default function AppMap({ style, markers, onMapRef, radiusKm }: AppMapProps) {
     const medellinCoords = {
         latitude: 6.2442,
         longitude: -75.5812,
@@ -91,6 +92,20 @@ export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
     }, [markers, userLocation]);
 
     useEffect(() => {
+        if (!mapRef.current || !userLocation || !radiusKm) return;
+        const lat = userLocation.latitude;
+        const rad = (lat * Math.PI) / 180;
+        const base = Math.max(radiusKm * 2, 1);
+        const latDelta = base / 111;
+        const lonDelta = base / (111 * Math.max(0.1, Math.cos(rad)));
+        mapRef.current.animateToRegion({
+            latitude: userLocation.latitude,
+            longitude: userLocation.longitude,
+            latitudeDelta: Math.max(0.01, latDelta),
+            longitudeDelta: Math.max(0.01, lonDelta),
+        }, 250);
+    }, [radiusKm, userLocation]);
+    useEffect(() => {
         setTracksView(true);
         const t = setTimeout(() => setTracksView(false), 500);
         return () => clearTimeout(t);
@@ -124,10 +139,18 @@ export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
                 >
                     <RNImage
                         source={require('../assets/images/icon-map.png')}
-                        style={{ width: 32, height: 32 }}
                     />
                 </Marker>
             ))}
+            {radiusKm && userLocation && (
+                <Circle
+                    center={userLocation}
+                    radius={radiusKm * 1000}
+                    strokeColor="rgba(153,0,255,0.6)"
+                    fillColor="rgba(153,0,255,0.12)"
+                    zIndex={5}
+                />
+            )}
         </MapView>
     );
 }

@@ -36,6 +36,7 @@ export default function MapScreen() {
     const dragStartX = React.useRef(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const mapRef = React.useRef<MapView | null>(null);
+    const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
 
     const categoryIconByKey: Record<string, string> = {
         tiendas: '🛍️',
@@ -58,6 +59,17 @@ export default function MapScreen() {
             .normalize('NFD')
             .replace(/[\u0300-\u036f]/g, '')
             .toLowerCase();
+    const haversineKm = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    };
 
     const filteredPlaces = useMemo(() => {
         let base = nearbyPlaces;
@@ -78,14 +90,18 @@ export default function MapScreen() {
         }
         if (showDistance) {
             const maxKm = distanceKm;
-            out = out.filter(p => {
-                const match = String(p.distance || '').toLowerCase().match(/([\d.]+)\s*km/);
-                const km = match ? parseFloat(match[1]) : 0;
-                return km <= maxKm;
-            });
+            if (userLocation) {
+                out = out.filter(p => haversineKm(userLocation.latitude, userLocation.longitude, p.lat, p.lng) <= maxKm);
+            } else {
+                out = out.filter(p => {
+                    const match = String(p.distance || '').toLowerCase().match(/([\d.]+)\s*km/);
+                    const km = match ? parseFloat(match[1]) : 0;
+                    return km <= maxKm;
+                });
+            }
         }
         return out;
-    }, [nearbyPlaces, searchQuery, categories, selectedCategory, selectedSubcategoryId, showDistance, distanceKm]);
+    }, [nearbyPlaces, searchQuery, categories, selectedCategory, selectedSubcategoryId, showDistance, distanceKm, userLocation]);
 
     const markersToShow = selectedPlaceId
         ? filteredPlaces.filter(p => p.id === selectedPlaceId)
@@ -117,6 +133,7 @@ export default function MapScreen() {
             if (!granted) return;
             const last = await Location.getLastKnownPositionAsync();
             if (last) {
+                setUserLocation({ latitude: last.coords.latitude, longitude: last.coords.longitude });
                 mapRef.current?.animateToRegion({
                     latitude: last.coords.latitude,
                     longitude: last.coords.longitude,
@@ -125,6 +142,7 @@ export default function MapScreen() {
                 }, 200);
             }
             const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+            setUserLocation({ latitude: pos.coords.latitude, longitude: pos.coords.longitude });
             mapRef.current?.animateToRegion({
                 latitude: pos.coords.latitude,
                 longitude: pos.coords.longitude,
@@ -179,6 +197,7 @@ export default function MapScreen() {
                         style={styles.mapImage}
                         markers={markersToShow}
                         onMapRef={(ref) => { mapRef.current = ref; }}
+                        radiusKm={showDistance ? distanceKm : undefined}
                     />
 
                     <View style={styles.floatingSearchContainer}>
