@@ -1,6 +1,6 @@
 import React from 'react';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Image as RNImage, ViewStyle } from 'react-native';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 export default function ContactEmbeddedMap({
   coordinates,
