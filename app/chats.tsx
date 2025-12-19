@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -6,6 +7,7 @@ import TabBar from '../components/TabBar';
 import ChatRow, { ChatItem } from '../components/chats/ChatRow';
 
 export default function ChatsScreen() {
+  const router = useRouter();
   const [query, setQuery] = useState('');
   const [sortDesc, setSortDesc] = useState(true);
   const [chats, setChats] = useState<ChatItem[]>(sampleChats);
@@ -24,6 +26,9 @@ export default function ChatsScreen() {
     setChats(prev => prev.filter(c => c.id !== ci.id));
   };
   const toggleSort = () => setSortDesc(s => !s);
+  const handleOpen = (ci: ChatItem) => {
+    router.push({ pathname: '/chats/[id]', params: { id: ci.id } });
+  };
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -47,7 +52,7 @@ export default function ChatsScreen() {
         </View>
         <View style={styles.list}>
           {filtered.map(item => (
-            <ChatRow key={item.id} item={item} onDelete={handleDelete} />
+            <ChatRow key={item.id} item={item} onDelete={handleDelete} onPress={handleOpen} />
           ))}
           {filtered.length === 0 && (
             <View style={styles.empty}>
