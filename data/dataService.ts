@@ -62,6 +62,17 @@ const randomAroundMedellin = () => ({
 });
 
 export const getMapMarkers = (): MapMarker[] => {
+    const normalize = (key?: string) => {
+        const k = String(key || '').toLowerCase();
+        switch (k) {
+            case 'tiendas': return 'shop';
+            case 'restaurantes': return 'restaurant';
+            case 'cafeterias': return 'cafe';
+            case 'salud': return 'health';
+            case 'deportes': return 'gym';
+            default: return k || 'shop';
+        }
+    };
     return (appData.places || []).map((p: any) => {
         const coords = p.lat && p.lng
             ? { latitude: p.lat, longitude: p.lng }
@@ -69,7 +80,7 @@ export const getMapMarkers = (): MapMarker[] => {
         return {
             id: p.id,
             name: p.name,
-            category: p.category,
+            category: normalize(p.category),
             tag: p.tag,
             rating: p.rating,
             distance: p.distance || '',

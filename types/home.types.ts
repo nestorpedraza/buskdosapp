@@ -53,6 +53,7 @@ export interface Category {
     id: string; // Usar string para evitar conversiones innecesarias
     name: string;
     image: ImageSourcePropType;
+    imageKey?: string;
     /** URI opcional para imágenes de red */
     imageUri?: string;
     /** Subcategorías opcionales */

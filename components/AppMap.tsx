@@ -1,6 +1,7 @@
+import * as Location from 'expo-location';
 import React, { useEffect, useRef, useState } from 'react';
-import { Image, StyleProp, ViewStyle } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE, UrlTile } from 'react-native-maps';
+import { Image as RNImage, StyleProp, ViewStyle } from 'react-native';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 export interface MapMarker {
     id: string;
@@ -26,6 +27,8 @@ export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
     };
 
     const mapRef = useRef<MapView>(null);
+    const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+    const [locationPermissionGranted, setLocationPermissionGranted] = useState(false);
     const [tracksView, setTracksView] = useState(true);
 
     useEffect(() => {
@@ -33,13 +36,36 @@ export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
     }, [onMapRef]);
 
     useEffect(() => {
+        let isMounted = true;
+        Location.requestForegroundPermissionsAsync().then((res) => {
+            const granted = res.status === 'granted';
+            if (!isMounted) return;
+            setLocationPermissionGranted(granted);
+            if (granted) {
+                Location.getCurrentPositionAsync({}).then((pos) => {
+                    if (!isMounted) return;
+                    const coords = {
+                        latitude: pos.coords.latitude,
+                        longitude: pos.coords.longitude,
+                    };
+                    setUserLocation(coords);
+                }).catch(() => { });
+            }
+        }).catch(() => { });
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+
+    useEffect(() => {
         if (!mapRef.current || !markers) return;
         if (markers.length === 0) {
+            const target = userLocation || medellinCoords;
             mapRef.current.animateToRegion({
-                latitude: 6.2442,
-                longitude: -75.5812,
-                latitudeDelta: 0.08,
-                longitudeDelta: 0.08,
+                latitude: target.latitude,
+                longitude: target.longitude,
+                latitudeDelta: userLocation ? 0.02 : 0.08,
+                longitudeDelta: userLocation ? 0.02 : 0.08,
             }, 300);
             return;
         }
@@ -61,11 +87,11 @@ export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
             edgePadding: { top: 80, right: 80, bottom: 240, left: 80 },
             animated: true,
         });
-    }, [markers]);
+    }, [markers, userLocation]);
 
     useEffect(() => {
         setTracksView(true);
-        const t = setTimeout(() => setTracksView(false), 600);
+        const t = setTimeout(() => setTracksView(false), 500);
         return () => clearTimeout(t);
     }, [markers]);
 
@@ -74,21 +100,14 @@ export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
             ref={mapRef}
             provider={PROVIDER_GOOGLE}
             style={style}
+            showsUserLocation={locationPermissionGranted}
             initialRegion={{
                 ...medellinCoords,
                 latitudeDelta: 0.05,
                 longitudeDelta: 0.05,
             }}
         >
-            <UrlTile
-                /**
-                 * Usamos CartoDB Voyager para evitar el bloqueo de política de uso de los servidores de OSM.
-                 * OSM requiere un User-Agent válido que UrlTile no envía por defecto.
-                 */
-                urlTemplate="https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
-                maximumZ={19}
-                zIndex={-1}
-            />
+
 
             {/* Marcadores dinámicos */}
             {markers?.map((marker, idx) => (
@@ -102,7 +121,7 @@ export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
                     tracksViewChanges={tracksView}
                     zIndex={1000 - idx}
                 >
-                    <Image
+                    <RNImage
                         source={require('../assets/images/icon-map.png')}
                         style={{ width: 28, height: 28 }}
                     />

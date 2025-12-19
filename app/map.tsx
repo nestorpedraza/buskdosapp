@@ -1,3 +1,4 @@
+import * as Location from 'expo-location';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import {
@@ -36,34 +37,41 @@ export default function MapScreen() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const mapRef = React.useRef<MapView | null>(null);
 
-    const categoryIconByName: Record<string, string> = {
-        Tiendas: '🛍️',
-        Restaurantes: '🍽️',
-        Cafeterías: '☕',
-        Salud: '🏥',
-        Deportes: '💪',
+    const categoryIconByKey: Record<string, string> = {
+        tiendas: '🛍️',
+        restaurantes: '🍽️',
+        cafeterias: '☕',
+        salud: '🏥',
+        deportes: '💪',
         default: '🌐',
     };
     const categories = useMemo(() => {
         const cats = getCategories();
         return [{ id: 'all', name: 'Todos' } as any]
-            .concat(cats.map(c => ({ ...c, icon: categoryIconByName[c.name] || '🌐' })));
+            .concat(cats.map(c => ({ ...c, icon: categoryIconByKey[c.imageKey || ''] || '🌐' })));
     }, []);
 
     const nearbyPlaces = useMemo<MapMarker[]>(() => getMapMarkers(), []);
 
     const filteredPlaces = useMemo(() => {
-        const base = nearbyPlaces;
+        let base = nearbyPlaces;
+        if (searchQuery && searchQuery.trim().length > 0) {
+            const q = searchQuery.trim().toLowerCase();
+            base = base.filter(p =>
+                (p.name || '').toLowerCase().includes(q) ||
+                (p.tag || '').toLowerCase().includes(q)
+            );
+        }
         if (!selectedCategory || selectedCategory === 'all') return base;
         const cat: any = (categories as any[]).find(c => c.id === selectedCategory);
-        const typeByName: Record<string, string> = {
-            Tiendas: 'shop',
-            Restaurantes: 'restaurant',
-            Cafeterías: 'cafe',
-            Salud: 'health',
-            Deportes: 'gym',
+        const typeByKey: Record<string, string> = {
+            tiendas: 'shop',
+            restaurantes: 'restaurant',
+            cafeterias: 'cafe',
+            salud: 'health',
+            deportes: 'gym',
         };
-        const type = cat ? typeByName[cat.name] : undefined;
+        const type = cat ? typeByKey[cat.imageKey || ''] : undefined;
         let out = type ? base.filter(p => p.category === type) : base;
         if (selectedSubcategoryId && cat?.subcategories) {
             const subName = cat.subcategories.find((s: any) => s.id === selectedSubcategoryId)?.name;
@@ -78,7 +86,7 @@ export default function MapScreen() {
             });
         }
         return out;
-    }, [nearbyPlaces, categories, selectedCategory, selectedSubcategoryId, showDistance, distanceKm]);
+    }, [nearbyPlaces, searchQuery, categories, selectedCategory, selectedSubcategoryId, showDistance, distanceKm]);
 
     const markersToShow = selectedPlaceId
         ? filteredPlaces.filter(p => p.id === selectedPlaceId)
@@ -94,6 +102,37 @@ export default function MapScreen() {
             latitudeDelta: 0.08,
             longitudeDelta: 0.08,
         }, 500);
+    };
+
+    const recenterMyLocation = async () => {
+        try {
+            const currentPerm = await Location.getForegroundPermissionsAsync();
+            const granted = currentPerm.status === 'granted'
+                ? true
+                : (await Location.requestForegroundPermissionsAsync()).status === 'granted';
+            if (!granted) {
+                recenterMedellin();
+                return;
+            }
+            const last = await Location.getLastKnownPositionAsync();
+            if (last) {
+                mapRef.current?.animateToRegion({
+                    latitude: last.coords.latitude,
+                    longitude: last.coords.longitude,
+                    latitudeDelta: 0.02,
+                    longitudeDelta: 0.02,
+                }, 200);
+            }
+            const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+            mapRef.current?.animateToRegion({
+                latitude: pos.coords.latitude,
+                longitude: pos.coords.longitude,
+                latitudeDelta: 0.02,
+                longitudeDelta: 0.02,
+            }, 300);
+        } catch {
+            recenterMedellin();
+        }
     };
 
     const handleSelectPlace = (place: MapMarker) => {
@@ -203,7 +242,7 @@ export default function MapScreen() {
                         </ScrollView>
                     )}
 
-                    <Pressable style={styles.recenterButton} onPress={recenterMedellin}>
+                    <Pressable style={styles.recenterButton} onPress={recenterMyLocation}>
                         <Text style={styles.recenterIcon}>📍</Text>
                     </Pressable>
                     <Pressable style={styles.nearbyFab} onPress={openNearbyModal}>
