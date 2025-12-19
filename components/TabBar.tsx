@@ -21,19 +21,26 @@ export default function TabBar({ activeRoute = '/' }: TabBarProps) {
                 return ['#ff00519d', '#ffa2008f'] as const;
             case '/profile':
                 return ['#c0c0c0ff', '#3d3d3d7b'] as const;
+            case '/chats':
+                return ['#00c2ff', '#0066ff7b'] as const;
             default:
                 return ['#9900ff', '#c300ff5b'] as const;
         }
     };
-    const inactiveTabs = [
+    const allTabs = [
         { route: '/home', icon: '🏠', label: 'Home', path: '/home' as const },
         { route: '/likes', icon: '❤️', label: 'Likes', path: '/likes' as const },
         { route: '/map', icon: '📍', label: 'Map', path: '/map' as const },
-        { route: '/nav', icon: '🧭', label: 'Nav', path: '/nav' as const },
+        { route: '/chats', icon: '💬', label: 'Chats', path: '/chats' as const },
         { route: '/profile', icon: '👤', label: 'Profile', path: '/profile' as const },
-    ].filter(tab => tab.route !== activeRoute);
-    const leftTabs = inactiveTabs.slice(0, 2);
-    const rightTabs = inactiveTabs.slice(2, 4);
+        { route: '/nav', icon: '🧭', label: 'Nav', path: '/nav' as const },
+    ];
+    const displayOrderRoutes: readonly string[] = ['/likes', '/map', '/chats', '/profile', '/nav'];
+    const orderedInactive = displayOrderRoutes
+        .map(r => allTabs.find(t => t.route === r)!)
+        .filter(t => t.route !== activeRoute);
+    const leftTabs = orderedInactive.slice(0, 2);
+    const rightTabs = orderedInactive.slice(2, 4);
     return (
         <View style={styles.tabBar}>
             {leftTabs.map((tab) => (
@@ -54,6 +61,7 @@ export default function TabBar({ activeRoute = '/' }: TabBarProps) {
                         {activeRoute === '/likes' && '❤️'}
                         {activeRoute === '/map' && '📍'}
                         {activeRoute === '/nav' && '🧭'}
+                        {activeRoute === '/chats' && '💬'}
                         {activeRoute === '/profile' && '👤'}
                     </Text>
                 </LinearGradient>
