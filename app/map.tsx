@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import type MapView from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import HomeHeader from '../components/HomeHeader';
+import Header from '../components/Header';
 import HomeTabBar from '../components/HomeTabBar';
 import AppMap, { MapMarker } from '../components/map/AppMap';
 import { getCategories, getMapMarkers } from '../data/dataService';
@@ -191,7 +191,7 @@ export default function MapScreen() {
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
-                <HomeHeader />
+                <Header />
                 <View style={styles.mapContainer}>
                     <AppMap
                         style={styles.mapImage}

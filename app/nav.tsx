@@ -11,7 +11,7 @@ import {
     View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import HomeHeader from '../components/HomeHeader';
+import Header from '../components/Header';
 import HomeTabBar from '../components/HomeTabBar';
 import TitlesHeader from '../components/TitlesHeader';
 
@@ -70,7 +70,7 @@ export default function NavScreen() {
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
                 {/* Header */}
-                <HomeHeader />
+                <Header />
 
                 {/* Section Title */}
                 <TitlesHeader title="Explorar" subtitle="Descubre lugares increíbles" />

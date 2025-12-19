@@ -12,7 +12,7 @@ import {
     View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import HomeHeader from '../components/HomeHeader';
+import Header from '../components/Header';
 import HomeTabBar from '../components/HomeTabBar';
 
 const { width } = Dimensions.get('window');
@@ -64,7 +64,7 @@ export default function ProfileScreen() {
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
                 {/* Header */}
-                <HomeHeader />
+                <Header />
 
                 <ScrollView
                     style={styles.scrollView}

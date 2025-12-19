@@ -3,10 +3,10 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { FlatList, Platform, Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import Header from '../components/Header';
 import CategoriesCarousel from '../components/home/CategoriesCarousel';
 import NearbyCard from '../components/home/NearbyCard';
 import PopularCarousel from '../components/home/PopularCarousel';
-import HomeHeader from '../components/HomeHeader';
 import HomeTabBar from '../components/HomeTabBar';
 import { getCategories, getNearbyItems, getPopularItems } from '../data/dataService';
 import { Category, NEARBY_GRID_CONFIG, NearbyItem, PopularItem, SubCategory } from '../types/home.types';
@@ -85,7 +85,7 @@ export default function Home() {
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
-                <HomeHeader />
+                <Header />
 
                 <FlatList
                     key={`nearby-${nearbyColumns}`}
