@@ -4,19 +4,11 @@ import appData from './appData.json';
 
 // Mapa de imágenes por categoría - permite usar diferentes imágenes para cada una
 // Por ahora todas usan city.png, pero puedes agregar imágenes específicas
-const categoryImages: Record<string, ReturnType<typeof require>> = {
-    tiendas: require('../assets/images/city.png'),
-    restaurantes: require('../assets/images/city.png'),
-    cafeterias: require('../assets/images/city.png'),
-    salud: require('../assets/images/city.png'),
-    belleza: require('../assets/images/city.png'),
-    servicios: require('../assets/images/city.png'),
-    deportes: require('../assets/images/city.png'),
-    educacion: require('../assets/images/city.png'),
-    tecnologia: require('../assets/images/city.png'),
-    hogar: require('../assets/images/city.png'),
-    default: require('../assets/images/city.png'),
+const assetMap: Record<string, any> = {
+    'assets/images/city.png': require('../assets/images/city.png'),
 };
+
+const resolveAsset = (path?: string) => (path ? assetMap[path] : assetMap['assets/images/city.png']);
 
 // Centraliza la carga de datos desde los JSON y resuelve las imágenes locales
 export const getPopularItems = (): PopularItem[] => {
@@ -52,7 +44,7 @@ export const getNearbyItems = (): NearbyItem[] => {
 export const getCategories = (): Category[] =>
     (appData.categories || []).map((category: any) => ({
         ...category,
-        image: (categoryImages[category.imageKey] || categoryImages.default) as any,
+        image: resolveAsset(category.imageUrl) as any,
     }));
 
 // Map markers for Medellín
@@ -62,25 +54,30 @@ const randomAroundMedellin = () => ({
 });
 
 export const getMapMarkers = (): MapMarker[] => {
-    const normalize = (key?: string) => {
-        const k = String(key || '').toLowerCase();
-        switch (k) {
-            case 'tiendas': return 'shop';
-            case 'restaurantes': return 'restaurant';
-            case 'cafeterias': return 'cafe';
-            case 'salud': return 'health';
-            case 'deportes': return 'gym';
-            default: return k || 'shop';
+    const fold = (s?: string) =>
+        String(s || '')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
+    const categoriesList: any[] = (appData as any).categories || [];
+    const keyMap: Record<string, string> = {};
+    categoriesList.forEach((c: any) => {
+        if (c?.imageKey) {
+            keyMap[fold(c.imageKey)] = c.imageKey;
         }
-    };
+        if (c?.name) {
+            keyMap[fold(c.name)] = c.imageKey;
+        }
+    });
     return (appData.places || []).map((p: any) => {
         const coords = p.lat && p.lng
             ? { latitude: p.lat, longitude: p.lng }
             : randomAroundMedellin();
+        const catKey = keyMap[fold(p.category)] || p.category || (categoriesList[0]?.imageKey || 'tiendas');
         return {
             id: p.id,
             name: p.name,
-            category: normalize(p.category),
+            category: catKey,
             tag: p.tag,
             rating: p.rating,
             distance: p.distance || '',

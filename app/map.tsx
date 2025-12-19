@@ -70,15 +70,8 @@ export default function MapScreen() {
         }
         if (!selectedCategory || selectedCategory === 'all') return base;
         const cat: any = (categories as any[]).find(c => c.id === selectedCategory);
-        const typeByKey: Record<string, string> = {
-            tiendas: 'shop',
-            restaurantes: 'restaurant',
-            cafeterias: 'cafe',
-            salud: 'health',
-            deportes: 'gym',
-        };
-        const type = cat ? typeByKey[cat.imageKey || ''] : undefined;
-        let out = type ? base.filter(p => p.category === type) : base;
+        const key = cat?.imageKey || '';
+        let out = key ? base.filter(p => p.category === key) : base;
         if (selectedSubcategoryId && cat?.subcategories) {
             const subName = cat.subcategories.find((s: any) => s.id === selectedSubcategoryId)?.name;
             if (subName) out = out.filter(p => (p.tag || '').toLowerCase() === subName.toLowerCase());
@@ -102,18 +95,10 @@ export default function MapScreen() {
     const closeNearbyModal = () => setIsModalOpen(false);
 
     const selectCategoryForMarker = (place: MapMarker) => {
-        const keyByType: Record<string, string> = {
-            shop: 'tiendas',
-            restaurant: 'restaurantes',
-            cafe: 'cafeterias',
-            health: 'salud',
-            gym: 'deportes',
-        };
-        const targetKey = keyByType[place.category];
-        const cat: any = (categories as any[]).find(c => c.imageKey === targetKey);
+        const cat: any = (categories as any[]).find(c => c.imageKey === place.category);
         if (cat) {
             setSelectedCategory(cat.id);
-            const sub = (cat.subcategories || []).find((s: any) => (s.name || '').toLowerCase() === (place.tag || '').toLowerCase());
+            const sub = (cat.subcategories || []).find((s: any) => fold(s.name) === fold(place.tag));
             setSelectedSubcategoryId(sub ? sub.id : null);
         } else {
             setSelectedCategory('all');
@@ -339,10 +324,10 @@ export default function MapScreen() {
                                 }}>
                                     <View style={styles.placeIcon}>
                                         <Text style={styles.placeIconText}>
-                                            {place.category === 'restaurant' ? '🍽️' :
-                                                place.category === 'cafe' ? '☕' :
-                                                    place.category === 'shop' ? '🛍️' :
-                                                        place.category === 'gym' ? '💪' : '🏥'}
+                                            {place.category === 'restaurantes' ? '🍽️' :
+                                                place.category === 'cafeterias' ? '☕' :
+                                                    place.category === 'tiendas' ? '🛍️' :
+                                                        place.category === 'deportes' ? '💪' : '🏥'}
                                         </Text>
                                     </View>
                                     <View style={styles.placeInfo}>
@@ -645,7 +630,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: Platform.OS === 'ios' ? 110 : 96,
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffffd0',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         borderBottomLeftRadius: 20,

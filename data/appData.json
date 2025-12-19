@@ -4,21 +4,25 @@
       "id": "1",
       "name": "Tiendas",
       "imageKey": "tiendas",
+      "imageUrl": "assets/images/city.png",
       "subcategories": [
         {
           "id": "1-1",
           "name": "Ropa",
-          "icon": "👕"
+          "icon": "👕",
+          "imageUrl": "assets/images/city.png"
         },
         {
           "id": "1-2",
           "name": "Zapatos",
-          "icon": "👟"
+          "icon": "👟",
+          "imageUrl": "assets/images/city.png"
         },
         {
           "id": "1-3",
           "name": "Electrónica",
-          "icon": "📱"
+          "icon": "📱",
+          "imageUrl": "assets/images/city.png"
         }
       ]
     },
@@ -26,26 +30,31 @@
       "id": "2",
       "name": "Restaurantes",
       "imageKey": "restaurantes",
+      "imageUrl": "assets/images/city.png",
       "subcategories": [
         {
           "id": "2-1",
           "name": "Italiana",
-          "icon": "🍝"
+          "icon": "🍝",
+          "imageUrl": "assets/images/city.png"
         },
         {
           "id": "2-2",
           "name": "Mexicana",
-          "icon": "🌮"
+          "icon": "🌮",
+          "imageUrl": "assets/images/city.png"
         },
         {
           "id": "2-3",
           "name": "Sushi",
-          "icon": "🍣"
+          "icon": "🍣",
+          "imageUrl": "assets/images/city.png"
         },
         {
           "id": "2-4",
           "name": "Pizza",
-          "icon": "🍕"
+          "icon": "🍕",
+          "imageUrl": "assets/images/city.png"
         }
       ]
     },
@@ -53,16 +62,19 @@
       "id": "3",
       "name": "Cafeterías",
       "imageKey": "cafeterias",
+      "imageUrl": "assets/images/city.png",
       "subcategories": [
         {
           "id": "3-1",
           "name": "Café Espresso",
-          "icon": "☕"
+          "icon": "☕",
+          "imageUrl": "assets/images/city.png"
         },
         {
           "id": "3-2",
           "name": "Desayunos",
-          "icon": "🥐"
+          "icon": "🥐",
+          "imageUrl": "assets/images/city.png"
         }
       ]
     },
@@ -70,16 +82,19 @@
       "id": "4",
       "name": "Salud",
       "imageKey": "salud",
+      "imageUrl": "assets/images/city.png",
       "subcategories": [
         {
           "id": "4-1",
           "name": "Farmacias",
-          "icon": "💊"
+          "icon": "💊",
+          "imageUrl": "assets/images/city.png"
         },
         {
           "id": "4-2",
           "name": "Clínicas",
-          "icon": "🏥"
+          "icon": "🏥",
+          "imageUrl": "assets/images/city.png"
         }
       ]
     },
@@ -87,16 +102,19 @@
       "id": "7",
       "name": "Deportes",
       "imageKey": "deportes",
+      "imageUrl": "assets/images/city.png",
       "subcategories": [
         {
           "id": "7-1",
           "name": "Gimnasios",
-          "icon": "💪"
+          "icon": "💪",
+          "imageUrl": "assets/images/city.png"
         },
         {
           "id": "7-2",
           "name": "Yoga",
-          "icon": "🧘"
+          "icon": "🧘",
+          "imageUrl": "assets/images/city.png"
         }
       ]
     }
