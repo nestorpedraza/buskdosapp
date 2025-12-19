@@ -123,7 +123,7 @@ export default function AppMap({ style, markers, onMapRef }: AppMapProps) {
                 >
                     <RNImage
                         source={require('../assets/images/icon-map.png')}
-                        style={{ width: 28, height: 28 }}
+                        style={{ width: 32, height: 32 }}
                     />
                 </Marker>
             ))}

@@ -95,6 +95,26 @@ export default function MapScreen() {
     const openNearbyModal = () => setIsModalOpen(true);
     const closeNearbyModal = () => setIsModalOpen(false);
 
+    const selectCategoryForMarker = (place: MapMarker) => {
+        const keyByType: Record<string, string> = {
+            shop: 'tiendas',
+            restaurant: 'restaurantes',
+            cafe: 'cafeterias',
+            health: 'salud',
+            gym: 'deportes',
+        };
+        const targetKey = keyByType[place.category];
+        const cat: any = (categories as any[]).find(c => c.imageKey === targetKey);
+        if (cat) {
+            setSelectedCategory(cat.id);
+            const sub = (cat.subcategories || []).find((s: any) => (s.name || '').toLowerCase() === (place.tag || '').toLowerCase());
+            setSelectedSubcategoryId(sub ? sub.id : null);
+        } else {
+            setSelectedCategory('all');
+            setSelectedSubcategoryId(null);
+        }
+    };
+
     const recenterMedellin = () => {
         mapRef.current?.animateToRegion({
             latitude: 6.2442,
@@ -137,6 +157,7 @@ export default function MapScreen() {
 
     const handleSelectPlace = (place: MapMarker) => {
         setSelectedPlaceId(place.id);
+        selectCategoryForMarker(place);
         mapRef.current?.animateToRegion({
             latitude: place.lat,
             longitude: place.lng,
@@ -150,6 +171,7 @@ export default function MapScreen() {
             setSelectedPlaceId(String(placeId));
             const target = nearbyPlaces.find(p => p.id === String(placeId));
             if (target) {
+                selectCategoryForMarker(target);
                 mapRef.current?.animateToRegion({
                     latitude: target.lat,
                     longitude: target.lng,
