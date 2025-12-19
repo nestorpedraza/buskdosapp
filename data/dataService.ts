@@ -82,6 +82,7 @@ export const getMapMarkers = (): MapMarker[] => {
                 distance: p.distance || '',
                 lat: coords.latitude,
                 lng: coords.longitude,
+                isVerified: !!p.isVerified,
             } as MapMarker;
         })
         .filter(Boolean) as MapMarker[];

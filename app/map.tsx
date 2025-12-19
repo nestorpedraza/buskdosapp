@@ -198,6 +198,7 @@ export default function MapScreen() {
                         markers={markersToShow}
                         onMapRef={(ref) => { mapRef.current = ref; }}
                         radiusKm={showDistance ? distanceKm : undefined}
+                        onMarkerPress={(m) => router.push({ pathname: '/place/[id]', params: { id: m.id } })}
                     />
 
                     <View style={styles.floatingSearchContainer}>

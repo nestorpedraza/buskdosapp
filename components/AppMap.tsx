@@ -12,6 +12,7 @@ export interface MapMarker {
     distance: string;
     lat: number;
     lng: number;
+    isVerified?: boolean;
 }
 
 interface AppMapProps {
@@ -19,9 +20,10 @@ interface AppMapProps {
     markers?: MapMarker[];
     onMapRef?: (ref: MapView | null) => void;
     radiusKm?: number;
+    onMarkerPress?: (marker: MapMarker) => void;
 }
 
-export default function AppMap({ style, markers, onMapRef, radiusKm }: AppMapProps) {
+export default function AppMap({ style, markers, onMapRef, radiusKm, onMarkerPress }: AppMapProps) {
     const medellinCoords = {
         latitude: 6.2442,
         longitude: -75.5812,
@@ -131,11 +133,12 @@ export default function AppMap({ style, markers, onMapRef, radiusKm }: AppMapPro
                     key={marker.id}
                     coordinate={{ latitude: marker.lat, longitude: marker.lng }}
                     title={marker.name}
-                    description={`${marker.category} - ⭐ ${marker.rating} - 📌 ${marker.lat.toFixed(4)}, ${marker.lng.toFixed(4)}`}
+                    description={`${marker.category} - ${marker.isVerified ? '✅ Verificado' : '❌ Sin verificar'} - ⭐ ${marker.rating} - 📌 ${marker.lat.toFixed(4)}, ${marker.lng.toFixed(4)}`}
                     anchor={{ x: 0.5, y: 1.0 }}
                     flat
                     tracksViewChanges={tracksView}
                     zIndex={1000 - idx}
+                    onCalloutPress={() => onMarkerPress?.(marker)}
                 >
                     <RNImage
                         source={require('../assets/images/icon-map.png')}

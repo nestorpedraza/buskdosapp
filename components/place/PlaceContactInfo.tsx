@@ -5,7 +5,7 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
-    View,
+    View
 } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
@@ -96,14 +96,15 @@ export default function PlaceContactInfo({
                     initialRegion={{
                         latitude: coordinates.latitude,
                         longitude: coordinates.longitude,
-                        latitudeDelta: 0.01,
-                        longitudeDelta: 0.01,
+                        latitudeDelta: 0.02,
+                        longitudeDelta: 0.02,
                     }}
                 >
                     <Marker
                         coordinate={{ latitude: coordinates.latitude, longitude: coordinates.longitude }}
                         title="Ubicación"
                         flat
+                        image={require('../../assets/images/icon-map.png')}
                     />
                 </MapView>
                 <View style={styles.mapOverlay}>
