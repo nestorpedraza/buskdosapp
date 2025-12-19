@@ -53,13 +53,19 @@ export default function MapScreen() {
 
     const nearbyPlaces = useMemo<MapMarker[]>(() => getMapMarkers(), []);
 
+    const fold = (s?: string) =>
+        String(s || '')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
+
     const filteredPlaces = useMemo(() => {
         let base = nearbyPlaces;
         if (searchQuery && searchQuery.trim().length > 0) {
-            const q = searchQuery.trim().toLowerCase();
+            const q = fold(searchQuery.trim());
             base = base.filter(p =>
-                (p.name || '').toLowerCase().includes(q) ||
-                (p.tag || '').toLowerCase().includes(q)
+                fold(p.name).includes(q) ||
+                fold(p.tag).includes(q)
             );
         }
         if (!selectedCategory || selectedCategory === 'all') return base;
