@@ -62,7 +62,11 @@ export default function PlaceDetailScreen() {
     };
 
     const handleChatPress = () => {
-        Alert.alert('Chat', 'Iniciar conversación con el establecimiento');
+        if (placeData) {
+            router.push({ pathname: '/chats/[id]', params: { id: placeData.id, placeName: placeData.name } });
+        } else {
+            Alert.alert('Chat', 'No se encontró información del lugar');
+        }
     };
 
     const handleRecommend = () => {
