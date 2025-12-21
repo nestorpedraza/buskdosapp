@@ -1,6 +1,28 @@
+import type { ChatItem } from '../components/chats/ChatRow';
 import type { MapMarker } from '../components/map/AppMap';
 import { Category, NearbyItem, PopularItem } from '../types/home.types';
 import appData from './appData.json';
+// Devuelve todos los chats de los lugares en formato ChatItem
+export const getChatsFromPlaces = (): ChatItem[] => {
+    const places: any[] = (appData as any).places || [];
+    const rows: ChatItem[] = [];
+    places.forEach((p: any) => {
+        const details = Array.isArray(p.placeDetails) ? p.placeDetails[0] : p.placeDetails;
+        const avatar = resolveAsset(details?.logo) || require('../assets/images/city.png');
+        const chatsArr: any[] = (p.Chats || []);
+        chatsArr.forEach((c: any, idx: number) => {
+            rows.push({
+                id: `${p.id}-c${idx + 1}`,
+                placeName: p.name,
+                lastMessage: String(c.lastMessage || ''),
+                lastTimestamp: Number(c.lastTimestamp || Date.now()),
+                unreadCount: typeof c.unreadCount === 'number' ? c.unreadCount : 0,
+                avatar,
+            });
+        });
+    });
+    return rows;
+};
 
 // Mapa de imágenes por categoría - permite usar diferentes imágenes para cada una
 // Por ahora todas usan city.png, pero puedes agregar imágenes específicas

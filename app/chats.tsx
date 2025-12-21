@@ -5,36 +5,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
 import TabBar from '../components/TabBar';
 import ChatRow, { ChatItem } from '../components/chats/ChatRow';
-import appData from '../data/appData.json';
+import { getChatsFromPlaces } from '../data/dataService';
 
 export default function ChatsScreen() {
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [sortDesc, setSortDesc] = useState(true);
-  const assetMap: Record<string, any> = {
-    'assets/images/city.png': require('../assets/images/city.png'),
-  };
-  const resolveAsset = (path?: string) => (path ? assetMap[path] : undefined);
-  const initialFromData = useMemo<ChatItem[]>(() => {
-    const places: any[] = (appData as any).places || [];
-    const rows: ChatItem[] = [];
-    places.forEach((p: any) => {
-      const details = Array.isArray(p.placeDetails) ? p.placeDetails[0] : p.placeDetails;
-      const avatar = resolveAsset(details?.logo) || require('../assets/images/city.png');
-      const chatsArr: any[] = (p.Chats || []);
-      chatsArr.forEach((c: any, idx: number) => {
-        rows.push({
-          id: `${p.id}-c${idx + 1}`,
-          placeName: p.name,
-          lastMessage: String(c.lastMessage || ''),
-          lastTimestamp: Number(c.lastTimestamp || Date.now()),
-          unreadCount: typeof c.unreadCount === 'number' ? c.unreadCount : 0,
-          avatar,
-        });
-      });
-    });
-    return rows;
-  }, []);
+  // Obtener los chats desde el servicio
+  const initialFromData = useMemo<ChatItem[]>(() => getChatsFromPlaces(), []);
   const [chats, setChats] = useState<ChatItem[]>(initialFromData);
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
