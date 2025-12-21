@@ -5,12 +5,37 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
 import TabBar from '../components/TabBar';
 import ChatRow, { ChatItem } from '../components/chats/ChatRow';
+import appData from '../data/appData.json';
 
 export default function ChatsScreen() {
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [sortDesc, setSortDesc] = useState(true);
-  const [chats, setChats] = useState<ChatItem[]>(sampleChats);
+  const assetMap: Record<string, any> = {
+    'assets/images/city.png': require('../assets/images/city.png'),
+  };
+  const resolveAsset = (path?: string) => (path ? assetMap[path] : undefined);
+  const initialFromData = useMemo<ChatItem[]>(() => {
+    const places: any[] = (appData as any).places || [];
+    const rows: ChatItem[] = [];
+    places.forEach((p: any) => {
+      const details = Array.isArray(p.placeDetails) ? p.placeDetails[0] : p.placeDetails;
+      const avatar = resolveAsset(details?.logo) || require('../assets/images/city.png');
+      const chatsArr: any[] = (p.Chats || []);
+      chatsArr.forEach((c: any, idx: number) => {
+        rows.push({
+          id: `${p.id}-c${idx + 1}`,
+          placeName: p.name,
+          lastMessage: String(c.lastMessage || ''),
+          lastTimestamp: Number(c.lastTimestamp || Date.now()),
+          unreadCount: typeof c.unreadCount === 'number' ? c.unreadCount : 0,
+          avatar,
+        });
+      });
+    });
+    return rows;
+  }, []);
+  const [chats, setChats] = useState<ChatItem[]>(initialFromData);
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     const base = q
@@ -156,38 +181,3 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 });
-
-const sampleChats: ChatItem[] = [
-  {
-    id: 'c1',
-    placeName: 'Boutique Fashion',
-    lastMessage: 'Hola, estamos abiertos hoy hasta las 9pm.',
-    lastTimestamp: Date.now() - 1000 * 60 * 15,
-    unreadCount: 2,
-    avatar: require('../assets/images/city.png'),
-  },
-  {
-    id: 'c2',
-    placeName: 'Pan del Día',
-    lastMessage: 'Tenemos promoción del 2x1 en croissants.',
-    lastTimestamp: Date.now() - 1000 * 60 * 60 * 3,
-    unreadCount: 0,
-    avatar: require('../assets/images/city.png'),
-  },
-  {
-    id: 'c3',
-    placeName: 'Sushi Bar',
-    lastMessage: 'Tu reserva está confirmada para las 8pm.',
-    lastTimestamp: Date.now() - 1000 * 60 * 5,
-    unreadCount: 5,
-    avatar: require('../assets/images/city.png'),
-  },
-  {
-    id: 'c4',
-    placeName: 'Farma Salud',
-    lastMessage: 'Tu pedido está listo para recoger.',
-    lastTimestamp: Date.now() - 1000 * 60 * 120,
-    unreadCount: 1,
-    avatar: require('../assets/images/city.png'),
-  },
-];

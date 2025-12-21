@@ -24,6 +24,18 @@
           "icon": "📱",
           "imageUrl": "assets/images/city.png"
         }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Hola, estamos abiertos hoy hasta las 9pm.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 2
+        },
+        {
+          "lastMessage": "Tenemos promoción del 2x1 en croissants.",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 0
+        }
       ]
     },
     {
@@ -56,6 +68,18 @@
           "icon": "🍕",
           "imageUrl": "assets/images/city.png"
         }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Hola, podemos ayudarte con tallas y colores.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 1
+        },
+        {
+          "lastMessage": "Llegó nueva colección esta semana.",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 0
+        }
       ]
     },
     {
@@ -76,6 +100,18 @@
           "icon": "🥐",
           "imageUrl": "assets/images/city.png"
         }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Consulta por disponibilidad de productos.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 0
+        },
+        {
+          "lastMessage": "Aprovecha el 15% en línea casual.",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 3
+        }
       ]
     },
     {
@@ -95,6 +131,18 @@
           "name": "Clínicas",
           "icon": "🏥",
           "imageUrl": "assets/images/city.png"
+        }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Tenemos marcas exclusivas disponibles.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 0
+        },
+        {
+          "lastMessage": "¿Deseas agendar una cita?",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 2
         }
       ]
     },
@@ -281,6 +329,18 @@
             }
           ]
         }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Nueva colección streetwear con descuento.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 0
+        },
+        {
+          "lastMessage": "¿Buscas tallas específicas?",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 1
+        }
       ]
     },
     {
@@ -380,6 +440,18 @@
               "likes": 5
             }
           ]
+        }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Clásicos y básicos en promoción.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 0
+        },
+        {
+          "lastMessage": "Tenemos stock en todas las tallas.",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 2
         }
       ]
     },
@@ -481,6 +553,18 @@
             }
           ]
         }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Calzado nuevo para toda la familia.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 0
+        },
+        {
+          "lastMessage": "¿Qué tipo de zapato necesitas?",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 1
+        }
       ]
     },
     {
@@ -580,6 +664,18 @@
               "likes": 8
             }
           ]
+        }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Colección casual con precios especiales.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 0
+        },
+        {
+          "lastMessage": "Te ayudamos a elegir tu talla.",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 1
         }
       ]
     },
@@ -681,6 +777,18 @@
             }
           ]
         }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Zapatos formales disponibles esta semana.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 0
+        },
+        {
+          "lastMessage": "Consulta por tallas y colores.",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 2
+        }
       ]
     },
     {
@@ -780,6 +888,18 @@
               "likes": 4
             }
           ]
+        }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Tenis deportivos con 10% de descuento.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 0
+        },
+        {
+          "lastMessage": "¿Buscas calzado para running?",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 1
         }
       ]
     },
@@ -881,6 +1001,18 @@
             }
           ]
         }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Nueva colección infantil.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 0
+        },
+        {
+          "lastMessage": "Descuento en calzado kids.",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 1
+        }
       ]
     },
     {
@@ -980,6 +1112,18 @@
               "likes": 2
             }
           ]
+        }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Gadgets en oferta esta semana.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 3
+        },
+        {
+          "lastMessage": "¿Buscas audífonos o smartwatches?",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 0
         }
       ]
     },
@@ -1081,6 +1225,18 @@
             }
           ]
         }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Audio y video de alta fidelidad.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 0
+        },
+        {
+          "lastMessage": "Consulta disponibilidad de parlantes.",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 1
+        }
       ]
     },
     {
@@ -1180,6 +1336,18 @@
               "likes": 1
             }
           ]
+        }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Promos en computadores y accesorios.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 0
+        },
+        {
+          "lastMessage": "¿Necesitas asesoría de equipos?",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 2
         }
       ]
     },
@@ -1281,6 +1449,18 @@
             }
           ]
         }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Novedades en telefonía.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 0
+        },
+        {
+          "lastMessage": "¿Buscas un plan o equipo?",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 1
+        }
       ]
     },
     {
@@ -1380,6 +1560,18 @@
               "likes": 3
             }
           ]
+        }
+      ],
+      "Chats": [
+        {
+          "lastMessage": "Soluciones smart home con descuento.",
+          "lastTimestamp": 1766300000000,
+          "unreadCount": 4
+        },
+        {
+          "lastMessage": "¿Quieres automatizar tu hogar?",
+          "lastTimestamp": 1766290000000,
+          "unreadCount": 0
         }
       ]
     },
