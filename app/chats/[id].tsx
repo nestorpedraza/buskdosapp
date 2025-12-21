@@ -23,9 +23,31 @@ export default function ChatDetailScreen() {
     const initial = useMemo<Message[]>(() => {
         const now = Date.now();
         return [
-            { id: 'm1', fromMe: false, kind: 'text', text: 'Hola, ¿en qué podemos ayudarte?', timestamp: now - 1000 * 60 * 15 },
-            { id: 'm2', fromMe: true, kind: 'text', text: 'Quisiera saber horarios para hoy.', timestamp: now - 1000 * 60 * 12 },
-            { id: 'm3', fromMe: false, kind: 'text', text: 'Estamos abiertos hasta las 9pm.', timestamp: now - 1000 * 60 * 9 },
+            { id: 'm1', fromMe: false, kind: 'text', text: '¡Hola! 👋 ¿En qué puedo ayudarte hoy?', timestamp: now - 1000 * 60 * 30 },
+            { id: 'm2', fromMe: true, kind: 'text', text: 'Hola, quería consultar si tienen promociones hoy.', timestamp: now - 1000 * 60 * 28 },
+            { id: 'm3', fromMe: false, kind: 'text', text: 'Sí, tenemos 2x1 en algunos productos. ¿Te gustaría más información?', timestamp: now - 1000 * 60 * 26 },
+            { id: 'm4', fromMe: true, kind: 'text', text: '¡Genial! ¿Cuáles productos aplican?', timestamp: now - 1000 * 60 * 25 },
+            { id: 'm5', fromMe: false, kind: 'text', text: 'Aplica en panadería y pastelería. ¿Te envío la lista?', timestamp: now - 1000 * 60 * 24 },
+            { id: 'm6', fromMe: true, kind: 'text', text: 'Sí, por favor.', timestamp: now - 1000 * 60 * 23 },
+            { id: 'm7', fromMe: false, kind: 'image', imageUri: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836', timestamp: now - 1000 * 60 * 22 },
+            { id: 'm8', fromMe: false, kind: 'text', text: 'Aquí tienes la lista de productos en promoción.', timestamp: now - 1000 * 60 * 22 },
+            { id: 'm9', fromMe: true, kind: 'text', text: '¡Perfecto! ¿Hasta qué hora están abiertos hoy?', timestamp: now - 1000 * 60 * 21 },
+            { id: 'm10', fromMe: false, kind: 'text', text: 'Hoy cerramos a las 9pm.', timestamp: now - 1000 * 60 * 20 },
+            { id: 'm11', fromMe: true, kind: 'text', text: 'Gracias, pasaré más tarde.', timestamp: now - 1000 * 60 * 19 },
+            { id: 'm12', fromMe: false, kind: 'text', text: '¡Te esperamos! 😊', timestamp: now - 1000 * 60 * 18 },
+            { id: 'm13', fromMe: false, kind: 'text', text: '¿Te gustaría recibir nuestras ofertas por WhatsApp?', timestamp: now - 1000 * 60 * 17 },
+            { id: 'm14', fromMe: true, kind: 'text', text: 'Sí, me interesa.', timestamp: now - 1000 * 60 * 16 },
+            { id: 'm15', fromMe: false, kind: 'text', text: 'Perfecto, te agregaremos a la lista de difusión.', timestamp: now - 1000 * 60 * 15 },
+            { id: 'm16', fromMe: true, kind: 'text', text: '¿Tienen opciones sin gluten?', timestamp: now - 1000 * 60 * 14 },
+            { id: 'm17', fromMe: false, kind: 'text', text: 'Sí, contamos con pan y pasteles sin gluten.', timestamp: now - 1000 * 60 * 13 },
+            { id: 'm18', fromMe: true, kind: 'text', text: '¿Me puedes enviar fotos?', timestamp: now - 1000 * 60 * 12 },
+            { id: 'm19', fromMe: false, kind: 'image', imageUri: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836', timestamp: now - 1000 * 60 * 11 },
+            { id: 'm20', fromMe: false, kind: 'text', text: 'Aquí tienes algunos de nuestros productos sin gluten.', timestamp: now - 1000 * 60 * 11 },
+            { id: 'm21', fromMe: true, kind: 'text', text: '¡Se ven deliciosos! ¿Cuánto cuestan?', timestamp: now - 1000 * 60 * 10 },
+            { id: 'm22', fromMe: false, kind: 'text', text: 'El pan sin gluten cuesta $50 y los pasteles $80.', timestamp: now - 1000 * 60 * 9 },
+            { id: 'm23', fromMe: true, kind: 'text', text: '¿Puedo reservar para recoger más tarde?', timestamp: now - 1000 * 60 * 8 },
+            { id: 'm24', fromMe: false, kind: 'text', text: '¡Por supuesto! ¿A qué hora pasarías?', timestamp: now - 1000 * 60 * 7 },
+            { id: 'm25', fromMe: false, kind: 'image', imageUri: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca', timestamp: now - 1000 * 60 * 6 },
         ];
     }, []);
     const [messages, setMessages] = useState<Message[]>(initial);
