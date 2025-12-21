@@ -30,7 +30,7 @@ export default function ChatsScreen() {
   };
   const toggleSort = () => setSortDesc(s => !s);
   const handleOpen = (ci: ChatItem) => {
-    router.push({ pathname: '/chats/[id]', params: { id: ci.id } });
+    router.push({ pathname: '/chats/[id]', params: { id: ci.id, placeName: ci.placeName } });
   };
   return (
     <SafeAreaView style={styles.safeArea}>

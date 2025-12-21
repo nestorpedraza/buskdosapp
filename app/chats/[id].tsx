@@ -16,7 +16,7 @@ interface Message {
 }
 
 export default function ChatDetailScreen() {
-    const params = useLocalSearchParams<{ id: string }>();
+    const params = useLocalSearchParams<{ id: string; placeName?: string }>();
     const chatId = String(params.id || '');
     const [input, setInput] = useState('');
     const TABBAR_SPACE = Platform.OS === 'ios' ? 92 : 76;
@@ -54,6 +54,7 @@ export default function ChatDetailScreen() {
     const [attachMode, setAttachMode] = useState(false);
     const [attachUrl, setAttachUrl] = useState('');
     const placeName = useMemo(() => {
+        if (params.placeName) return String(params.placeName);
         switch (chatId) {
             case 'c1': return 'Boutique Fashion';
             case 'c2': return 'Pan del Día';
@@ -61,7 +62,7 @@ export default function ChatDetailScreen() {
             case 'c4': return 'Farma Salud';
             default: return 'Chat';
         }
-    }, [chatId]);
+    }, [chatId, params.placeName]);
     const avatar = useMemo(() => {
         return require('../../assets/images/city.png');
     }, [chatId]);
