@@ -4,14 +4,11 @@ import {
     Dimensions,
     FlatList,
     Platform,
-    StyleSheet,
-    View
+    StyleSheet
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Header from '../components/Header';
+import AppSafeArea from '../components/AppSafeArea';
 import LikedCard from '../components/likes/LikedCard';
 import LikesEmptyState from '../components/likes/LikesEmptyState';
-import TabBar from '../components/TabBar';
 import TitlesHeader from '../components/TitlesHeader';
 
 const { width } = Dimensions.get('window');
@@ -145,33 +142,29 @@ export default function LikesScreen() {
     const keyExtractor = (item: LikedItem) => item.id;
 
     return (
-        <SafeAreaView style={styles.safeArea}>
-            <View style={styles.container}>
-                <Header />
+        <AppSafeArea style={styles.safeArea}>
 
-                {/* Section Title */}
-                <TitlesHeader likedCount={likedItems.length} title="Mis Lugares"
-                    subtitle="Tus destinos favoritos" />
 
-                {/* Content */}
-                {likedItems.length > 0 ? (
-                    <FlatList
-                        data={likedItems}
-                        renderItem={renderItem}
-                        keyExtractor={keyExtractor}
-                        numColumns={2}
-                        contentContainerStyle={styles.listContent}
-                        columnWrapperStyle={styles.columnWrapper}
-                        showsVerticalScrollIndicator={false}
-                    />
-                ) : (
-                    <LikesEmptyState onExplore={() => router.push('/home')} />
-                )}
+            {/* Section Title */}
+            <TitlesHeader likedCount={likedItems.length} title="Mis Lugares"
+                subtitle="Tus destinos favoritos" />
 
-                {/* Bottom Tab Bar */}
-                <TabBar activeRoute="/likes" />
-            </View>
-        </SafeAreaView>
+            {/* Content */}
+            {likedItems.length > 0 ? (
+                <FlatList
+                    data={likedItems}
+                    renderItem={renderItem}
+                    keyExtractor={keyExtractor}
+                    numColumns={2}
+                    contentContainerStyle={styles.listContent}
+                    columnWrapperStyle={styles.columnWrapper}
+                    showsVerticalScrollIndicator={false}
+                />
+            ) : (
+                <LikesEmptyState onExplore={() => router.push('/home')} />
+            )}
+
+        </AppSafeArea>
     );
 };
 

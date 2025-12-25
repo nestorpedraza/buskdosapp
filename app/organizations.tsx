@@ -1,7 +1,8 @@
 import React from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppCard from '../components/AppCard';
-import Header from '../components/Header';
+import AppSafeArea from '../components/AppSafeArea';
 
 type EntityType = 'juridica' | 'natural';
 
@@ -68,6 +69,9 @@ const organizations: OrganizationEntity[] = [
 ];
 
 export default function OrganizationsScreen() {
+  const insets = useSafeAreaInsets();
+  const TAB_BAR_HEIGHT = Platform.OS === 'ios' ? 72 : 62;
+  const bottomPadding = TAB_BAR_HEIGHT + insets.bottom + 16;
   const [selectedType, setSelectedType] = React.useState<'all' | EntityType>('all');
   const filtered = React.useMemo(() => {
     if (selectedType === 'all') return organizations;
@@ -75,9 +79,8 @@ export default function OrganizationsScreen() {
   }, [selectedType]);
 
   return (
-    <View style={styles.container}>
-      <Header />
-      <View style={styles.content}>
+    <AppSafeArea activeRoute="/organizations">
+      <View style={[styles.content, { paddingBottom: bottomPadding }]}>
         <View style={styles.pageHeader}>
           <View style={{ flex: 1 }}>
             <Text style={styles.title}>Organizaciones</Text>
@@ -114,7 +117,7 @@ export default function OrganizationsScreen() {
         <FlatList
           data={filtered}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.listContent}
+          contentContainerStyle={[styles.listContent, { paddingBottom: bottomPadding }]}
           renderItem={({ item }) => (
             <AppCard style={styles.card}>
               <View style={styles.cardTop}>
@@ -168,7 +171,7 @@ export default function OrganizationsScreen() {
           )}
         />
       </View>
-    </View>
+    </AppSafeArea>
   );
 }
 
@@ -242,14 +245,14 @@ const styles = StyleSheet.create({
     color: '#111827',
   },
   listContent: {
-    paddingBottom: 24,
-    paddingHorizontal: 0,
+    paddingBottom: 100,
+    paddingHorizontal: 20,
   },
   card: {
     width: '100%',
     maxWidth: '100%',
     alignSelf: 'stretch',
-    margin: 1,
+    margin: 4
   },
   cardTop: {
     flexDirection: 'row',

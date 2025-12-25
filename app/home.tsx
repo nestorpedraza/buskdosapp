@@ -1,13 +1,11 @@
 import { useRouter } from 'expo-router';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { FlatList, Platform, Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import AppSafeArea from '../components/AppSafeArea';
 
-import Header from '../components/Header';
 import CategoriesCarousel from '../components/home/CategoriesCarousel';
 import NearbyCard from '../components/home/NearbyCard';
 import PopularCarousel from '../components/home/PopularCarousel';
-import TabBar from '../components/TabBar';
 import { getCategories, getNearbyItems, getPopularItems } from '../data/dataService';
 import { Category, NEARBY_GRID_CONFIG, NearbyItem, PopularItem, SubCategory } from '../types/home.types';
 
@@ -83,86 +81,83 @@ export default function Home() {
     }, [router]);
 
     return (
-        <SafeAreaView style={styles.safeArea}>
-            <View style={styles.container}>
-                <Header />
+        <AppSafeArea>
 
-                <FlatList
-                    key={`nearby-${nearbyColumns}`}
-                    data={filteredNearbyItems}
-                    numColumns={nearbyColumns}
-                    keyExtractor={(item) => item.id}
-                    columnWrapperStyle={styles.nearbyColumnWrapper}
-                    contentContainerStyle={styles.listContent}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({ item }) => (
-                        <NearbyCard
-                            item={item}
-                            onDetailPress={handleNearbyDetailPress}
-                            onMapPress={handleNearbyMapPress}
-                            columns={nearbyColumns}
+            <FlatList
+                key={`nearby-${nearbyColumns}`}
+                data={filteredNearbyItems}
+                numColumns={nearbyColumns}
+                keyExtractor={(item) => item.id}
+                columnWrapperStyle={styles.nearbyColumnWrapper}
+                contentContainerStyle={styles.listContent}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => (
+                    <NearbyCard
+                        item={item}
+                        onDetailPress={handleNearbyDetailPress}
+                        onMapPress={handleNearbyMapPress}
+                        columns={nearbyColumns}
+                    />
+                )}
+                removeClippedSubviews={true}
+                maxToRenderPerBatch={8}
+                windowSize={10}
+                initialNumToRender={8}
+                getItemLayout={(_, index) => ({
+                    length: NEARBY_GRID_CONFIG.CARD_HEIGHT + NEARBY_GRID_CONFIG.CARD_GAP,
+                    offset: (NEARBY_GRID_CONFIG.CARD_HEIGHT + NEARBY_GRID_CONFIG.CARD_GAP) * index,
+                    index,
+                })}
+                ListHeaderComponent={() => (
+                    <View>
+                        <CategoriesCarousel
+                            categories={categories}
+                            onCategoryPress={handleCategoryPress}
+                            onSubcategoryPress={handleSubcategoryPress}
                         />
-                    )}
-                    removeClippedSubviews={true}
-                    maxToRenderPerBatch={8}
-                    windowSize={10}
-                    initialNumToRender={8}
-                    getItemLayout={(_, index) => ({
-                        length: NEARBY_GRID_CONFIG.CARD_HEIGHT + NEARBY_GRID_CONFIG.CARD_GAP,
-                        offset: (NEARBY_GRID_CONFIG.CARD_HEIGHT + NEARBY_GRID_CONFIG.CARD_GAP) * index,
-                        index,
-                    })}
-                    ListHeaderComponent={() => (
-                        <View>
-                            <CategoriesCarousel
-                                categories={categories}
-                                onCategoryPress={handleCategoryPress}
-                                onSubcategoryPress={handleSubcategoryPress}
-                            />
-                            <View style={styles.tabsContainer}>
-                                {[
-                                    { key: 'new', label: 'Nuevos' },
-                                    { key: 'popular', label: 'Populares' },
-                                    { key: 'favorites', label: 'Favoritos' },
-                                ].map(t => (
-                                    <Pressable
-                                        key={t.key}
-                                        style={[
-                                            styles.tabItem,
-                                            popularTab === (t.key as any) && styles.tabItemActive,
-                                        ]}
-                                        onPress={() => setPopularTab(t.key as any)}
-                                        accessibilityRole="button"
-                                        accessibilityLabel={`Ver ${t.label}`}
-                                    >
-                                        <Text style={[
-                                            styles.tabText,
-                                            popularTab === (t.key as any) && styles.tabTextActive,
-                                        ]}>{t.label}</Text>
-                                    </Pressable>
-                                ))}
-                            </View>
-                            <PopularCarousel
-                                title={
-                                    selectedCategoryId
-                                        ? `${popularTab === 'new' ? 'Nuevos' : popularTab === 'popular' ? 'Más Populares' : 'Favoritos'} en ${categories.find(c => c.id === selectedCategoryId)?.name}`
-                                        : popularTab === 'new' ? 'Nuevos' : popularTab === 'popular' ? 'Más Populares' : 'Favoritos'
-                                }
-                                items={filteredPopularItems}
-                                onItemPress={handlePopularPress}
-                                onDetailPress={handlePopularDetailPress}
-                                onMapPress={handlePopularMapPress}
-                            />
-                            <View style={styles.sectionTitleWrapper}>
-                                <Text style={styles.sectionTitle}>Sitios Cercanos</Text>
-                            </View>
+                        <View style={styles.tabsContainer}>
+                            {[
+                                { key: 'new', label: 'Nuevos' },
+                                { key: 'popular', label: 'Populares' },
+                                { key: 'favorites', label: 'Favoritos' },
+                            ].map(t => (
+                                <Pressable
+                                    key={t.key}
+                                    style={[
+                                        styles.tabItem,
+                                        popularTab === (t.key as any) && styles.tabItemActive,
+                                    ]}
+                                    onPress={() => setPopularTab(t.key as any)}
+                                    accessibilityRole="button"
+                                    accessibilityLabel={`Ver ${t.label}`}
+                                >
+                                    <Text style={[
+                                        styles.tabText,
+                                        popularTab === (t.key as any) && styles.tabTextActive,
+                                    ]}>{t.label}</Text>
+                                </Pressable>
+                            ))}
                         </View>
-                    )}
-                />
+                        <PopularCarousel
+                            title={
+                                selectedCategoryId
+                                    ? `${popularTab === 'new' ? 'Nuevos' : popularTab === 'popular' ? 'Más Populares' : 'Favoritos'} en ${categories.find(c => c.id === selectedCategoryId)?.name}`
+                                    : popularTab === 'new' ? 'Nuevos' : popularTab === 'popular' ? 'Más Populares' : 'Favoritos'
+                            }
+                            items={filteredPopularItems}
+                            onItemPress={handlePopularPress}
+                            onDetailPress={handlePopularDetailPress}
+                            onMapPress={handlePopularMapPress}
+                        />
+                        <View style={styles.sectionTitleWrapper}>
+                            <Text style={styles.sectionTitle}>Sitios Cercanos</Text>
+                        </View>
+                    </View>
+                )}
+            />
 
-                <TabBar activeRoute="/home" />
-            </View>
-        </SafeAreaView>
+
+        </AppSafeArea>
     );
 }
 

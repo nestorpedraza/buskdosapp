@@ -10,9 +10,7 @@ import {
     Text,
     View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Header from '../components/Header';
-import TabBar from '../components/TabBar';
+import AppSafeArea from '../components/AppSafeArea';
 import TitlesHeader from '../components/TitlesHeader';
 
 const { width } = Dimensions.get('window');
@@ -67,122 +65,117 @@ export default function NavScreen() {
     };
 
     return (
-        <SafeAreaView style={styles.safeArea}>
-            <View style={styles.container}>
-                {/* Header */}
-                <Header />
+        <AppSafeArea style={styles.safeArea}>
 
-                {/* Section Title */}
-                <TitlesHeader title="Explorar" subtitle="Descubre lugares increíbles" />
 
-                <ScrollView
-                    style={styles.scrollView}
-                    contentContainerStyle={styles.scrollContent}
-                    showsVerticalScrollIndicator={false}
-                >
-                    {/* Quick Links */}
-                    <View style={styles.section}>
-                        <Text style={styles.sectionTitle}>Accesos rápidos</Text>
-                        <View style={styles.quickLinksContainer}>
-                            {quickLinks.map((link) => (
-                                <Pressable key={link.id} style={styles.quickLink}>
-                                    <View style={styles.quickLinkIcon}>
-                                        <Text style={styles.quickLinkIconText}>{link.icon}</Text>
-                                    </View>
-                                    <Text style={styles.quickLinkText}>{link.name}</Text>
-                                </Pressable>
-                            ))}
-                        </View>
-                    </View>
+            {/* Section Title */}
+            <TitlesHeader title="Explorar" subtitle="Descubre lugares increíbles" />
 
-                    {/* Categories Grid */}
-                    <View style={styles.section}>
-                        <Text style={styles.sectionTitle}>Categorías</Text>
-                        <View style={styles.categoriesGrid}>
-                            {navCategories.map((cat) => (
-                                <Pressable
-                                    key={cat.id}
-                                    style={[styles.categoryCard, { backgroundColor: cat.color + '15' }]}
-                                >
-                                    <View style={[styles.categoryIconContainer, { backgroundColor: cat.color + '30' }]}>
-                                        <Text style={styles.categoryIcon}>{cat.icon}</Text>
-                                    </View>
-                                    <Text style={styles.categoryName}>{cat.name}</Text>
-                                    <Text style={[styles.categoryCount, { color: cat.color }]}>
-                                        {cat.count} lugares
-                                    </Text>
-                                </Pressable>
-                            ))}
-                        </View>
-                    </View>
-
-                    {/* Recent Searches */}
-                    <View style={styles.section}>
-                        <View style={styles.sectionHeader}>
-                            <Text style={styles.sectionTitle}>Búsquedas recientes</Text>
-                            {recentSearches.length > 0 && (
-                                <Pressable onPress={handleClearHistory}>
-                                    <Text style={styles.clearButton}>Borrar todo</Text>
-                                </Pressable>
-                            )}
-                        </View>
-                        {recentSearches.length > 0 ? (
-                            recentSearches.map((search) => (
-                                <View key={search.id} style={styles.recentSearchItem}>
-                                    <Text style={styles.recentSearchIcon}>🕒</Text>
-                                    <View style={styles.recentSearchContent}>
-                                        <Text style={styles.recentSearchQuery}>{search.query}</Text>
-                                        <Text style={styles.recentSearchTime}>{search.timestamp}</Text>
-                                    </View>
-                                    <Pressable onPress={() => handleRemoveSearch(search.id)}>
-                                        <Text style={styles.removeSearchButton}>✕</Text>
-                                    </Pressable>
+            <ScrollView
+                style={styles.scrollView}
+                contentContainerStyle={styles.scrollContent}
+                showsVerticalScrollIndicator={false}
+            >
+                {/* Quick Links */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Accesos rápidos</Text>
+                    <View style={styles.quickLinksContainer}>
+                        {quickLinks.map((link) => (
+                            <Pressable key={link.id} style={styles.quickLink}>
+                                <View style={styles.quickLinkIcon}>
+                                    <Text style={styles.quickLinkIconText}>{link.icon}</Text>
                                 </View>
-                            ))
-                        ) : (
-                            <View style={styles.emptySearches}>
-                                <Text style={styles.emptySearchesText}>
-                                    No tienes búsquedas recientes
+                                <Text style={styles.quickLinkText}>{link.name}</Text>
+                            </Pressable>
+                        ))}
+                    </View>
+                </View>
+
+                {/* Categories Grid */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Categorías</Text>
+                    <View style={styles.categoriesGrid}>
+                        {navCategories.map((cat) => (
+                            <Pressable
+                                key={cat.id}
+                                style={[styles.categoryCard, { backgroundColor: cat.color + '15' }]}
+                            >
+                                <View style={[styles.categoryIconContainer, { backgroundColor: cat.color + '30' }]}>
+                                    <Text style={styles.categoryIcon}>{cat.icon}</Text>
+                                </View>
+                                <Text style={styles.categoryName}>{cat.name}</Text>
+                                <Text style={[styles.categoryCount, { color: cat.color }]}>
+                                    {cat.count} lugares
                                 </Text>
-                            </View>
+                            </Pressable>
+                        ))}
+                    </View>
+                </View>
+
+                {/* Recent Searches */}
+                <View style={styles.section}>
+                    <View style={styles.sectionHeader}>
+                        <Text style={styles.sectionTitle}>Búsquedas recientes</Text>
+                        {recentSearches.length > 0 && (
+                            <Pressable onPress={handleClearHistory}>
+                                <Text style={styles.clearButton}>Borrar todo</Text>
+                            </Pressable>
                         )}
                     </View>
-
-                    {/* Suggestions */}
-                    <View style={styles.section}>
-                        <Text style={styles.sectionTitle}>Sugerencias para ti</Text>
-                        <View style={styles.suggestionsContainer}>
-                            <Pressable style={styles.suggestionCard}>
-                                <LinearGradient
-                                    colors={['#667eea', '#764ba2']}
-                                    style={styles.suggestionGradient}
-                                >
-                                    <Text style={styles.suggestionIcon}>🌟</Text>
-                                    <Text style={styles.suggestionTitle}>Top 10 de la semana</Text>
-                                    <Text style={styles.suggestionSubtitle}>
-                                        Los lugares más visitados
-                                    </Text>
-                                </LinearGradient>
-                            </Pressable>
-                            <Pressable style={styles.suggestionCard}>
-                                <LinearGradient
-                                    colors={['#f093fb', '#f5576c']}
-                                    style={styles.suggestionGradient}
-                                >
-                                    <Text style={styles.suggestionIcon}>🆕</Text>
-                                    <Text style={styles.suggestionTitle}>Recién abiertos</Text>
-                                    <Text style={styles.suggestionSubtitle}>
-                                        Descubre nuevos lugares
-                                    </Text>
-                                </LinearGradient>
-                            </Pressable>
+                    {recentSearches.length > 0 ? (
+                        recentSearches.map((search) => (
+                            <View key={search.id} style={styles.recentSearchItem}>
+                                <Text style={styles.recentSearchIcon}>🕒</Text>
+                                <View style={styles.recentSearchContent}>
+                                    <Text style={styles.recentSearchQuery}>{search.query}</Text>
+                                    <Text style={styles.recentSearchTime}>{search.timestamp}</Text>
+                                </View>
+                                <Pressable onPress={() => handleRemoveSearch(search.id)}>
+                                    <Text style={styles.removeSearchButton}>✕</Text>
+                                </Pressable>
+                            </View>
+                        ))
+                    ) : (
+                        <View style={styles.emptySearches}>
+                            <Text style={styles.emptySearchesText}>
+                                No tienes búsquedas recientes
+                            </Text>
                         </View>
-                    </View>
-                </ScrollView>
+                    )}
+                </View>
 
-                <TabBar activeRoute="/nav" />
-            </View>
-        </SafeAreaView>
+                {/* Suggestions */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Sugerencias para ti</Text>
+                    <View style={styles.suggestionsContainer}>
+                        <Pressable style={styles.suggestionCard}>
+                            <LinearGradient
+                                colors={['#667eea', '#764ba2']}
+                                style={styles.suggestionGradient}
+                            >
+                                <Text style={styles.suggestionIcon}>🌟</Text>
+                                <Text style={styles.suggestionTitle}>Top 10 de la semana</Text>
+                                <Text style={styles.suggestionSubtitle}>
+                                    Los lugares más visitados
+                                </Text>
+                            </LinearGradient>
+                        </Pressable>
+                        <Pressable style={styles.suggestionCard}>
+                            <LinearGradient
+                                colors={['#f093fb', '#f5576c']}
+                                style={styles.suggestionGradient}
+                            >
+                                <Text style={styles.suggestionIcon}>🆕</Text>
+                                <Text style={styles.suggestionTitle}>Recién abiertos</Text>
+                                <Text style={styles.suggestionSubtitle}>
+                                    Descubre nuevos lugares
+                                </Text>
+                            </LinearGradient>
+                        </Pressable>
+                    </View>
+                </View>
+            </ScrollView>
+        </AppSafeArea>
     );
 }
 
