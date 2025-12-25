@@ -1,4 +1,4 @@
-import { ResizeMode, Video } from 'expo-av';
+import { useVideoPlayer, VideoView } from 'expo-video';
 import React, { useEffect, useRef } from 'react';
 import { Dimensions, FlatList, Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { GalleryItem } from '../../types/place.types';
@@ -49,6 +49,22 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
 
     const comments = currentItem?.comments || [];
 
+    const FullscreenVideo = ({ uri }: { uri: string }) => {
+        const player = useVideoPlayer(uri, (p) => {
+            p.loop = false;
+            p.play();
+        });
+        return (
+            <VideoView
+                player={player}
+                style={styles.media}
+                allowsFullscreen
+                allowsPictureInPicture
+                contentFit="contain"
+            />
+        );
+    };
+
     return (
         <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
             <View style={styles.overlay}>
@@ -62,15 +78,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                     renderItem={({ item }) => (
                         <View style={styles.imageContainer} pointerEvents="box-none">
                             {item.type === 'video' ? (
-                                <Video
-                                    key={item.id}
-                                    source={{ uri: 'https://www.w3schools.com/html/mov_bbb.mp4' }}
-                                    style={styles.media}
-                                    resizeMode={ResizeMode.CONTAIN}
-                                    useNativeControls={true}
-                                    shouldPlay={true}
-                                    isLooping={false}
-                                />
+                                <FullscreenVideo uri={'https://www.w3schools.com/html/mov_bbb.mp4'} />
                             ) : (
                                 <Image source={item.url} style={styles.image} resizeMode="cover" />
                             )}

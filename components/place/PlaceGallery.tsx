@@ -1,4 +1,4 @@
-import { ResizeMode, Video } from 'expo-av';
+import { useVideoPlayer, VideoView } from 'expo-video';
 import React, { useState } from 'react';
 import {
     Dimensions,
@@ -109,6 +109,22 @@ export default function PlaceGallery({ items, onItemPress }: PlaceGalleryProps) 
         setShowShareMenu(false);
     };
 
+    const GridVideo = ({ uri }: { uri: string }) => {
+        const player = useVideoPlayer(uri, (p) => {
+            p.loop = false;
+            p.pause();
+        });
+        return (
+            <VideoView
+                player={player}
+                style={styles.gridImage}
+                allowsFullscreen={false}
+                allowsPictureInPicture={false}
+                contentFit="cover"
+            />
+        );
+    };
+
     const renderGalleryItem = ({ item }: { item: GalleryItem }) => (
         <TouchableOpacity
             style={styles.gridItem}
@@ -116,14 +132,7 @@ export default function PlaceGallery({ items, onItemPress }: PlaceGalleryProps) 
             activeOpacity={0.8}
         >
             {item.type === 'video' ? (
-                <Video
-                    source={{ uri: 'https://www.w3schools.com/html/mov_bbb.mp4' }}
-                    style={styles.gridImage}
-                    resizeMode={ResizeMode.COVER}
-                    useNativeControls={false}
-                    shouldPlay={false}
-                    isLooping={false}
-                />
+                <GridVideo uri={'https://www.w3schools.com/html/mov_bbb.mp4'} />
             ) : (
                 <Image source={item.url} style={styles.gridImage} />
             )}

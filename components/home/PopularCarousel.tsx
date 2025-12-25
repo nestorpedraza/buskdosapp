@@ -45,7 +45,7 @@ export default function PopularCarousel({ title, items, onItemPress, onDetailPre
 
     const keyExtractor = useCallback((item: PopularItem) => item.id, []);
 
-    const PaginationDot = useCallback(({ index }: { index: number }) => {
+    const PaginationDot = ({ index }: { index: number }) => {
         const animatedStyle = useAnimatedStyle(() => {
             const inputRange = [
                 (index - 1) * POPULAR_CAROUSEL_CONFIG.SNAP_INTERVAL,
@@ -78,7 +78,7 @@ export default function PopularCarousel({ title, items, onItemPress, onDetailPre
                 style={[styles.paginationDot, animatedStyle]}
             />
         );
-    }, [scrollX]);
+    };
 
     return (
         <View style={styles.section}>

@@ -3,7 +3,7 @@ import React from 'react';
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Defs, Stop, LinearGradient as SvgLinearGradient, Text as SvgText } from 'react-native-svg';
 
-const index = () => {
+const Index = () => {
   const router = useRouter();
 
   return (
@@ -98,4 +98,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default index;
+export default Index;

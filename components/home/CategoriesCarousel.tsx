@@ -51,7 +51,7 @@ export default function CategoriesCarousel({ categories, onCategoryPress, onSubc
 
     const categoryKeyExtractor = useCallback((item: Category) => item.id, []);
 
-    const CategoryPaginationDot = useCallback(({ index }: { index: number }) => {
+    const CategoryPaginationDot = ({ index }: { index: number }) => {
         const animatedStyle = useAnimatedStyle(() => {
             const inputRange = [
                 (index - 1) * CAROUSEL_CONFIG.SNAP_INTERVAL,
@@ -84,7 +84,7 @@ export default function CategoriesCarousel({ categories, onCategoryPress, onSubc
                 style={[styles.paginationDot, animatedStyle]}
             />
         );
-    }, [categoryScrollX]);
+    };
 
     return (
         <View style={styles.section}>
