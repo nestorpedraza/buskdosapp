@@ -13,6 +13,7 @@ export default function RootLayout() {
       <Stack.Screen name="register" />
       <Stack.Screen name="desingresponsive" />
       <Stack.Screen name="place/[id]" />
+      <Stack.Screen name="organizations" />
     </Stack>
   );
 }

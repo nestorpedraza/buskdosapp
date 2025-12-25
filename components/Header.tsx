@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function Header() {
     const router = useRouter();
@@ -24,6 +24,14 @@ export default function Header() {
                         <Text style={styles.logoMainText}>Buskdos</Text>
                         <Text style={styles.logoSubText}>Explora, Descubre & Compra</Text>
                     </View>
+                    <View style={styles.spacer} />
+                    <TouchableOpacity
+                        style={styles.addButton}
+                        activeOpacity={0.85}
+                        onPress={() => router.push('/organizations')}
+                    >
+                        <Text style={styles.addButtonIcon}>+</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </LinearGradient>
@@ -67,6 +75,9 @@ const styles = StyleSheet.create({
     logoTextContainer: {
         justifyContent: 'center',
     },
+    spacer: {
+        flex: 1,
+    },
     logoMainText: {
         fontSize: 28,
         fontWeight: '800',
@@ -78,5 +89,21 @@ const styles = StyleSheet.create({
         color: 'rgba(255, 255, 255, 0.85)',
         fontWeight: '500',
         marginTop: 2,
+    },
+    addButton: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: 'rgba(255,255,255,0.15)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.7)',
+    },
+    addButtonIcon: {
+        color: '#fff',
+        fontSize: 24,
+        fontWeight: 'bold',
+        lineHeight: 24,
     },
 })
