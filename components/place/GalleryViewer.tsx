@@ -1,3 +1,4 @@
+import { ResizeMode, Video } from 'expo-av';
 import React, { useEffect, useRef } from 'react';
 import { Dimensions, FlatList, Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { GalleryItem } from '../../types/place.types';
@@ -59,8 +60,20 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                     getItemLayout={(_, index) => ({ length: height, offset: height * index, index })}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => (
-                        <View style={styles.imageContainer}>
-                            <Image source={item.url} style={styles.image} resizeMode="cover" />
+                        <View style={styles.imageContainer} pointerEvents="box-none">
+                            {item.type === 'video' ? (
+                                <Video
+                                    key={item.id}
+                                    source={{ uri: 'https://www.w3schools.com/html/mov_bbb.mp4' }}
+                                    style={styles.media}
+                                    resizeMode={ResizeMode.CONTAIN}
+                                    useNativeControls={true}
+                                    shouldPlay={true}
+                                    isLooping={false}
+                                />
+                            ) : (
+                                <Image source={item.url} style={styles.image} resizeMode="cover" />
+                            )}
                         </View>
                     )}
                     showsVerticalScrollIndicator={false}
@@ -177,6 +190,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
+        width: width,
+        height: height,
+    },
+    media: {
         width: width,
         height: height,
     },

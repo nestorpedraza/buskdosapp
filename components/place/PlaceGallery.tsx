@@ -1,3 +1,4 @@
+import { ResizeMode, Video } from 'expo-av';
 import React, { useState } from 'react';
 import {
     Dimensions,
@@ -114,7 +115,18 @@ export default function PlaceGallery({ items, onItemPress }: PlaceGalleryProps) 
             onPress={() => handleItemPress(item)}
             activeOpacity={0.8}
         >
-            <Image source={item.url} style={styles.gridImage} />
+            {item.type === 'video' ? (
+                <Video
+                    source={{ uri: 'https://www.w3schools.com/html/mov_bbb.mp4' }}
+                    style={styles.gridImage}
+                    resizeMode={ResizeMode.COVER}
+                    useNativeControls={false}
+                    shouldPlay={false}
+                    isLooping={false}
+                />
+            ) : (
+                <Image source={item.url} style={styles.gridImage} />
+            )}
             {item.type === 'video' && (
                 <View style={styles.videoIndicatorCentered}>
                     <View style={styles.videoIndicatorCircle}>
@@ -286,7 +298,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         borderRadius: 20,
-        backgroundColor: 'rgba(255,0,0,0.85)',
+        backgroundColor: 'rgba(195, 0, 255, 0.3)',
         justifyContent: 'center',
         alignItems: 'center',
     },
