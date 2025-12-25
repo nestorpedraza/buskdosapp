@@ -28,6 +28,7 @@ export const getChatsFromPlaces = (): ChatItem[] => {
 // Por ahora todas usan city.png, pero puedes agregar imágenes específicas
 const assetMap: Record<string, any> = {
     'assets/images/city.png': require('../assets/images/city.png'),
+    'assets/images/buskados_vectorizado_200x200.png': require('../assets/images/buskados_vectorizado_200x200.png'),
 };
 
 const resolveAsset = (path?: string) => (path ? assetMap[path] : assetMap['assets/images/city.png']);
@@ -108,4 +109,30 @@ export const getMapMarkers = (): MapMarker[] => {
             } as MapMarker;
         })
         .filter(Boolean) as MapMarker[];
+};
+
+export const getOrganizations = () => {
+    const list: any[] = (appData as any).organizations || [];
+    return list.map((o: any) => {
+        const type = o?.type === 'juridica' ? 'juridica' : 'natural';
+        const base: any = {
+            id: String(o?.id || ''),
+            type,
+            logo: resolveAsset(o?.logo),
+        };
+        if (type === 'juridica') {
+            return {
+                ...base,
+                legalName: String(o?.legalName || ''),
+                taxId: String(o?.taxId || ''),
+                corporateEmail: o?.corporateEmail ? String(o.corporateEmail) : undefined,
+                hqAddress: o?.hqAddress ? String(o.hqAddress) : undefined,
+            };
+        }
+        return {
+            ...base,
+            personalName: String(o?.personalName || ''),
+            nationalId: String(o?.nationalId || ''),
+        };
+    });
 };

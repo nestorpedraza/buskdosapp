@@ -13,12 +13,10 @@ export default function Home() {
     const router = useRouter();
     const { width } = useWindowDimensions();
     const nearbyColumns = Platform.OS === 'web' ? (width >= 1200 ? 4 : width >= 768 ? 3 : 2) : NEARBY_GRID_CONFIG.NUM_COLUMNS;
-
     const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
     const [selectedSubcategoryId, setSelectedSubcategoryId] = useState<string | null>(null);
     const [popularTab, setPopularTab] = useState<'new' | 'popular' | 'favorites'>('new');
     const categoryDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
     const categories = useMemo<Category[]>(() => getCategories(), []);
     const popularItems = useMemo<PopularItem[]>(() => getPopularItems(), []);
     const nearbyItems = useMemo<NearbyItem[]>(() => getNearbyItems(), []);

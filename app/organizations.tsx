@@ -3,6 +3,7 @@ import { FlatList, Image, Platform, StyleSheet, Text, TouchableOpacity, View } f
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppCard from '../components/AppCard';
 import AppSafeArea from '../components/AppSafeArea';
+import { getOrganizations } from '../data/dataService';
 
 type EntityType = 'juridica' | 'natural';
 
@@ -24,49 +25,7 @@ type OrganizationEntity =
     logo: any;
   };
 
-const organizations: OrganizationEntity[] = [
-  {
-    id: 'org-1',
-    type: 'juridica',
-    legalName: 'Inversiones Globales S.A.',
-    taxId: 'NIT 901234567-8',
-    corporateEmail: 'legal@inversionesglobales.com',
-    hqAddress: 'Av. Libertad 123, Bogotá, Colombia',
-    logo: require('../assets/images/buskados_vectorizado_200x200.png'),
-  },
-  {
-    id: 'org-2',
-    type: 'juridica',
-    legalName: 'Tecnologías del Futuro S.A.C.',
-    taxId: 'RUC 20567890123',
-    corporateEmail: 'corporate@tecfuturo.com',
-    hqAddress: 'Calle Innovación 456, Lima, Perú',
-    logo: require('../assets/images/buskados_vectorizado_200x200.png'),
-  },
-  {
-    id: 'org-3',
-    type: 'juridica',
-    legalName: 'Comercial Norteamérica LLC',
-    taxId: 'EIN 12-3456789',
-    corporateEmail: 'corp@comernorte.com',
-    hqAddress: '5th Ave 789, New York, USA',
-    logo: require('../assets/images/buskados_vectorizado_200x200.png'),
-  },
-  {
-    id: 'org-4',
-    type: 'natural',
-    personalName: 'María Fernanda López',
-    nationalId: 'DNI 45213876',
-    logo: require('../assets/images/buskados_vectorizado_200x200.png'),
-  },
-  {
-    id: 'org-5',
-    type: 'natural',
-    personalName: 'Juan Pérez',
-    nationalId: 'Cédula 1.234.567.890',
-    logo: require('../assets/images/buskados_vectorizado_200x200.png'),
-  },
-];
+const allOrgs: OrganizationEntity[] = getOrganizations() as OrganizationEntity[];
 
 export default function OrganizationsScreen() {
   const insets = useSafeAreaInsets();
@@ -74,8 +33,8 @@ export default function OrganizationsScreen() {
   const bottomPadding = TAB_BAR_HEIGHT + insets.bottom + 16;
   const [selectedType, setSelectedType] = React.useState<'all' | EntityType>('all');
   const filtered = React.useMemo(() => {
-    if (selectedType === 'all') return organizations;
-    return organizations.filter(o => o.type === selectedType);
+    if (selectedType === 'all') return allOrgs;
+    return allOrgs.filter(o => o.type === selectedType);
   }, [selectedType]);
 
   return (

@@ -1976,6 +1976,49 @@
       ]
     }
   ],
+  "organizations": [
+    {
+      "id": "org-1",
+      "type": "juridica",
+      "legalName": "Inversiones Globales S.A.",
+      "taxId": "NIT 901234567-8",
+      "corporateEmail": "legal@inversionesglobales.com",
+      "hqAddress": "Av. Libertad 123, Bogotá, Colombia",
+      "logo": "assets/images/buskados_vectorizado_200x200.png"
+    },
+    {
+      "id": "org-2",
+      "type": "juridica",
+      "legalName": "Tecnologías del Futuro S.A.C.",
+      "taxId": "RUC 20567890123",
+      "corporateEmail": "corporate@tecfuturo.com",
+      "hqAddress": "Calle Innovación 456, Lima, Perú",
+      "logo": "assets/images/buskados_vectorizado_200x200.png"
+    },
+    {
+      "id": "org-3",
+      "type": "juridica",
+      "legalName": "Comercial Norteamérica LLC",
+      "taxId": "EIN 12-3456789",
+      "corporateEmail": "corp@comernorte.com",
+      "hqAddress": "5th Ave 789, New York, USA",
+      "logo": "assets/images/buskados_vectorizado_200x200.png"
+    },
+    {
+      "id": "org-4",
+      "type": "natural",
+      "personalName": "María Fernanda López",
+      "nationalId": "DNI 45213876",
+      "logo": "assets/images/buskados_vectorizado_200x200.png"
+    },
+    {
+      "id": "org-5",
+      "type": "natural",
+      "personalName": "Juan Pérez",
+      "nationalId": "Cédula 1.234.567.890",
+      "logo": "assets/images/buskados_vectorizado_200x200.png"
+    }
+  ],
   "popularIds": [
     "p-1",
     "p-5",

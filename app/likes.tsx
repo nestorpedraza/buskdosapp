@@ -1,7 +1,6 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    Dimensions,
     FlatList,
     Platform,
     StyleSheet
@@ -11,8 +10,6 @@ import LikedCard from '../components/likes/LikedCard';
 import LikesEmptyState from '../components/likes/LikesEmptyState';
 import TitlesHeader from '../components/TitlesHeader';
 
-const { width } = Dimensions.get('window');
-const CARD_WIDTH = (width - 60) / 2;
 
 interface LikedItem {
     id: string;
