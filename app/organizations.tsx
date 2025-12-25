@@ -1,5 +1,6 @@
+import { useRouter } from 'expo-router';
 import React from 'react';
-import { FlatList, Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Platform, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppCard from '../components/AppCard';
 import AppSafeArea from '../components/AppSafeArea';
@@ -28,108 +29,146 @@ type OrganizationEntity =
 const allOrgs: OrganizationEntity[] = getOrganizations() as OrganizationEntity[];
 
 export default function OrganizationsScreen() {
+  const router = useRouter();
   const insets = useSafeAreaInsets();
   const TAB_BAR_HEIGHT = Platform.OS === 'ios' ? 72 : 62;
   const bottomPadding = TAB_BAR_HEIGHT + insets.bottom + 16;
   const [selectedType, setSelectedType] = React.useState<'all' | EntityType>('all');
+  const [activeMap, setActiveMap] = React.useState<Record<string, boolean>>(() => {
+    const initial: Record<string, boolean> = {};
+    allOrgs.forEach(o => {
+      initial[o.id] = true;
+    });
+    return initial;
+  });
   const filtered = React.useMemo(() => {
     if (selectedType === 'all') return allOrgs;
     return allOrgs.filter(o => o.type === selectedType);
   }, [selectedType]);
+  const toggleActive = React.useCallback((id: string) => {
+    setActiveMap(prev => ({ ...prev, [id]: !prev[id] }));
+  }, []);
 
   return (
     <AppSafeArea activeRoute="/organizations">
-      <View style={[styles.content, { paddingBottom: bottomPadding }]}>
-        <View style={styles.pageHeader}>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.title}>Organizaciones</Text>
-            <Text style={styles.subtitle}>Entidad Padre y Profesionales independientes</Text>
-          </View>
-          <View style={styles.metrics}>
-            <Text style={styles.metricsNumber}>{filtered.length}</Text>
-            <Text style={styles.metricsLabel}>registros</Text>
-          </View>
-        </View>
-        <View style={styles.segmented}>
-          <TouchableOpacity
-            style={[styles.segmentItem, selectedType === 'all' && styles.segmentItemActive]}
-            onPress={() => setSelectedType('all')}
-            activeOpacity={0.8}
-          >
-            <Text style={[styles.segmentText, selectedType === 'all' && styles.segmentTextActive]}>Todas</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.segmentItem, selectedType === 'juridica' && styles.segmentItemActive]}
-            onPress={() => setSelectedType('juridica')}
-            activeOpacity={0.8}
-          >
-            <Text style={[styles.segmentText, selectedType === 'juridica' && styles.segmentTextActive]}>Empresa</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.segmentItem, selectedType === 'natural' && styles.segmentItemActive]}
-            onPress={() => setSelectedType('natural')}
-            activeOpacity={0.8}
-          >
-            <Text style={[styles.segmentText, selectedType === 'natural' && styles.segmentTextActive]}>Persona</Text>
-          </TouchableOpacity>
-        </View>
-        <FlatList
-          data={filtered}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={[styles.listContent, { paddingBottom: bottomPadding }]}
-          renderItem={({ item }) => (
-            <AppCard style={styles.card}>
-              <View style={styles.cardTop}>
-                <View style={styles.logoWrap}>
-                  <Image source={item.logo} style={styles.logo} />
-                </View>
-                <View style={styles.cardTopRight}>
-                  <Text style={styles.typeBadge}>
-                    {item.type === 'juridica' ? 'Empresa / Persona Jurídica' : 'Persona Natural / Independiente'}
-                  </Text>
-                  {item.type === 'juridica' ? (
-                    <>
-                      <Text style={styles.name}>{item.legalName}</Text>
-                      <Text style={styles.secondary}>{item.taxId}</Text>
-                    </>
-                  ) : (
-                    <>
-                      <Text style={styles.name}>{item.personalName}</Text>
-                      <Text style={styles.secondary}>{item.nationalId}</Text>
-                    </>
-                  )}
-                </View>
-              </View>
 
-              {item.type === 'juridica' ? (
-                <View style={styles.details}>
-                  {item.corporateEmail ? (
-                    <View style={styles.detailRow}>
-                      <Text style={styles.detailLabel}>Correo corporativo</Text>
-                      <Text style={styles.detailValue}>{item.corporateEmail}</Text>
-                    </View>
-                  ) : null}
-                  {item.hqAddress ? (
-                    <View style={styles.detailRow}>
-                      <Text style={styles.detailLabel}>Sede principal</Text>
-                      <Text style={styles.detailValue}>{item.hqAddress}</Text>
-                    </View>
-                  ) : null}
-                </View>
-              ) : null}
-
-              <View style={styles.actions}>
-                <TouchableOpacity style={styles.actionPrimary} activeOpacity={0.85}>
-                  <Text style={styles.actionPrimaryText}>Ver detalle</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.actionSecondary} activeOpacity={0.85}>
-                  <Text style={styles.actionSecondaryText}>Editar</Text>
-                </TouchableOpacity>
-              </View>
-            </AppCard>
-          )}
-        />
+      <View style={styles.pageHeader}>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.title}>Organizaciones</Text>
+          <Text style={styles.subtitle}>Entidad Padre y Profesionales independientes</Text>
+        </View>
+        <View style={styles.metrics}>
+          <Text style={styles.metricsNumber}>{filtered.length}</Text>
+          <Text style={styles.metricsLabel}>registros</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => router.push('/organizations/new')}
+          activeOpacity={0.85}
+        >
+          <Text style={styles.addButtonText}>Agregar</Text>
+        </TouchableOpacity>
       </View>
+      <View style={styles.segmented}>
+        <TouchableOpacity
+          style={[styles.segmentItem, selectedType === 'all' && styles.segmentItemActive]}
+          onPress={() => setSelectedType('all')}
+          activeOpacity={0.8}
+        >
+          <Text style={[styles.segmentText, selectedType === 'all' && styles.segmentTextActive]}>Todas</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.segmentItem, selectedType === 'juridica' && styles.segmentItemActive]}
+          onPress={() => setSelectedType('juridica')}
+          activeOpacity={0.8}
+        >
+          <Text style={[styles.segmentText, selectedType === 'juridica' && styles.segmentTextActive]}>Empresa</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.segmentItem, selectedType === 'natural' && styles.segmentItemActive]}
+          onPress={() => setSelectedType('natural')}
+          activeOpacity={0.8}
+        >
+          <Text style={[styles.segmentText, selectedType === 'natural' && styles.segmentTextActive]}>Persona</Text>
+        </TouchableOpacity>
+      </View>
+      <FlatList
+        data={filtered}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={[styles.listContent, { paddingBottom: bottomPadding }]}
+        renderItem={({ item }) => (
+          <AppCard style={styles.card}>
+            <View style={styles.cardTop}>
+              <View style={styles.logoWrap}>
+                <Image source={item.logo} style={styles.logo} />
+              </View>
+              <View style={styles.cardTopRight}>
+                <Text style={styles.typeBadge}>
+                  {item.type === 'juridica' ? 'Empresa / Persona Jurídica' : 'Persona Natural / Independiente'}
+                </Text>
+                {item.type === 'juridica' ? (
+                  <>
+                    <Text style={styles.name}>{item.legalName}</Text>
+                    <Text style={styles.secondary}>{item.taxId}</Text>
+                  </>
+                ) : (
+                  <>
+                    <Text style={styles.name}>{item.personalName}</Text>
+                    <Text style={styles.secondary}>{item.nationalId}</Text>
+                  </>
+                )}
+              </View>
+            </View>
+
+            {item.type === 'juridica' ? (
+              <View style={styles.details}>
+                {item.corporateEmail ? (
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>Correo corporativo</Text>
+                    <Text style={styles.detailValue}>{item.corporateEmail}</Text>
+                  </View>
+                ) : null}
+                {item.hqAddress ? (
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>Sede principal</Text>
+                    <Text style={styles.detailValue}>{item.hqAddress}</Text>
+                  </View>
+                ) : null}
+              </View>
+            ) : null}
+
+            <View style={styles.actions}>
+              <TouchableOpacity
+                style={styles.actionPrimary}
+                activeOpacity={0.85}
+                onPress={() => router.push({ pathname: '/organizations/businesses/[id]', params: { id: item.id } })}
+              >
+                <Text style={styles.actionPrimaryText}>Ver negocios</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.actionSecondary}
+                activeOpacity={0.85}
+                onPress={() => router.push({ pathname: '/organizations/edit/[id]', params: { id: item.id } })}
+              >
+                <Text style={styles.actionSecondaryText}>Editar</Text>
+              </TouchableOpacity>
+              <View style={styles.toggleWrap}>
+                <Text style={[styles.toggleLabel, activeMap[item.id] ? styles.toggleActiveText : styles.toggleInactiveText]}>
+                  {activeMap[item.id] ? 'Activo' : 'Inactivo'}
+                </Text>
+                <Switch
+                  value={!!activeMap[item.id]}
+                  onValueChange={() => toggleActive(item.id)}
+                  trackColor={{ false: '#fca5a5', true: '#a7f3d0' }}
+                  thumbColor={activeMap[item.id] ? '#22c55e' : '#ef4444'}
+                  ios_backgroundColor="#fca5a5"
+                />
+              </View>
+            </View>
+          </AppCard>
+        )}
+      />
+
     </AppSafeArea>
   );
 }
@@ -174,6 +213,18 @@ const styles = StyleSheet.create({
   metricsLabel: {
     fontSize: 11,
     color: '#6b7280',
+  },
+  addButton: {
+    marginLeft: 12,
+    backgroundColor: '#9900ff',
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 10,
+  },
+  addButtonText: {
+    color: '#fff',
+    fontSize: 13,
+    fontWeight: '700',
   },
   segmented: {
     flexDirection: 'row',
@@ -302,5 +353,20 @@ const styles = StyleSheet.create({
     color: '#111827',
     fontSize: 14,
     fontWeight: '700',
+  },
+  toggleWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  toggleLabel: {
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  toggleActiveText: {
+    color: '#15803d',
+  },
+  toggleInactiveText: {
+    color: '#b91c1c',
   },
 });

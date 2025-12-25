@@ -14,6 +14,9 @@ export default function RootLayout() {
       <Stack.Screen name="desingresponsive" />
       <Stack.Screen name="place/[id]" />
       <Stack.Screen name="organizations" />
+      <Stack.Screen name="organizations/businesses/[id]" />
+      <Stack.Screen name="organizations/edit/[id]" />
+      <Stack.Screen name="organizations/new" />
     </Stack>
   );
 }

@@ -136,3 +136,26 @@ export const getOrganizations = () => {
         };
     });
 };
+
+export const getPlacesByOrganization = (orgName: string) => {
+    const fold = (s?: string) =>
+        String(s || '')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .trim();
+    const target = fold(orgName);
+    return (appData.places || [])
+        .filter((p: any) => fold(p.organization) === target)
+        .map((p: any) => ({
+            id: p.id,
+            name: p.name,
+            subtitle: p.subtitle,
+            tag: p.tag,
+            rating: p.rating,
+            reviews: p.reviews || 0,
+            distance: p.distance || '',
+            isVerified: !!p.isVerified,
+            image: resolveAsset(p.placeDetails?.[0]?.logo || 'assets/images/city.png'),
+        }));
+};
