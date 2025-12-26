@@ -1,6 +1,8 @@
+import * as Location from 'expo-location';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
-import { Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import MapView, { MapPressEvent, Marker, Region } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppSafeArea from '../../../../components/AppSafeArea';
 import { createPlace, getCategories } from '../../../../data/dataService';
@@ -26,6 +28,7 @@ export default function NewBusinessScreen() {
   const [subtitle, setSubtitle] = React.useState('');
   const [latitude, setLatitude] = React.useState('');
   const [longitude, setLongitude] = React.useState('');
+  const [hasSelectedCoords, setHasSelectedCoords] = React.useState(false);
   const [description, setDescription] = React.useState('');
   const [address, setAddress] = React.useState('');
   const [phonePrincipal, setPhonePrincipal] = React.useState('');
@@ -109,6 +112,45 @@ export default function NewBusinessScreen() {
 
   const handleCancel = () => router.back();
 
+  const initialRegion: Region = React.useMemo(() => ({
+    latitude: 6.2465,
+    longitude: -75.5740,
+    latitudeDelta: 0.02,
+    longitudeDelta: 0.02,
+  }), []);
+
+  const updateAddressFromCoords = React.useCallback(async (lat: number, lng: number) => {
+    try {
+      const results = await Location.reverseGeocodeAsync({ latitude: lat, longitude: lng });
+      const first = results?.[0];
+      if (first) {
+        const composed =
+          [first.street, first.name, first.city, first.region, first.postalCode, first.country]
+            .filter(Boolean)
+            .join(', ');
+        setAddress(composed);
+      } else {
+        setAddress(`${lat.toFixed(6)}, ${lng.toFixed(6)}`);
+      }
+    } catch {
+      setAddress(`${lat.toFixed(6)}, ${lng.toFixed(6)}`);
+    }
+  }, []);
+
+  const handleMapPress = React.useCallback(async (e: MapPressEvent) => {
+    const { latitude: lat, longitude: lng } = e.nativeEvent.coordinate;
+    setLatitude(String(lat));
+    setLongitude(String(lng));
+    setHasSelectedCoords(true);
+    await updateAddressFromCoords(lat, lng);
+  }, [updateAddressFromCoords]);
+
+  const handleMarkerDragEnd = React.useCallback(async (lat: number, lng: number) => {
+    setLatitude(String(lat));
+    setLongitude(String(lng));
+    await updateAddressFromCoords(lat, lng);
+  }, [updateAddressFromCoords]);
+
   return (
     <AppSafeArea activeRoute="/organizations">
       <View style={[styles.content, { paddingBottom: bottomPadding }]}>
@@ -119,113 +161,143 @@ export default function NewBusinessScreen() {
           </View>
         </View>
 
-        <View style={styles.form}>
-          <Text style={styles.label}>Nombre</Text>
-          <TextInput value={name} onChangeText={setName} placeholder="La Casa Italiana" style={styles.input} />
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+          <ScrollView
+            style={{ flex: 1 }}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            nestedScrollEnabled
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: bottomPadding + 24 }}
+          >
+            <View style={styles.form}>
+              <Text style={styles.label}>Ubicación en el mapa</Text>
+              <View style={styles.mapBox}>
+                <MapView
+                  style={styles.map}
+                  initialRegion={initialRegion}
+                  onPress={handleMapPress}
+                >
+                  {hasSelectedCoords ? (
+                    <Marker
+                      draggable
+                      coordinate={{ latitude: Number(latitude) || initialRegion.latitude, longitude: Number(longitude) || initialRegion.longitude }}
+                      onDragEnd={(e) => handleMarkerDragEnd(e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude)}
+                      title="Posición seleccionada"
+                    />
+                  ) : null}
+                </MapView>
+                <Text style={styles.mapHint}>Toca el mapa para seleccionar la ubicación</Text>
+              </View>
 
-          <Text style={styles.label}>Categoría</Text>
-          <View style={styles.segmented}>
-            {categories.map(c => (
-              <TouchableOpacity
-                key={c.id}
-                style={[styles.segmentItem, selectedCategoryId === c.id && styles.segmentItemActive]}
-                onPress={() => {
-                  setSelectedCategoryId(c.id);
-                  const firstSub = (c.subcategories || [])[0]?.id || '';
-                  setSelectedSubId(firstSub);
-                }}
-                activeOpacity={0.8}
-              >
-                <Text style={[styles.segmentText, selectedCategoryId === c.id && styles.segmentTextActive]}>{c.name}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
+              <Text style={styles.label}>Dirección</Text>
+              <TextInput value={address} editable={false} placeholder="Se llena automáticamente al seleccionar en el mapa" style={[styles.input, styles.inputDisabled]} />
 
-          <Text style={styles.label}>Subcategoría</Text>
-          <View style={styles.segmented}>
-            {subcategories.map(s => (
-              <TouchableOpacity
-                key={s.id}
-                style={[styles.segmentItem, selectedSubId === s.id && styles.segmentItemActive]}
-                onPress={() => setSelectedSubId(s.id)}
-                activeOpacity={0.8}
-              >
-                <Text style={[styles.segmentText, selectedSubId === s.id && styles.segmentTextActive]}>{s.name}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
+              <Text style={styles.label}>Coordenadas</Text>
+              <View style={{ flexDirection: 'row', gap: 8 }}>
+                <TextInput value={latitude} editable={false} placeholder="Latitud" style={[styles.input, styles.inputDisabled, { flex: 1 }]} />
+                <TextInput value={longitude} editable={false} placeholder="Longitud" style={[styles.input, styles.inputDisabled, { flex: 1 }]} />
+              </View>
 
-          <Text style={styles.label}>Tag</Text>
-          <TextInput value={tag} onChangeText={setTag} placeholder="Ropa" style={styles.input} />
+              <Text style={styles.label}>Nombre</Text>
+              <TextInput value={name} onChangeText={setName} placeholder="La Casa Italiana" style={styles.input} />
 
-          <Text style={styles.label}>Subtítulo</Text>
-          <TextInput value={subtitle} onChangeText={setSubtitle} placeholder="Moda contemporánea" style={styles.input} />
+              <Text style={styles.label}>Categoría</Text>
+              <View style={styles.segmented}>
+                {categories.map(c => (
+                  <TouchableOpacity
+                    key={c.id}
+                    style={[styles.segmentItem, selectedCategoryId === c.id && styles.segmentItemActive]}
+                    onPress={() => {
+                      setSelectedCategoryId(c.id);
+                      const firstSub = (c.subcategories || [])[0]?.id || '';
+                      setSelectedSubId(firstSub);
+                    }}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={[styles.segmentText, selectedCategoryId === c.id && styles.segmentTextActive]}>{c.name}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
 
-          <Text style={styles.label}>Coordenadas</Text>
-          <View style={{ flexDirection: 'row', gap: 8 }}>
-            <TextInput value={latitude} onChangeText={setLatitude} placeholder="Latitud" style={[styles.input, { flex: 1 }]} keyboardType="decimal-pad" />
-            <TextInput value={longitude} onChangeText={setLongitude} placeholder="Longitud" style={[styles.input, { flex: 1 }]} keyboardType="decimal-pad" />
-          </View>
+              <Text style={styles.label}>Subcategoría</Text>
+              <View style={styles.segmented}>
+                {subcategories.map(s => (
+                  <TouchableOpacity
+                    key={s.id}
+                    style={[styles.segmentItem, selectedSubId === s.id && styles.segmentItemActive]}
+                    onPress={() => setSelectedSubId(s.id)}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={[styles.segmentText, selectedSubId === s.id && styles.segmentTextActive]}>{s.name}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
 
-          <Text style={styles.label}>Descripción</Text>
-          <TextInput
-            value={description}
-            onChangeText={setDescription}
-            placeholder="Descripción del negocio"
-            style={[styles.input, { minHeight: 80 }]}
-            multiline
-          />
+              <Text style={styles.label}>Tag</Text>
+              <TextInput value={tag} onChangeText={setTag} placeholder="Ropa" style={styles.input} />
 
-          <Text style={styles.label}>Dirección</Text>
-          <TextInput value={address} onChangeText={setAddress} placeholder="Calle 85 #15-32, Bogotá" style={styles.input} />
+              <Text style={styles.label}>Subtítulo</Text>
+              <TextInput value={subtitle} onChangeText={setSubtitle} placeholder="Moda contemporánea" style={styles.input} />
 
-          <Text style={styles.label}>Teléfono principal</Text>
-          <TextInput value={phonePrincipal} onChangeText={setPhonePrincipal} placeholder="+57 1 234 5678" style={styles.input} keyboardType="phone-pad" />
+              <Text style={styles.label}>Descripción</Text>
+              <TextInput
+                value={description}
+                onChangeText={setDescription}
+                placeholder="Descripción del negocio"
+                style={[styles.input, styles.textarea]}
+                multiline
+              />
 
-          <Text style={styles.label}>WhatsApp</Text>
-          <TextInput value={whatsapp} onChangeText={setWhatsapp} placeholder="+57 320 123 4567" style={styles.input} keyboardType="phone-pad" />
+              <Text style={styles.label}>Teléfono principal</Text>
+              <TextInput value={phonePrincipal} onChangeText={setPhonePrincipal} placeholder="+57 1 234 5678" style={styles.input} keyboardType="phone-pad" />
 
-          <Text style={styles.label}>Horario</Text>
-          <TextInput value={weekdays} onChangeText={setWeekdays} placeholder="Semana: 12:00 - 22:00" style={styles.input} />
-          <Text style={styles.label}>Sábado</Text>
-          <TextInput value={saturday} onChangeText={setSaturday} placeholder="12:00 - 23:00" style={styles.input} />
-          <Text style={styles.label}>Domingo</Text>
-          <TextInput value={sunday} onChangeText={setSunday} placeholder="12:00 - 20:00" style={styles.input} />
+              <Text style={styles.label}>WhatsApp</Text>
+              <TextInput value={whatsapp} onChangeText={setWhatsapp} placeholder="+57 320 123 4567" style={styles.input} keyboardType="phone-pad" />
 
-          <Text style={styles.label}>Website</Text>
-          <TextInput value={website} onChangeText={setWebsite} placeholder="https://lacasaitaliana.com" style={styles.input} keyboardType="url" />
+              <Text style={styles.label}>Horario</Text>
+              <TextInput value={weekdays} onChangeText={setWeekdays} placeholder="Semana: 12:00 - 22:00" style={styles.input} />
+              <Text style={styles.label}>Sábado</Text>
+              <TextInput value={saturday} onChangeText={setSaturday} placeholder="12:00 - 23:00" style={styles.input} />
+              <Text style={styles.label}>Domingo</Text>
+              <TextInput value={sunday} onChangeText={setSunday} placeholder="12:00 - 20:00" style={styles.input} />
 
-          <Text style={styles.label}>Email principal</Text>
-          <TextInput value={emailPrincipal} onChangeText={setEmailPrincipal} placeholder="info@lacasaitaliana.com.co" style={styles.input} keyboardType="email-address" />
+              <Text style={styles.label}>Website</Text>
+              <TextInput value={website} onChangeText={setWebsite} placeholder="https://lacasaitaliana.com" style={styles.input} keyboardType="url" />
 
-          <Text style={styles.label}>Redes sociales</Text>
-          <TextInput value={facebook} onChangeText={setFacebook} placeholder="https://facebook.com/lacasaitaliana" style={styles.input} keyboardType="url" />
-          <TextInput value={instagram} onChangeText={setInstagram} placeholder="https://instagram.com/lacasaitaliana" style={styles.input} keyboardType="url" />
-          <TextInput value={tiktok} onChangeText={setTiktok} placeholder="https://tiktok.com/@lacasaitaliana" style={styles.input} keyboardType="url" />
-          <TextInput value={twitter} onChangeText={setTwitter} placeholder="https://twitter.com/lacasaitaliana" style={styles.input} keyboardType="url" />
-          <TextInput value={youtube} onChangeText={setYoutube} placeholder="https://youtube.com/lacasaitaliana" style={styles.input} keyboardType="url" />
+              <Text style={styles.label}>Email principal</Text>
+              <TextInput value={emailPrincipal} onChangeText={setEmailPrincipal} placeholder="info@lacasaitaliana.com.co" style={styles.input} keyboardType="email-address" />
 
-          <Text style={styles.label}>Apps de delivery</Text>
-          <TextInput value={rappi} onChangeText={setRappi} placeholder="https://rappi.com.co/restaurantes/la-casa-italiana" style={styles.input} keyboardType="url" />
-          <TextInput value={didifood} onChangeText={setDidifood} placeholder="https://didifood.com/co/la-casa-italiana" style={styles.input} keyboardType="url" />
-          <TextInput value={ubereats} onChangeText={setUbereats} placeholder="https://ubereats.com/co/la-casa-italiana" style={styles.input} keyboardType="url" />
-          <TextInput value={ifood} onChangeText={setIfood} placeholder="https://ifood.com.co/la-casa-italiana" style={styles.input} keyboardType="url" />
-          <TextInput value={domicilios} onChangeText={setDomicilios} placeholder="https://domicilios.com/la-casa-italiana" style={styles.input} keyboardType="url" />
+              <Text style={styles.label}>Redes sociales</Text>
+              <TextInput value={facebook} onChangeText={setFacebook} placeholder="https://facebook.com/lacasaitaliana" style={styles.input} keyboardType="url" />
+              <TextInput value={instagram} onChangeText={setInstagram} placeholder="https://instagram.com/lacasaitaliana" style={styles.input} keyboardType="url" />
+              <TextInput value={tiktok} onChangeText={setTiktok} placeholder="https://tiktok.com/@lacasaitaliana" style={styles.input} keyboardType="url" />
+              <TextInput value={twitter} onChangeText={setTwitter} placeholder="https://twitter.com/lacasaitaliana" style={styles.input} keyboardType="url" />
+              <TextInput value={youtube} onChangeText={setYoutube} placeholder="https://youtube.com/lacasaitaliana" style={styles.input} keyboardType="url" />
 
-          <View style={styles.actions}>
-            <TouchableOpacity
-              style={[styles.actionPrimary, !canSave && { opacity: 0.6 }]}
-              onPress={handleSave}
-              disabled={!canSave}
-              activeOpacity={0.85}
-            >
-              <Text style={styles.actionPrimaryText}>Guardar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionSecondary} onPress={handleCancel} activeOpacity={0.85}>
-              <Text style={styles.actionSecondaryText}>Cancelar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+              <Text style={styles.label}>Apps de delivery</Text>
+              <TextInput value={rappi} onChangeText={setRappi} placeholder="https://rappi.com.co/restaurantes/la-casa-italiana" style={styles.input} keyboardType="url" />
+              <TextInput value={didifood} onChangeText={setDidifood} placeholder="https://didifood.com/co/la-casa-italiana" style={styles.input} keyboardType="url" />
+              <TextInput value={ubereats} onChangeText={setUbereats} placeholder="https://ubereats.com/co/la-casa-italiana" style={styles.input} keyboardType="url" />
+              <TextInput value={ifood} onChangeText={setIfood} placeholder="https://ifood.com.co/la-casa-italiana" style={styles.input} keyboardType="url" />
+              <TextInput value={domicilios} onChangeText={setDomicilios} placeholder="https://domicilios.com/la-casa-italiana" style={styles.input} keyboardType="url" />
+
+              <View style={styles.actions}>
+                <TouchableOpacity
+                  style={[styles.actionPrimary, !canSave && { opacity: 0.6 }]}
+                  onPress={handleSave}
+                  disabled={!canSave}
+                  activeOpacity={0.85}
+                >
+                  <Text style={styles.actionPrimaryText}>Guardar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.actionSecondary} onPress={handleCancel} activeOpacity={0.85}>
+                  <Text style={styles.actionSecondaryText}>Cancelar</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     </AppSafeArea>
   );
@@ -233,6 +305,7 @@ export default function NewBusinessScreen() {
 
 const styles = StyleSheet.create({
   content: {
+    flex: 1,
     paddingHorizontal: 16,
     paddingTop: 12,
   },
@@ -304,6 +377,31 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     fontSize: 14,
     color: '#111827',
+  },
+  textarea: {
+    minHeight: 120,
+    textAlignVertical: 'top',
+  },
+  inputDisabled: {
+    backgroundColor: '#f9fafb',
+    color: '#6b7280',
+  },
+  mapBox: {
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: '#fff',
+  },
+  map: {
+    width: '100%',
+    height: 180,
+  },
+  mapHint: {
+    fontSize: 12,
+    color: '#6b7280',
+    paddingHorizontal: 8,
+    paddingVertical: 6,
   },
   actions: {
     flexDirection: 'row',
