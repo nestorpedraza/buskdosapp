@@ -1,7 +1,7 @@
 import * as Location from 'expo-location';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Image as RNImage, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import MapView, { MapPressEvent, Marker, Region } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppSafeArea from '../../../../components/AppSafeArea';
@@ -118,6 +118,8 @@ export default function NewBusinessScreen() {
     latitudeDelta: 0.02,
     longitudeDelta: 0.02,
   }), []);
+  const [region, setRegion] = React.useState<Region>(initialRegion);
+  const mapRef = React.useRef<MapView>(null);
 
   const updateAddressFromCoords = React.useCallback(async (lat: number, lng: number) => {
     try {
@@ -142,14 +144,50 @@ export default function NewBusinessScreen() {
     setLatitude(String(lat));
     setLongitude(String(lng));
     setHasSelectedCoords(true);
+    const next = { ...region, latitude: lat, longitude: lng };
+    setRegion(next);
+    mapRef.current?.animateToRegion(next, 400);
     await updateAddressFromCoords(lat, lng);
-  }, [updateAddressFromCoords]);
+  }, [region, updateAddressFromCoords]);
 
   const handleMarkerDragEnd = React.useCallback(async (lat: number, lng: number) => {
     setLatitude(String(lat));
     setLongitude(String(lng));
+    const next = { ...region, latitude: lat, longitude: lng };
+    setRegion(next);
     await updateAddressFromCoords(lat, lng);
-  }, [updateAddressFromCoords]);
+  }, [region, updateAddressFromCoords]);
+
+  React.useEffect(() => {
+    (async () => {
+      try {
+        let { status } = await Location.getForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          const req = await Location.requestForegroundPermissionsAsync();
+          status = req.status;
+        }
+        if (status === 'granted') {
+          const pos =
+            (await Location.getLastKnownPositionAsync()) ||
+            (await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }));
+          if (pos?.coords) {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            setLatitude(String(lat));
+            setLongitude(String(lng));
+            setHasSelectedCoords(true);
+            const next = { ...region, latitude: lat, longitude: lng };
+            setRegion(next);
+            mapRef.current?.animateToRegion(next, 500);
+            await updateAddressFromCoords(lat, lng);
+          }
+        }
+      } catch {
+        // se mantiene la región por defecto
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <AppSafeArea activeRoute="/organizations">
@@ -174,8 +212,9 @@ export default function NewBusinessScreen() {
               <Text style={styles.label}>Ubicación en el mapa</Text>
               <View style={styles.mapBox}>
                 <MapView
+                  ref={mapRef}
                   style={styles.map}
-                  initialRegion={initialRegion}
+                  initialRegion={region}
                   onPress={handleMapPress}
                 >
                   {hasSelectedCoords ? (
@@ -184,7 +223,12 @@ export default function NewBusinessScreen() {
                       coordinate={{ latitude: Number(latitude) || initialRegion.latitude, longitude: Number(longitude) || initialRegion.longitude }}
                       onDragEnd={(e) => handleMarkerDragEnd(e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude)}
                       title="Posición seleccionada"
-                    />
+                    >
+                      <RNImage
+                        source={require('../../../../assets/images/icon-map.png')}
+                        style={{ width: 36, height: 36 }}
+                      />
+                    </Marker>
                   ) : null}
                 </MapView>
                 <Text style={styles.mapHint}>Toca el mapa para seleccionar la ubicación</Text>
