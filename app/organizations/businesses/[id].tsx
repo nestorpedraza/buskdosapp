@@ -32,6 +32,18 @@ export default function OrganizationBusinessesScreen() {
             <Text style={styles.metricsNumber}>{places.length}</Text>
             <Text style={styles.metricsLabel}>registros</Text>
           </View>
+          <TouchableOpacity
+            style={styles.addButton}
+            activeOpacity={0.85}
+            onPress={() =>
+              router.push({
+                pathname: '/organizations/businesses/new/[orgId]',
+                params: { orgId: String(id) },
+              } as any)
+            }
+          >
+            <Text style={styles.addButtonText}>Agregar</Text>
+          </TouchableOpacity>
         </View>
 
         <FlatList
@@ -114,6 +126,18 @@ const styles = StyleSheet.create({
   metricsLabel: {
     fontSize: 11,
     color: '#6b7280',
+  },
+  addButton: {
+    marginLeft: 12,
+    backgroundColor: '#9900ff',
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 10,
+  },
+  addButtonText: {
+    color: '#fff',
+    fontSize: 13,
+    fontWeight: '700',
   },
   listContent: {
     paddingBottom: 100,

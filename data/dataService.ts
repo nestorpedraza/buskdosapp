@@ -185,3 +185,13 @@ export const getPlacesByOrganizationId = (orgId: string) => {
             };
         });
 };
+
+export const createPlace = async (payload: any) => {
+    const orgs: any[] = (appData as any).organizations || [];
+    const found = orgs.find(o => String(o.id) === String(payload?.idOrganization));
+    const organization = found?.legalName || found?.personalName || '';
+    const enriched = { ...payload, organization };
+    console.log('Simulated POST /places', enriched);
+    await new Promise(res => setTimeout(res, 800));
+    return { ok: true, id: enriched.id || `p-${Math.floor(Math.random() * 10000)}` };
+};
