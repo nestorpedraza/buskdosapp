@@ -1035,7 +1035,7 @@
       "distance": "1.0 km",
       "isVerified": false,
       "idOrganization": "org-2",
-      "organization": "Zapatería Casual S.A.",
+      "organization": "Tecnologías del Futuro S.A.C.",
       "coordinates": {
         "latitude": 6.3390,
         "longitude": -75.5640
@@ -1148,7 +1148,7 @@
       "distance": "1.4 km",
       "isVerified": true,
       "idOrganization": "org-3",
-      "organization": "Zapatería Formal S.A.",
+      "organization": "Comercial Norteamérica LLC",
       "coordinates": {
         "latitude": 6.3425,
         "longitude": -75.5695
@@ -1260,8 +1260,8 @@
       "reviews": 105,
       "distance": "1.6 km",
       "isVerified": false,
-      "idOrganization": "org-4",
-      "organization": "Inversiones Deportivas S.A.",
+      "idOrganization": "org-2",
+      "organization": "Tecnologías del Futuro S.A.C.",
       "coordinates": {
         "latitude": 6.3450,
         "longitude": -75.5610
@@ -1373,8 +1373,8 @@
       "reviews": 118,
       "distance": "1.9 km",
       "isVerified": true,
-      "idOrganization": "org-5",
-      "organization": "Zapatería Infantil S.A.",
+      "idOrganization": "org-3",
+      "organization": "Comercial Norteamérica LLC",
       "coordinates": {
         "latitude": 6.3335,
         "longitude": -75.5660
@@ -1486,8 +1486,8 @@
       "reviews": 160,
       "distance": "0.8 km",
       "isVerified": true,
-      "idOrganization": "org-6",
-      "organization": "Inversiones Tecnológicas S.A.",
+      "idOrganization": "org-2",
+      "organization": "Tecnologías del Futuro S.A.C.",
       "coordinates": {
         "latitude": 6.3475,
         "longitude": -75.5730

@@ -159,3 +159,29 @@ export const getPlacesByOrganization = (orgName: string) => {
             image: resolveAsset(p.placeDetails?.[0]?.logo || 'assets/images/city.png'),
         }));
 };
+
+export const getPlacesByOrganizationId = (orgId: string) => {
+    const fold = (s?: string) => String(s || '').trim();
+    const target = fold(orgId);
+    return (appData.places || [])
+        .filter((p: any) => fold(p.idOrganization) === target)
+        .map((p: any) => {
+            const details = Array.isArray(p.placeDetails) ? p.placeDetails[0] : p.placeDetails;
+            return {
+                id: p.id,
+                name: p.name,
+                category: p.category,
+                subcategory: p.subcategory,
+                tag: p.tag,
+                subtitle: p.subtitle,
+                price: p.price,
+                rating: p.rating,
+                reviews: p.reviews || 0,
+                distance: p.distance || '',
+                isVerified: !!p.isVerified,
+                organization: p.organization,
+                idOrganization: p.idOrganization,
+                image: resolveAsset(details?.logo || 'assets/images/city.png'),
+            };
+        });
+};

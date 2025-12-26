@@ -4,7 +4,7 @@ import { FlatList, Image, Platform, StyleSheet, Text, TouchableOpacity, View } f
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppCard from '../../../components/AppCard';
 import AppSafeArea from '../../../components/AppSafeArea';
-import { getOrganizations, getPlacesByOrganization } from '../../../data/dataService';
+import { getOrganizations, getPlacesByOrganizationId } from '../../../data/dataService';
 
 export default function OrganizationBusinessesScreen() {
   const router = useRouter();
@@ -18,7 +18,7 @@ export default function OrganizationBusinessesScreen() {
     return list.find(o => o.id === id);
   }, [id]);
   const orgName = org?.type === 'juridica' ? org?.legalName : org?.personalName;
-  const places = React.useMemo(() => (orgName ? getPlacesByOrganization(orgName) : []), [orgName]);
+  const places = React.useMemo(() => (id ? getPlacesByOrganizationId(String(id)) : []), [id]);
 
   return (
     <AppSafeArea activeRoute="/organizations">
@@ -47,7 +47,12 @@ export default function OrganizationBusinessesScreen() {
                 <View style={styles.cardTopRight}>
                   <Text style={styles.name}>{item.name}</Text>
                   <Text style={styles.secondary}>{item.subtitle}</Text>
-                  <Text style={styles.secondary}>{item.tag}</Text>
+                  <Text style={styles.secondary}>Categoría: {item.category} • {item.subcategory}</Text>
+                  <Text style={styles.secondary}>Etiqueta: {item.tag}</Text>
+                  <Text style={styles.secondary}>Precio: {item.price}</Text>
+                  <Text style={styles.secondary}>Rating: {item.rating} ({item.reviews} reseñas)</Text>
+                  <Text style={styles.secondary}>Distancia: {item.distance}</Text>
+                  <Text style={styles.secondary}>{item.isVerified ? 'Verificado' : 'No verificado'}</Text>
                 </View>
               </View>
               <View style={styles.actions}>
