@@ -17,6 +17,8 @@ export default function GalleryAdminScreen() {
     if (!v) return require('../../../../assets/images/city.png');
     if (v === 'assets/images/city.png') return require('../../../../assets/images/city.png');
     if (/^https?:\/\//i.test(v)) return { uri: v };
+    if (/^file:\/\//i.test(v)) return { uri: v };
+    if (/^content:\/\//i.test(v)) return { uri: v };
     return require('../../../../assets/images/city.png');
   }, []);
 

@@ -1,6 +1,8 @@
+import * as ImagePicker from 'expo-image-picker';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useVideoPlayer, VideoView } from 'expo-video';
 import React from 'react';
-import { Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Modal, Platform, Image as RNImage, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppSafeArea from '../../../../../components/AppSafeArea';
 import { getGalleryByPlaceId, RawGalleryItem, updateGallery } from '../../../../../data/dataService';
@@ -15,7 +17,36 @@ export default function GalleryAddScreen() {
   const [type, setType] = React.useState<'image' | 'video'>('image');
   const [url, setUrl] = React.useState('');
   const [description, setDescription] = React.useState('');
+  const [previewVisible, setPreviewVisible] = React.useState(false);
   const canSave = title.trim() && url.trim() ? true : false;
+
+  const resolveSource = React.useCallback((v?: string) => {
+    const s = String(v || '');
+    if (!s) return require('../../../../../assets/images/city.png');
+    if (s === 'assets/images/city.png') return require('../../../../../assets/images/city.png');
+    if (/^https?:\/\//i.test(s)) return { uri: s };
+    if (/^file:\/\//i.test(s)) return { uri: s };
+    if (/^content:\/\//i.test(s)) return { uri: s };
+    return require('../../../../../assets/images/city.png');
+  }, []);
+
+  const pickFromDevice = React.useCallback(async () => {
+    const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (perm.status !== 'granted') {
+      return;
+    }
+    const res = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: false,
+      quality: 0.9,
+    });
+    if (!res.canceled && res.assets && res.assets.length > 0) {
+      const asset = res.assets[0];
+      setUrl(asset.uri || '');
+      if (asset.type === 'video') setType('video');
+      if (asset.type === 'image') setType('image');
+    }
+  }, []);
 
   const handleSave = async () => {
     const current = getGalleryByPlaceId(String(placeId || ''));
@@ -85,6 +116,24 @@ export default function GalleryAddScreen() {
               style={styles.input}
               autoCapitalize="none"
             />
+            <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
+              <TouchableOpacity style={styles.actionSecondary} onPress={pickFromDevice} activeOpacity={0.85}>
+                <Text style={styles.actionSecondaryText}>Seleccionar del dispositivo</Text>
+              </TouchableOpacity>
+            </View>
+            {url ? (
+              <View style={{ marginTop: 8 }}>
+                <TouchableOpacity activeOpacity={0.85} onPress={() => setPreviewVisible(true)}>
+                  {type === 'image' ? (
+                    <RNImage source={{ uri: url }} style={styles.preview} />
+                  ) : (
+                    <View style={styles.videoBadge}>
+                      <Text style={styles.videoBadgeText}>Video seleccionado (tocar para ver)</Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+              </View>
+            ) : null}
           </View>
           <View style={styles.formRow}>
             <Text style={styles.label}>Descripción</Text>
@@ -112,7 +161,42 @@ export default function GalleryAddScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <Modal
+        visible={previewVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setPreviewVisible(false)}
+      >
+        <View style={styles.previewOverlay}>
+          <TouchableOpacity style={styles.previewClose} onPress={() => setPreviewVisible(false)} activeOpacity={0.85}>
+            <Text style={styles.previewCloseText}>Cerrar</Text>
+          </TouchableOpacity>
+          <View style={styles.previewContent}>
+            {type === 'video' ? (
+              <FullscreenVideo uri={url} />
+            ) : (
+              <RNImage source={resolveSource(url)} style={styles.previewFullImage} />
+            )}
+          </View>
+        </View>
+      </Modal>
     </AppSafeArea>
+  );
+}
+
+function FullscreenVideo({ uri }: { uri: string }) {
+  const player = useVideoPlayer(uri, (p) => {
+    p.loop = false;
+    p.play();
+  });
+  return (
+    <VideoView
+      player={player}
+      style={styles.previewFullMedia}
+      allowsFullscreen
+      allowsPictureInPicture
+      contentFit="contain"
+    />
   );
 }
 
@@ -223,5 +307,63 @@ const styles = StyleSheet.create({
     color: '#111827',
     fontSize: 14,
     fontWeight: '700',
+  },
+  preview: {
+    width: '100%',
+    height: 160,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  videoBadge: {
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+  },
+  videoBadgeText: {
+    color: '#111827',
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  previewOverlay: {
+    flex: 1,
+    backgroundColor: '#000',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  previewContent: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  previewClose: {
+    position: 'absolute',
+    top: 40,
+    left: 16,
+    backgroundColor: 'rgba(51,51,51,0.85)',
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 8,
+    zIndex: 10,
+    borderWidth: 1,
+    borderColor: '#fff',
+  },
+  previewCloseText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  previewFullImage: {
+    width: '100%',
+    height: '100%',
+  },
+  previewFullMedia: {
+    width: '100%',
+    height: '100%',
   },
 })
