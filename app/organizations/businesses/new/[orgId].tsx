@@ -1,3 +1,4 @@
+import { Picker } from '@react-native-picker/picker';
 import * as Location from 'expo-location';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
@@ -68,9 +69,29 @@ export default function NewBusinessScreen() {
     { type: 'Principal', countryCode: COUNTRY_ITEMS[0].code, number: '' },
   ]);
   const [openWhatsappPickerIndex, setOpenWhatsappPickerIndex] = React.useState<number | null>(null);
-  const [weekdays, setWeekdays] = React.useState('');
-  const [saturday, setSaturday] = React.useState('');
-  const [sunday, setSunday] = React.useState('');
+  const TIME_SLOTS = React.useMemo(() => {
+    const slots: string[] = [];
+    for (let h = 0; h < 24; h++) {
+      for (let m = 0; m < 60; m += 30) {
+        const hh = String(h).padStart(2, '0');
+        const mm = String(m).padStart(2, '0');
+        slots.push(`${hh}:${mm}`);
+      }
+    }
+    return slots;
+  }, []);
+  const [dailySchedule, setDailySchedule] = React.useState<Record<
+    'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado' | 'domingo',
+    { start: string; end: string }
+  >>({
+    lunes: { start: '', end: '' },
+    martes: { start: '', end: '' },
+    miercoles: { start: '', end: '' },
+    jueves: { start: '', end: '' },
+    viernes: { start: '', end: '' },
+    sabado: { start: '', end: '' },
+    domingo: { start: '', end: '' },
+  });
   const [website, setWebsite] = React.useState('');
   const [emailPrincipal, setEmailPrincipal] = React.useState('');
   const [facebook, setFacebook] = React.useState('');
@@ -136,9 +157,15 @@ export default function NewBusinessScreen() {
               whatsapp: `${w.countryCode} ${w.number.trim()}`,
             })),
           schedule: {
-            weekdays: weekdays.trim(),
-            saturday: saturday.trim(),
-            sunday: sunday.trim(),
+            daily: {
+              lunes: dailySchedule.lunes.start && dailySchedule.lunes.end ? `${dailySchedule.lunes.start} - ${dailySchedule.lunes.end}` : '',
+              martes: dailySchedule.martes.start && dailySchedule.martes.end ? `${dailySchedule.martes.start} - ${dailySchedule.martes.end}` : '',
+              miercoles: dailySchedule.miercoles.start && dailySchedule.miercoles.end ? `${dailySchedule.miercoles.start} - ${dailySchedule.miercoles.end}` : '',
+              jueves: dailySchedule.jueves.start && dailySchedule.jueves.end ? `${dailySchedule.jueves.start} - ${dailySchedule.jueves.end}` : '',
+              viernes: dailySchedule.viernes.start && dailySchedule.viernes.end ? `${dailySchedule.viernes.start} - ${dailySchedule.viernes.end}` : '',
+              sabado: dailySchedule.sabado.start && dailySchedule.sabado.end ? `${dailySchedule.sabado.start} - ${dailySchedule.sabado.end}` : '',
+              domingo: dailySchedule.domingo.start && dailySchedule.domingo.end ? `${dailySchedule.domingo.start} - ${dailySchedule.domingo.end}` : '',
+            },
           },
           website: website.trim(),
           emails: emailPrincipal ? [{ type: 'Principal', email: emailPrincipal.trim() }] : [],
@@ -564,12 +591,247 @@ export default function NewBusinessScreen() {
                 </View>
               </View>
 
-              <Text style={styles.label}>Horario</Text>
-              <TextInput value={weekdays} onChangeText={setWeekdays} placeholder="Semana: 12:00 - 22:00" style={styles.input} />
-              <Text style={styles.label}>Sábado</Text>
-              <TextInput value={saturday} onChangeText={setSaturday} placeholder="12:00 - 23:00" style={styles.input} />
-              <Text style={styles.label}>Domingo</Text>
-              <TextInput value={sunday} onChangeText={setSunday} placeholder="12:00 - 20:00" style={styles.input} />
+              <View style={styles.sectionBox}>
+                <Text style={styles.sectionTitle}>Horario</Text>
+                <View style={styles.dayRow}>
+                  <View style={styles.dayHeader}>
+                    <Text style={styles.dayLabel}>Lunes</Text>
+                    <TouchableOpacity
+                      style={styles.dayClear}
+                      onPress={() => setDailySchedule(prev => ({ ...prev, lunes: { start: '', end: '' } }))}
+                      activeOpacity={0.8}
+                    >
+                      <Text style={styles.dayClearText}>Limpiar</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.dayPickers}>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.lunes.start}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, lunes: { ...prev.lunes, start: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Inicio" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`lunes-start-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.lunes.end}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, lunes: { ...prev.lunes, end: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Fin" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`lunes-end-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.dayRow}>
+                  <View style={styles.dayHeader}>
+                    <Text style={styles.dayLabel}>Martes</Text>
+                    <TouchableOpacity
+                      style={styles.dayClear}
+                      onPress={() => setDailySchedule(prev => ({ ...prev, martes: { start: '', end: '' } }))}
+                      activeOpacity={0.8}
+                    >
+                      <Text style={styles.dayClearText}>Limpiar</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.dayPickers}>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.martes.start}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, martes: { ...prev.martes, start: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Inicio" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`martes-start-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.martes.end}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, martes: { ...prev.martes, end: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Fin" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`martes-end-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.dayRow}>
+                  <View style={styles.dayHeader}>
+                    <Text style={styles.dayLabel}>Miércoles</Text>
+                    <TouchableOpacity
+                      style={styles.dayClear}
+                      onPress={() => setDailySchedule(prev => ({ ...prev, miercoles: { start: '', end: '' } }))}
+                      activeOpacity={0.8}
+                    >
+                      <Text style={styles.dayClearText}>Limpiar</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.dayPickers}>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.miercoles.start}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, miercoles: { ...prev.miercoles, start: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Inicio" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`miercoles-start-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.miercoles.end}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, miercoles: { ...prev.miercoles, end: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Fin" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`miercoles-end-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.dayRow}>
+                  <View style={styles.dayHeader}>
+                    <Text style={styles.dayLabel}>Jueves</Text>
+                    <TouchableOpacity
+                      style={styles.dayClear}
+                      onPress={() => setDailySchedule(prev => ({ ...prev, jueves: { start: '', end: '' } }))}
+                      activeOpacity={0.8}
+                    >
+                      <Text style={styles.dayClearText}>Limpiar</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.dayPickers}>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.jueves.start}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, jueves: { ...prev.jueves, start: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Inicio" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`jueves-start-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.jueves.end}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, jueves: { ...prev.jueves, end: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Fin" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`jueves-end-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.dayRow}>
+                  <View style={styles.dayHeader}>
+                    <Text style={styles.dayLabel}>Viernes</Text>
+                    <TouchableOpacity
+                      style={styles.dayClear}
+                      onPress={() => setDailySchedule(prev => ({ ...prev, viernes: { start: '', end: '' } }))}
+                      activeOpacity={0.8}
+                    >
+                      <Text style={styles.dayClearText}>Limpiar</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.dayPickers}>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.viernes.start}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, viernes: { ...prev.viernes, start: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Inicio" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`viernes-start-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.viernes.end}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, viernes: { ...prev.viernes, end: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Fin" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`viernes-end-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.dayRow}>
+                  <View style={styles.dayHeader}>
+                    <Text style={styles.dayLabel}>Sábado</Text>
+                    <TouchableOpacity
+                      style={styles.dayClear}
+                      onPress={() => setDailySchedule(prev => ({ ...prev, sabado: { start: '', end: '' } }))}
+                      activeOpacity={0.8}
+                    >
+                      <Text style={styles.dayClearText}>Limpiar</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.dayPickers}>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.sabado.start}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, sabado: { ...prev.sabado, start: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Inicio" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`sabado-start-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.sabado.end}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, sabado: { ...prev.sabado, end: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Fin" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`sabado-end-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.dayRow}>
+                  <View style={styles.dayHeader}>
+                    <Text style={styles.dayLabel}>Domingo</Text>
+                    <TouchableOpacity
+                      style={styles.dayClear}
+                      onPress={() => setDailySchedule(prev => ({ ...prev, domingo: { start: '', end: '' } }))}
+                      activeOpacity={0.8}
+                    >
+                      <Text style={styles.dayClearText}>Limpiar</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.dayPickers}>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.domingo.start}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, domingo: { ...prev.domingo, start: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Inicio" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`domingo-start-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                    <View style={styles.pickerBox}>
+                      <Picker
+                        selectedValue={dailySchedule.domingo.end}
+                        onValueChange={(v) => setDailySchedule(prev => ({ ...prev, domingo: { ...prev.domingo, end: String(v) } }))}
+                        style={styles.picker}
+                      >
+                        <Picker.Item label="Fin" value="" />
+                        {TIME_SLOTS.map(t => <Picker.Item key={`domingo-end-${t}`} label={t} value={t} />)}
+                      </Picker>
+                    </View>
+                  </View>
+                </View>
+              </View>
 
               <Text style={styles.label}>Website</Text>
               <TextInput value={website} onChangeText={setWebsite} placeholder="https://lacasaitaliana.com" style={styles.input} keyboardType="url" />
@@ -854,6 +1116,51 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#111827',
     fontWeight: '600',
+  },
+  dayRow: {
+    marginBottom: 8,
+  },
+  dayHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  dayLabel: {
+    fontSize: 12,
+    color: '#6b7280',
+    fontWeight: '600',
+    paddingHorizontal: 4,
+    marginBottom: 4,
+  },
+  dayClear: {
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    backgroundColor: '#f3f4f6',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  dayClearText: {
+    fontSize: 12,
+    color: '#374151',
+    fontWeight: '700',
+  },
+  dayPickers: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  pickerBox: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 10,
+    paddingHorizontal: 8,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+  },
+  picker: {
+    width: '100%',
+    color: '#111827',
   },
   phoneActions: {
     justifyContent: 'center',
