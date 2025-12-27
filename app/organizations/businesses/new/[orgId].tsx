@@ -385,7 +385,7 @@ export default function NewBusinessScreen() {
               <View style={{ gap: 10 }}>
                 {phones.map((p, idx) => (
                   <View key={idx} style={styles.phoneRow}>
-                    <View style={{ flex: 1 }}>
+                    <View style={[styles.phoneGroup, { flex: 1 }]}>
                       <Text style={styles.phoneLabel}>Título</Text>
                       <TextInput
                         value={p.type}
@@ -393,52 +393,54 @@ export default function NewBusinessScreen() {
                         placeholder="Ej: Principal, Reservas, Ventas"
                         style={styles.input}
                       />
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.phoneLabel}>Código país</Text>
-                      <TouchableOpacity
-                        style={styles.dropdown}
-                        onPress={() => setOpenCountryPickerIndex(prev => (prev === idx ? null : idx))}
-                        activeOpacity={0.85}
-                      >
-                        <Text style={styles.dropdownText}>
-                          {(() => {
-                            const item = COUNTRY_ITEMS.find(ci => ci.code === p.countryCode);
-                            const flag = item ? COUNTRY_FLAGS[item.label] : '';
-                            return item ? `${flag} ${item.label} ${item.code}` : p.countryCode;
-                          })()}
-                        </Text>
-                        <Text style={styles.dropdownIcon}>▾</Text>
-                      </TouchableOpacity>
-                      {openCountryPickerIndex === idx ? (
-                        <View style={styles.dropdownList}>
-                          {COUNTRY_ITEMS.map(ci => (
-                            <TouchableOpacity
-                              key={ci.code}
-                              style={styles.dropdownItem}
-                              onPress={() => {
-                                setPhones(prev => prev.map((x, i) => (i === idx ? { ...x, countryCode: ci.code } : x)));
-                                setOpenCountryPickerIndex(null);
-                              }}
-                              activeOpacity={0.8}
-                            >
-                              <Text style={styles.dropdownItemText}>
-                                {COUNTRY_FLAGS[ci.label]} {ci.label} {ci.code}
-                              </Text>
-                            </TouchableOpacity>
-                          ))}
+                      <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
+                        <View style={{ flex: 1 }}>
+                          <Text style={styles.phoneLabel}>Código país</Text>
+                          <TouchableOpacity
+                            style={styles.dropdown}
+                            onPress={() => setOpenCountryPickerIndex(prev => (prev === idx ? null : idx))}
+                            activeOpacity={0.85}
+                          >
+                            <Text style={styles.dropdownText}>
+                              {(() => {
+                                const item = COUNTRY_ITEMS.find(ci => ci.code === p.countryCode);
+                                const flag = item ? COUNTRY_FLAGS[item.label] : '';
+                                return item ? `${flag} ${item.label} ${item.code}` : p.countryCode;
+                              })()}
+                            </Text>
+                            <Text style={styles.dropdownIcon}>▾</Text>
+                          </TouchableOpacity>
+                          {openCountryPickerIndex === idx ? (
+                            <View style={styles.dropdownList}>
+                              {COUNTRY_ITEMS.map(ci => (
+                                <TouchableOpacity
+                                  key={ci.code}
+                                  style={styles.dropdownItem}
+                                  onPress={() => {
+                                    setPhones(prev => prev.map((x, i) => (i === idx ? { ...x, countryCode: ci.code } : x)));
+                                    setOpenCountryPickerIndex(null);
+                                  }}
+                                  activeOpacity={0.8}
+                                >
+                                  <Text style={styles.dropdownItemText}>
+                                    {COUNTRY_FLAGS[ci.label]} {ci.label} {ci.code}
+                                  </Text>
+                                </TouchableOpacity>
+                              ))}
+                            </View>
+                          ) : null}
                         </View>
-                      ) : null}
-                    </View>
-                    <View style={{ flex: 1.2 }}>
-                      <Text style={styles.phoneLabel}>Número</Text>
-                      <TextInput
-                        value={p.number}
-                        onChangeText={(v) => setPhones(prev => prev.map((x, i) => (i === idx ? { ...x, number: v } : x)))}
-                        placeholder="320 123 4567"
-                        style={styles.input}
-                        keyboardType="phone-pad"
-                      />
+                        <View style={{ flex: 1.2 }}>
+                          <Text style={styles.phoneLabel}>Número</Text>
+                          <TextInput
+                            value={p.number}
+                            onChangeText={(v) => setPhones(prev => prev.map((x, i) => (i === idx ? { ...x, number: v } : x)))}
+                            placeholder="320 123 4567"
+                            style={styles.input}
+                            keyboardType="phone-pad"
+                          />
+                        </View>
+                      </View>
                     </View>
                     <View style={styles.phoneActions}>
                       <TouchableOpacity
@@ -658,6 +660,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
+  },
+  phoneGroup: {
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 12,
+    padding: 8,
+    backgroundColor: '#fff',
+    gap: 6,
   },
   phoneLabel: {
     fontSize: 12,
