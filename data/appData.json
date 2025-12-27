@@ -167,6 +167,38 @@
       ]
     }
   ],
+  "countryCodes": [
+    {
+      "label": "CO",
+      "code": "+57",
+      "flag": "🇨🇴"
+    },
+    {
+      "label": "US",
+      "code": "+1",
+      "flag": "🇺🇸"
+    },
+    {
+      "label": "MX",
+      "code": "+52",
+      "flag": "🇲🇽"
+    },
+    {
+      "label": "ES",
+      "code": "+34",
+      "flag": "🇪🇸"
+    },
+    {
+      "label": "BR",
+      "code": "+55",
+      "flag": "🇧🇷"
+    },
+    {
+      "label": "EC",
+      "code": "+593",
+      "flag": "🇪🇨"
+    }
+  ],
   "places": [
     {
       "id": "p-1",

@@ -5,6 +5,7 @@ import { Platform, Image as RNImage, ScrollView, StyleSheet, Text, TextInput, To
 import MapView, { Marker, Region } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppSafeArea from '../../components/AppSafeArea';
+import { getCountryCodes } from '../../data/dataService';
 
 type EntityType = 'juridica' | 'natural';
 
@@ -32,22 +33,13 @@ export default function NewOrganizationScreen() {
   const mapRef = React.useRef<MapView>(null);
   const [personalName, setPersonalName] = React.useState('');
   const [nationalId, setNationalId] = React.useState('');
-  const COUNTRY_ITEMS = [
-    { label: 'CO', code: '+57' },
-    { label: 'US', code: '+1' },
-    { label: 'MX', code: '+52' },
-    { label: 'ES', code: '+34' },
-    { label: 'BR', code: '+55' },
-    { label: 'EC', code: '+593' },
-  ];
-  const COUNTRY_FLAGS: Record<string, string> = {
-    CO: '🇨🇴',
-    US: '🇺🇸',
-    MX: '🇲🇽',
-    ES: '🇪🇸',
-    BR: '🇧🇷',
-    EC: '🇪🇨',
-  };
+  const countryCodes = React.useMemo(() => getCountryCodes(), []);
+  const COUNTRY_ITEMS = React.useMemo(() => countryCodes.map(c => ({ label: c.label, code: c.code })), [countryCodes]);
+  const COUNTRY_FLAGS: Record<string, string> = React.useMemo(() => {
+    const map: Record<string, string> = {};
+    countryCodes.forEach(c => { if (c.label) map[c.label] = String(c.flag || ''); });
+    return map;
+  }, [countryCodes]);
   const [phones, setPhones] = React.useState<{ type: string; countryCode: string; number: string }[]>([
     { type: 'Principal', countryCode: COUNTRY_ITEMS[0].code, number: '' },
   ]);

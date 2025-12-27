@@ -195,3 +195,28 @@ export const createPlace = async (payload: any) => {
     await new Promise(res => setTimeout(res, 800));
     return { ok: true, id: enriched.id || `p-${Math.floor(Math.random() * 10000)}` };
 };
+
+export interface CountryCodeItem {
+    label: string;
+    code: string;
+    flag?: string;
+}
+
+export const getCountryCodes = (): CountryCodeItem[] => {
+    const list: any[] = (appData as any).countryCodes || [];
+    if (Array.isArray(list) && list.length > 0) {
+        return list.map((c: any) => ({
+            label: String(c.label || ''),
+            code: String(c.code || ''),
+            flag: String(c.flag || ''),
+        }));
+    }
+    return [
+        { label: 'CO', code: '+57', flag: '🇨🇴' },
+        { label: 'US', code: '+1', flag: '🇺🇸' },
+        { label: 'MX', code: '+52', flag: '🇲🇽' },
+        { label: 'ES', code: '+34', flag: '🇪🇸' },
+        { label: 'BR', code: '+55', flag: '🇧🇷' },
+        { label: 'EC', code: '+593', flag: '🇪🇨' },
+    ];
+};
