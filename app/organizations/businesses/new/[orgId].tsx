@@ -45,6 +45,7 @@ export default function NewBusinessScreen() {
   const [hasSelectedCoords, setHasSelectedCoords] = React.useState(false);
   const [description, setDescription] = React.useState('');
   const [address, setAddress] = React.useState('');
+  const [addressComplement, setAddressComplement] = React.useState('');
   const COUNTRY_ITEMS = [
     { label: 'CO', code: '+57' },
     { label: 'US', code: '+1' },
@@ -104,6 +105,48 @@ export default function NewBusinessScreen() {
   const [ubereats, setUbereats] = React.useState('');
   const [ifood, setIfood] = React.useState('');
   const [domicilios, setDomicilios] = React.useState('');
+  const [emailsList, setEmailsList] = React.useState<{ type: string; email: string }[]>([
+    { type: 'Principal', email: '' },
+  ]);
+  const normalizeSocial = React.useCallback((platform: 'facebook' | 'instagram' | 'tiktok' | 'twitter' | 'youtube', raw: string) => {
+    const v = String(raw || '').trim();
+    if (!v) return '';
+    const hasProtocol = /^https?:\/\//i.test(v);
+    const domains: Record<string, string> = {
+      facebook: 'facebook.com',
+      instagram: 'instagram.com',
+      tiktok: 'tiktok.com',
+      twitter: 'twitter.com',
+      youtube: 'youtube.com',
+    };
+    if (v.includes(domains[platform])) {
+      return hasProtocol ? v : `https://${v}`;
+    }
+    const sanitized = v.replace(/^@/, '').replace(/^\/+/, '');
+    if (platform === 'tiktok') return `https://tiktok.com/@${sanitized}`;
+    if (platform === 'youtube') return `https://youtube.com/@${sanitized}`;
+    if (platform === 'facebook') return `https://facebook.com/${sanitized}`;
+    if (platform === 'instagram') return `https://instagram.com/${sanitized}`;
+    if (platform === 'twitter') return `https://twitter.com/${sanitized}`;
+    return v;
+  }, []);
+  const normalizeDelivery = React.useCallback((platform: 'rappi' | 'didifood' | 'ubereats' | 'ifood' | 'domicilios', raw: string) => {
+    const v = String(raw || '').trim();
+    if (!v) return '';
+    const hasProtocol = /^https?:\/\//i.test(v);
+    const domains: Record<string, string> = {
+      rappi: 'rappi.com',
+      didifood: 'didifood.com',
+      ubereats: 'ubereats.com',
+      ifood: 'ifood.com',
+      domicilios: 'domicilios.com',
+    };
+    if (v.includes(domains[platform])) {
+      return hasProtocol ? v : `https://${v}`;
+    }
+    const sanitized = v.replace(/^@/, '').replace(/^\/+/, '');
+    return `https://${domains[platform]}/${sanitized}`;
+  }, []);
 
   const canSave =
     name.trim() &&
@@ -140,6 +183,7 @@ export default function NewBusinessScreen() {
           logo: 'assets/images/city.png',
           coverImage: 'assets/images/city.png',
           address: address.trim(),
+          addressComplement: addressComplement.trim(),
           phones: phones
             .filter(p => p.number.trim())
             .map(p => ({
@@ -168,7 +212,12 @@ export default function NewBusinessScreen() {
             },
           },
           website: website.trim(),
-          emails: emailPrincipal ? [{ type: 'Principal', email: emailPrincipal.trim() }] : [],
+          emails: emailsList
+            .filter(e => e.email.trim())
+            .map(e => ({
+              type: (e.type || '').trim() || 'Otro',
+              email: e.email.trim(),
+            })),
           socialMedia: {
             facebook: facebook.trim(),
             instagram: instagram.trim(),
@@ -320,6 +369,13 @@ export default function NewBusinessScreen() {
                   {address || 'Se llena automáticamente al seleccionar en el mapa'}
                 </Text>
               </View>
+              <Text style={styles.label}>Complementos dirección</Text>
+              <TextInput
+                value={addressComplement}
+                onChangeText={setAddressComplement}
+                placeholder="Piso 5, Oficina 503, Local 12"
+                style={styles.input}
+              />
 
               <Text style={styles.label}>Coordenadas</Text>
               <View style={{ flexDirection: 'row', gap: 8 }}>
@@ -328,7 +384,7 @@ export default function NewBusinessScreen() {
               </View>
 
               <Text style={styles.label}>Nombre</Text>
-              <TextInput value={name} onChangeText={setName} placeholder="La Casa Italiana" style={styles.input} />
+              <TextInput value={name} onChangeText={setName} placeholder="Buskdos" style={styles.input} />
 
               <Text style={styles.label}>Categoría</Text>
               <View style={styles.segmented}>
@@ -393,7 +449,7 @@ export default function NewBusinessScreen() {
               <TextInput
                 value={tagsText}
                 onChangeText={setTagsText}
-                placeholder="ej: ropa, italiana, boutique"
+                placeholder="ej: ropa, comida, celulares"
                 style={styles.input}
                 autoCapitalize="none"
               />
@@ -834,24 +890,72 @@ export default function NewBusinessScreen() {
               </View>
 
               <Text style={styles.label}>Website</Text>
-              <TextInput value={website} onChangeText={setWebsite} placeholder="https://lacasaitaliana.com" style={styles.input} keyboardType="url" />
+              <TextInput value={website} onChangeText={setWebsite} placeholder="https://buskdos.com" style={styles.input} keyboardType="url" />
 
-              <Text style={styles.label}>Email principal</Text>
-              <TextInput value={emailPrincipal} onChangeText={setEmailPrincipal} placeholder="info@lacasaitaliana.com.co" style={styles.input} keyboardType="email-address" />
+              <View style={styles.sectionBox}>
+                <Text style={styles.sectionTitle}>Emails</Text>
+                <View style={{ gap: 10 }}>
+                  {emailsList.map((em, idx) => (
+                    <View key={idx} style={styles.phoneRow}>
+                      <View style={[styles.phoneGroup, { flex: 1 }]}>
+                        <Text style={styles.phoneLabel}>Título</Text>
+                        <TextInput
+                          value={em.type}
+                          onChangeText={(v) => setEmailsList(prev => prev.map((x, i) => (i === idx ? { ...x, type: v } : x)))}
+                          placeholder="Ej: Principal, Ventas, Gerencia"
+                          style={styles.input}
+                        />
+                        <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
+                          <View style={{ flex: 1.6 }}>
+                            <Text style={styles.phoneLabel}>Email</Text>
+                            <TextInput
+                              value={em.email}
+                              onChangeText={(v) => setEmailsList(prev => prev.map((x, i) => (i === idx ? { ...x, email: v } : x)))}
+                              placeholder="info@buskdos.com.co"
+                              style={styles.input}
+                              keyboardType="email-address"
+                              autoCapitalize="none"
+                            />
+                          </View>
+                        </View>
+                      </View>
+                      <View style={styles.phoneActions}>
+                        <TouchableOpacity
+                          style={styles.actionIcon}
+                          onPress={() => setEmailsList(prev => [...prev, { type: '', email: '' }])}
+                          activeOpacity={0.85}
+                        >
+                          <Text style={styles.actionIconText}>＋</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={[styles.actionIcon, { opacity: emailsList.length > 1 ? 1 : 0.4 }]}
+                          onPress={() =>
+                            setEmailsList(prev => (prev.length > 1 ? prev.filter((_, i) => i !== idx) : prev))
+                          }
+                          activeOpacity={0.85}
+                          disabled={emailsList.length <= 1}
+                        >
+                          <Text style={styles.actionIconText}>−</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  ))}
+                </View>
+              </View>
 
               <Text style={styles.label}>Redes sociales</Text>
-              <TextInput value={facebook} onChangeText={setFacebook} placeholder="https://facebook.com/lacasaitaliana" style={styles.input} keyboardType="url" />
-              <TextInput value={instagram} onChangeText={setInstagram} placeholder="https://instagram.com/lacasaitaliana" style={styles.input} keyboardType="url" />
-              <TextInput value={tiktok} onChangeText={setTiktok} placeholder="https://tiktok.com/@lacasaitaliana" style={styles.input} keyboardType="url" />
-              <TextInput value={twitter} onChangeText={setTwitter} placeholder="https://twitter.com/lacasaitaliana" style={styles.input} keyboardType="url" />
-              <TextInput value={youtube} onChangeText={setYoutube} placeholder="https://youtube.com/lacasaitaliana" style={styles.input} keyboardType="url" />
+              <TextInput value={facebook} onChangeText={(v) => setFacebook(normalizeSocial('facebook', v))} placeholder="https://facebook.com/buskdos" style={styles.input} keyboardType="url" />
+              <TextInput value={instagram} onChangeText={(v) => setInstagram(normalizeSocial('instagram', v))} placeholder="https://instagram.com/buskdos" style={styles.input} keyboardType="url" />
+              <TextInput value={tiktok} onChangeText={(v) => setTiktok(normalizeSocial('tiktok', v))} placeholder="https://tiktok.com/@buskdos" style={styles.input} keyboardType="url" />
+              <TextInput value={twitter} onChangeText={(v) => setTwitter(normalizeSocial('twitter', v))} placeholder="https://twitter.com/buskdos" style={styles.input} keyboardType="url" />
+              <TextInput value={youtube} onChangeText={(v) => setYoutube(normalizeSocial('youtube', v))} placeholder="https://youtube.com/buskdos" style={styles.input} keyboardType="url" />
 
               <Text style={styles.label}>Apps de delivery</Text>
-              <TextInput value={rappi} onChangeText={setRappi} placeholder="https://rappi.com.co/restaurantes/la-casa-italiana" style={styles.input} keyboardType="url" />
-              <TextInput value={didifood} onChangeText={setDidifood} placeholder="https://didifood.com/co/la-casa-italiana" style={styles.input} keyboardType="url" />
-              <TextInput value={ubereats} onChangeText={setUbereats} placeholder="https://ubereats.com/co/la-casa-italiana" style={styles.input} keyboardType="url" />
-              <TextInput value={ifood} onChangeText={setIfood} placeholder="https://ifood.com.co/la-casa-italiana" style={styles.input} keyboardType="url" />
-              <TextInput value={domicilios} onChangeText={setDomicilios} placeholder="https://domicilios.com/la-casa-italiana" style={styles.input} keyboardType="url" />
+              <TextInput value={rappi} onChangeText={(v) => setRappi(normalizeDelivery('rappi', v))} placeholder="https://rappi.com/buskdos" style={styles.input} keyboardType="url" />
+              <TextInput value={didifood} onChangeText={(v) => setDidifood(normalizeDelivery('didifood', v))} placeholder="https://didifood.com/buskdos" style={styles.input} keyboardType="url" />
+              <TextInput value={ubereats} onChangeText={(v) => setUbereats(normalizeDelivery('ubereats', v))} placeholder="https://ubereats.com/buskdos" style={styles.input} keyboardType="url" />
+              <TextInput value={ifood} onChangeText={(v) => setIfood(normalizeDelivery('ifood', v))} placeholder="https://ifood.com/buskdos" style={styles.input} keyboardType="url" />
+              <TextInput value={domicilios} onChangeText={(v) => setDomicilios(normalizeDelivery('domicilios', v))} placeholder="https://domicilios.com/buskdos" style={styles.input} keyboardType="url" />
 
               <View style={styles.actions}>
                 <TouchableOpacity
