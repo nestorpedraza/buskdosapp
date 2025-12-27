@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
-import { FlatList, Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Platform, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppCard from '../../../components/AppCard';
 import AppSafeArea from '../../../components/AppSafeArea';
@@ -19,6 +19,16 @@ export default function OrganizationBusinessesScreen() {
   }, [id]);
   const orgName = org?.type === 'juridica' ? org?.legalName : org?.personalName;
   const places = React.useMemo(() => (id ? getPlacesByOrganizationId(String(id)) : []), [id]);
+  const [activeMap, setActiveMap] = React.useState<Record<string, boolean>>(() => {
+    const initial: Record<string, boolean> = {};
+    places.forEach(p => {
+      initial[p.id] = true;
+    });
+    return initial;
+  });
+  const toggleActive = React.useCallback((placeId: string) => {
+    setActiveMap(prev => ({ ...prev, [placeId]: !prev[placeId] }));
+  }, []);
 
   return (
     <AppSafeArea activeRoute="/organizations">
@@ -75,6 +85,18 @@ export default function OrganizationBusinessesScreen() {
                 >
                   <Text style={styles.actionPrimaryText}>Abrir</Text>
                 </TouchableOpacity>
+              </View>
+              <View style={[styles.toggleWrap, { marginTop: 10 }]}>
+                <Text style={[styles.toggleLabel, activeMap[item.id] ? styles.toggleActiveText : styles.toggleInactiveText]}>
+                  {activeMap[item.id] ? 'Activo' : 'Inactivo'}
+                </Text>
+                <Switch
+                  value={!!activeMap[item.id]}
+                  onValueChange={() => toggleActive(item.id)}
+                  trackColor={{ false: '#fca5a5', true: '#a7f3d0' }}
+                  thumbColor={activeMap[item.id] ? '#22c55e' : '#ef4444'}
+                  ios_backgroundColor="#fca5a5"
+                />
               </View>
             </AppCard>
           )}
@@ -200,6 +222,21 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     fontWeight: '700',
+  },
+  toggleWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  toggleLabel: {
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  toggleActiveText: {
+    color: '#15803d',
+  },
+  toggleInactiveText: {
+    color: '#b91c1c',
   },
   empty: {
     alignItems: 'center',
