@@ -152,18 +152,18 @@ export default function OrganizationsScreen() {
               >
                 <Text style={styles.actionSecondaryText}>Editar</Text>
               </TouchableOpacity>
-              <View style={styles.toggleWrap}>
-                <Text style={[styles.toggleLabel, activeMap[item.id] ? styles.toggleActiveText : styles.toggleInactiveText]}>
-                  {activeMap[item.id] ? 'Activo' : 'Inactivo'}
-                </Text>
-                <Switch
-                  value={!!activeMap[item.id]}
-                  onValueChange={() => toggleActive(item.id)}
-                  trackColor={{ false: '#fca5a5', true: '#a7f3d0' }}
-                  thumbColor={activeMap[item.id] ? '#22c55e' : '#ef4444'}
-                  ios_backgroundColor="#fca5a5"
-                />
-              </View>
+            </View>
+            <View style={[styles.toggleWrap, { marginTop: 10 }]}>
+              <Text style={[styles.toggleLabel, activeMap[item.id] ? styles.toggleActiveText : styles.toggleInactiveText]}>
+                {activeMap[item.id] ? 'Activo' : 'Inactivo'}
+              </Text>
+              <Switch
+                value={!!activeMap[item.id]}
+                onValueChange={() => toggleActive(item.id)}
+                trackColor={{ false: '#fca5a5', true: '#a7f3d0' }}
+                thumbColor={activeMap[item.id] ? '#22c55e' : '#ef4444'}
+                ios_backgroundColor="#fca5a5"
+              />
             </View>
           </AppCard>
         )}
