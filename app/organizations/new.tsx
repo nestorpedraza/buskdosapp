@@ -32,6 +32,29 @@ export default function NewOrganizationScreen() {
   const mapRef = React.useRef<MapView>(null);
   const [personalName, setPersonalName] = React.useState('');
   const [nationalId, setNationalId] = React.useState('');
+  const COUNTRY_ITEMS = [
+    { label: 'CO', code: '+57' },
+    { label: 'US', code: '+1' },
+    { label: 'MX', code: '+52' },
+    { label: 'ES', code: '+34' },
+    { label: 'BR', code: '+55' },
+    { label: 'EC', code: '+593' },
+  ];
+  const COUNTRY_FLAGS: Record<string, string> = {
+    CO: '🇨🇴',
+    US: '🇺🇸',
+    MX: '🇲🇽',
+    ES: '🇪🇸',
+    BR: '🇧🇷',
+    EC: '🇪🇨',
+  };
+  const [phones, setPhones] = React.useState<{ type: string; countryCode: string; number: string }[]>([
+    { type: 'Principal', countryCode: COUNTRY_ITEMS[0].code, number: '' },
+  ]);
+  const [openCountryPickerIndex, setOpenCountryPickerIndex] = React.useState<number | null>(null);
+  const [emailsList, setEmailsList] = React.useState<{ type: string; email: string }[]>([
+    { type: 'Principal', email: '' },
+  ]);
 
   const canSave =
     (type === 'juridica' ? legalName.trim() && taxId.trim() : personalName.trim() && nationalId.trim()) ? true : false;
@@ -253,6 +276,143 @@ export default function NewOrganizationScreen() {
           </View>
         )}
 
+        <View style={styles.sectionBox}>
+          <Text style={styles.sectionTitle}>Teléfonos</Text>
+          <View style={{ gap: 10 }}>
+            {phones.map((p, idx) => (
+              <View key={idx} style={styles.phoneRow}>
+                <View style={[styles.phoneGroup, { flex: 1 }]}>
+                  <Text style={styles.phoneLabel}>Título</Text>
+                  <TextInput
+                    value={p.type}
+                    onChangeText={(v) => setPhones(prev => prev.map((x, i) => (i === idx ? { ...x, type: v } : x)))}
+                    placeholder="Ej: Principal, Ventas, Gerencia"
+                    style={styles.input}
+                  />
+                  <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.phoneLabel}>Código país</Text>
+                      <TouchableOpacity
+                        style={styles.dropdown}
+                        onPress={() => setOpenCountryPickerIndex(prev => (prev === idx ? null : idx))}
+                        activeOpacity={0.85}
+                      >
+                        <Text style={styles.dropdownText}>
+                          {(() => {
+                            const item = COUNTRY_ITEMS.find(ci => ci.code === p.countryCode);
+                            const flag = item ? COUNTRY_FLAGS[item.label] : '';
+                            return item ? `${flag} ${item.label} ${item.code}` : p.countryCode;
+                          })()}
+                        </Text>
+                        <Text style={styles.dropdownIcon}>▾</Text>
+                      </TouchableOpacity>
+                      {openCountryPickerIndex === idx ? (
+                        <View style={styles.dropdownList}>
+                          {COUNTRY_ITEMS.map(ci => (
+                            <TouchableOpacity
+                              key={ci.code}
+                              style={styles.dropdownItem}
+                              onPress={() => {
+                                setPhones(prev => prev.map((x, i) => (i === idx ? { ...x, countryCode: ci.code } : x)));
+                                setOpenCountryPickerIndex(null);
+                              }}
+                              activeOpacity={0.8}
+                            >
+                              <Text style={styles.dropdownItemText}>
+                                {COUNTRY_FLAGS[ci.label]} {ci.label} {ci.code}
+                              </Text>
+                            </TouchableOpacity>
+                          ))}
+                        </View>
+                      ) : null}
+                    </View>
+                    <View style={{ flex: 1.2 }}>
+                      <Text style={styles.phoneLabel}>Número</Text>
+                      <TextInput
+                        value={p.number}
+                        onChangeText={(v) => setPhones(prev => prev.map((x, i) => (i === idx ? { ...x, number: v } : x)))}
+                        placeholder="320 123 4567"
+                        style={styles.input}
+                        keyboardType="phone-pad"
+                      />
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.phoneActions}>
+                  <TouchableOpacity
+                    style={styles.actionIcon}
+                    onPress={() => setPhones(prev => [...prev, { type: '', countryCode: COUNTRY_ITEMS[0].code, number: '' }])}
+                    activeOpacity={0.85}
+                  >
+                    <Text style={styles.actionIconText}>＋</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.actionIcon, { opacity: phones.length > 1 ? 1 : 0.4 }]}
+                    onPress={() =>
+                      setPhones(prev => (prev.length > 1 ? prev.filter((_, i) => i !== idx) : prev))
+                    }
+                    activeOpacity={0.85}
+                    disabled={phones.length <= 1}
+                  >
+                    <Text style={styles.actionIconText}>−</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        <View style={styles.sectionBox}>
+          <Text style={styles.sectionTitle}>Emails</Text>
+          <View style={{ gap: 10 }}>
+            {emailsList.map((em, idx) => (
+              <View key={idx} style={styles.phoneRow}>
+                <View style={[styles.phoneGroup, { flex: 1 }]}>
+                  <Text style={styles.phoneLabel}>Título</Text>
+                  <TextInput
+                    value={em.type}
+                    onChangeText={(v) => setEmailsList(prev => prev.map((x, i) => (i === idx ? { ...x, type: v } : x)))}
+                    placeholder="Ej: Principal, Ventas, Gerencia"
+                    style={styles.input}
+                  />
+                  <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
+                    <View style={{ flex: 1.6 }}>
+                      <Text style={styles.phoneLabel}>Email</Text>
+                      <TextInput
+                        value={em.email}
+                        onChangeText={(v) => setEmailsList(prev => prev.map((x, i) => (i === idx ? { ...x, email: v } : x)))}
+                        placeholder="info@empresa.com.co"
+                        style={styles.input}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                      />
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.phoneActions}>
+                  <TouchableOpacity
+                    style={styles.actionIcon}
+                    onPress={() => setEmailsList(prev => [...prev, { type: '', email: '' }])}
+                    activeOpacity={0.85}
+                  >
+                    <Text style={styles.actionIconText}>＋</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.actionIcon, { opacity: emailsList.length > 1 ? 1 : 0.4 }]}
+                    onPress={() =>
+                      setEmailsList(prev => (prev.length > 1 ? prev.filter((_, i) => i !== idx) : prev))
+                    }
+                    activeOpacity={0.85}
+                    disabled={emailsList.length <= 1}
+                  >
+                    <Text style={styles.actionIconText}>−</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ))}
+          </View>
+        </View>
+
         <View style={styles.actions}>
           <TouchableOpacity
             style={[styles.actionPrimary, !canSave && { opacity: 0.6 }]}
@@ -405,5 +565,99 @@ const styles = StyleSheet.create({
     color: '#111827',
     fontSize: 14,
     fontWeight: '700',
+  },
+  sectionBox: {
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 12,
+    padding: 10,
+    backgroundColor: '#fff',
+    gap: 10,
+    marginTop: 12,
+  },
+  sectionTitle: {
+    fontSize: 12,
+    color: '#6b7280',
+    fontWeight: '700',
+    paddingHorizontal: 4,
+    marginBottom: 6,
+  },
+  phoneRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+  },
+  phoneGroup: {
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 12,
+    padding: 8,
+    backgroundColor: '#fff',
+    gap: 6,
+  },
+  phoneLabel: {
+    fontSize: 12,
+    color: '#6b7280',
+    fontWeight: '600',
+    paddingHorizontal: 4,
+    marginBottom: 4,
+  },
+  phoneActions: {
+    flexDirection: 'row',
+    gap: 8,
+    paddingTop: 6,
+  },
+  actionIcon: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    backgroundColor: '#fff',
+  },
+  actionIconText: {
+    color: '#111827',
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  dropdown: {
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  dropdownText: {
+    fontSize: 14,
+    color: '#111827',
+    fontWeight: '600',
+  },
+  dropdownIcon: {
+    fontSize: 14,
+    color: '#6b7280',
+    marginLeft: 8,
+  },
+  dropdownList: {
+    marginTop: 6,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    overflow: 'hidden',
+  },
+  dropdownItem: {
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f3f4f6',
+  },
+  dropdownItemText: {
+    fontSize: 14,
+    color: '#111827',
+    fontWeight: '600',
   },
 })
