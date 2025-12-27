@@ -85,6 +85,13 @@ export default function OrganizationBusinessesScreen() {
                 >
                   <Text style={styles.actionPrimaryText}>Abrir</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.actionSecondary}
+                  activeOpacity={0.85}
+                  onPress={() => router.push({ pathname: '/organizations/businesses/gallery/[placeId]', params: { placeId: item.id } })}
+                >
+                  <Text style={styles.actionSecondaryText}>Galería</Text>
+                </TouchableOpacity>
               </View>
               <View style={[styles.toggleWrap, { marginTop: 10 }]}>
                 <Text style={[styles.toggleLabel, activeMap[item.id] ? styles.toggleActiveText : styles.toggleInactiveText]}>
@@ -220,6 +227,19 @@ const styles = StyleSheet.create({
   },
   actionPrimaryText: {
     color: '#fff',
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  actionSecondary: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    backgroundColor: '#fff',
+  },
+  actionSecondaryText: {
+    color: '#111827',
     fontSize: 14,
     fontWeight: '700',
   },

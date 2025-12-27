@@ -220,3 +220,30 @@ export const getCountryCodes = (): CountryCodeItem[] => {
         { label: 'EC', code: '+593', flag: '🇪🇨' },
     ];
 };
+
+export interface RawGalleryItem {
+    id: string;
+    title: string;
+    type: 'image' | 'video';
+    url: string;
+    description?: string;
+}
+
+export const getGalleryByPlaceId = (placeId: string): RawGalleryItem[] => {
+    const placeItem = (appData as any).places?.find((x: any) => String(x.id) === String(placeId));
+    const details = placeItem ? (Array.isArray(placeItem.placeDetails) ? placeItem.placeDetails[0] : placeItem.placeDetails) : null;
+    const gallery: any[] = (details?.gallery || []);
+    return gallery.map((g: any) => ({
+        id: String(g.id || ''),
+        title: String(g.title || ''),
+        type: (g.type === 'video' ? 'video' : 'image'),
+        url: String(g.url || ''),
+        description: String(g.description || ''),
+    }));
+};
+
+export const updateGallery = async (placeId: string, items: RawGalleryItem[]) => {
+    console.log('Simulated POST /places/gallery', { placeId, items });
+    await new Promise(res => setTimeout(res, 600));
+    return { ok: true };
+};
