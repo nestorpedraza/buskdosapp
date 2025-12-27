@@ -15,13 +15,16 @@ export default function NewBusinessScreen() {
   const bottomPadding = TAB_BAR_HEIGHT + insets.bottom + 16;
 
   const categories = React.useMemo(() => getCategories(), []);
-  const [selectedCategoryId, setSelectedCategoryId] = React.useState<string>(categories[0]?.id || '');
-  const selectedCategory = React.useMemo(
-    () => categories.find(c => c.id === selectedCategoryId),
-    [categories, selectedCategoryId]
+  const [selectedCategoryIds, setSelectedCategoryIds] = React.useState<string[]>([]);
+  const selectedCategories = React.useMemo(
+    () => categories.filter(c => selectedCategoryIds.includes(c.id)),
+    [categories, selectedCategoryIds]
   );
-  const subcategories = React.useMemo(() => selectedCategory?.subcategories || [], [selectedCategory]);
-  const [selectedSubId, setSelectedSubId] = React.useState<string>(subcategories[0]?.id || '');
+  const aggregatedSubcategories = React.useMemo(
+    () => selectedCategories.flatMap(c => c.subcategories || []),
+    [selectedCategories]
+  );
+  const [selectedSubIds, setSelectedSubIds] = React.useState<string[]>([]);
 
   const [name, setName] = React.useState('');
   const [tag, setTag] = React.useState('');
@@ -51,8 +54,8 @@ export default function NewBusinessScreen() {
 
   const canSave =
     name.trim() &&
-      selectedCategoryId &&
-      selectedSubId &&
+      selectedCategoryIds.length > 0 &&
+      selectedSubIds.length > 0 &&
       subtitle.trim() &&
       latitude.trim() &&
       longitude.trim() &&
@@ -64,8 +67,12 @@ export default function NewBusinessScreen() {
     const payload = {
       id: '',
       name: name.trim(),
-      category: selectedCategory?.name || '',
-      subcategory: (selectedCategory?.subcategories || []).find(s => s.id === selectedSubId)?.name || '',
+      category: selectedCategories[0]?.name || '',
+      subcategory: aggregatedSubcategories.find(s => s.id === selectedSubIds[0])?.name || '',
+      categoryIds: selectedCategoryIds,
+      subcategoryIds: selectedSubIds,
+      categoriesSelected: selectedCategories.map(c => c.name),
+      subcategoriesSelected: selectedSubIds.map(id => aggregatedSubcategories.find(s => s.id === id)?.name).filter(Boolean),
       tag: tag.trim(),
       subtitle: subtitle.trim(),
       idOrganization: String(orgId),
@@ -235,7 +242,11 @@ export default function NewBusinessScreen() {
               </View>
 
               <Text style={styles.label}>Dirección</Text>
-              <TextInput value={address} editable={false} placeholder="Se llena automáticamente al seleccionar en el mapa" style={[styles.input, styles.inputDisabled]} />
+              <View style={[styles.input, styles.inputDisabled]}>
+                <Text style={[styles.addressText, !address && styles.addressPlaceholder]}>
+                  {address || 'Se llena automáticamente al seleccionar en el mapa'}
+                </Text>
+              </View>
 
               <Text style={styles.label}>Coordenadas</Text>
               <View style={{ flexDirection: 'row', gap: 8 }}>
@@ -248,35 +259,62 @@ export default function NewBusinessScreen() {
 
               <Text style={styles.label}>Categoría</Text>
               <View style={styles.segmented}>
-                {categories.map(c => (
-                  <TouchableOpacity
-                    key={c.id}
-                    style={[styles.segmentItem, selectedCategoryId === c.id && styles.segmentItemActive]}
-                    onPress={() => {
-                      setSelectedCategoryId(c.id);
-                      const firstSub = (c.subcategories || [])[0]?.id || '';
-                      setSelectedSubId(firstSub);
-                    }}
-                    activeOpacity={0.8}
-                  >
-                    <Text style={[styles.segmentText, selectedCategoryId === c.id && styles.segmentTextActive]}>{c.name}</Text>
-                  </TouchableOpacity>
-                ))}
+                {categories.map(c => {
+                  const active = selectedCategoryIds.includes(c.id);
+                  return (
+                    <TouchableOpacity
+                      key={c.id}
+                      style={[styles.segmentItem, active && styles.segmentItemActive]}
+                      onPress={() => {
+                        setSelectedCategoryIds(prev => {
+                          if (prev.includes(c.id)) {
+                            const next = prev.filter(x => x !== c.id);
+                            const subIdsToRemove = (c.subcategories || []).map(s => s.id);
+                            setSelectedSubIds(prevSubs => prevSubs.filter(x => !subIdsToRemove.includes(x)));
+                            return next;
+                          }
+                          return [...prev, c.id];
+                        });
+                      }}
+                      activeOpacity={0.8}
+                    >
+                      <Text style={[styles.segmentText, active && styles.segmentTextActive]}>{c.name}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
               </View>
+              <Text style={styles.helperText}>
+                {selectedCategoryIds.length > 0 ? `${selectedCategoryIds.length} categorías seleccionadas` : 'Selecciona una o más categorías'}
+              </Text>
 
               <Text style={styles.label}>Subcategoría</Text>
               <View style={styles.segmented}>
-                {subcategories.map(s => (
-                  <TouchableOpacity
-                    key={s.id}
-                    style={[styles.segmentItem, selectedSubId === s.id && styles.segmentItemActive]}
-                    onPress={() => setSelectedSubId(s.id)}
-                    activeOpacity={0.8}
-                  >
-                    <Text style={[styles.segmentText, selectedSubId === s.id && styles.segmentTextActive]}>{s.name}</Text>
-                  </TouchableOpacity>
-                ))}
+                {aggregatedSubcategories.length > 0 ? (
+                  aggregatedSubcategories.map(s => {
+                    const active = selectedSubIds.includes(s.id);
+                    return (
+                      <TouchableOpacity
+                        key={s.id}
+                        style={[styles.segmentItem, active && styles.segmentItemActive]}
+                        onPress={() => {
+                          setSelectedSubIds(prev => (prev.includes(s.id) ? prev.filter(x => x !== s.id) : [...prev, s.id]));
+                        }}
+                        activeOpacity={0.8}
+                      >
+                        <Text style={styles.segmentIcon}>{s.icon || ''}</Text>
+                        <Text style={[styles.segmentText, active && styles.segmentTextActive]}>{s.name}</Text>
+                      </TouchableOpacity>
+                    );
+                  })
+                ) : (
+                  <View style={{ paddingHorizontal: 8, paddingVertical: 6 }}>
+                    <Text style={styles.helperText}>Selecciona categorías para ver subcategorías</Text>
+                  </View>
+                )}
               </View>
+              {selectedSubIds.length > 0 ? (
+                <Text style={styles.helperText}>{selectedSubIds.length} subcategorías seleccionadas</Text>
+              ) : null}
 
               <Text style={styles.label}>Tag</Text>
               <TextInput value={tag} onChangeText={setTag} placeholder="Ropa" style={styles.input} />
@@ -412,6 +450,17 @@ const styles = StyleSheet.create({
   segmentTextActive: {
     color: '#111827',
   },
+  segmentIcon: {
+    fontSize: 14,
+    marginRight: 4,
+  },
+  helperText: {
+    fontSize: 12,
+    color: '#6b7280',
+    paddingHorizontal: 4,
+    marginTop: -6,
+    marginBottom: 8,
+  },
   input: {
     borderWidth: 1,
     borderColor: '#e5e7eb',
@@ -428,6 +477,14 @@ const styles = StyleSheet.create({
   },
   inputDisabled: {
     backgroundColor: '#f9fafb',
+    color: '#6b7280',
+  },
+  addressText: {
+    fontSize: 14,
+    color: '#111827',
+    lineHeight: 20,
+  },
+  addressPlaceholder: {
     color: '#6b7280',
   },
   mapBox: {
