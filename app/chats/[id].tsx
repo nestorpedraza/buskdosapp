@@ -1,9 +1,7 @@
 import { useLocalSearchParams } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { Alert, FlatList, Image, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Header from '../../components/Header';
-import TabBar from '../../components/TabBar';
+import AppSafeArea from '../../components/AppSafeArea';
 
 interface Message {
     id: string;
@@ -116,9 +114,8 @@ export default function ChatDetailScreen() {
         );
     };
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <AppSafeArea activeRoute="/chats">
             <View style={[styles.container, { paddingBottom: TABBAR_SPACE }]}>
-                <Header />
                 <View style={styles.titleBar}>
                     <View style={styles.titleRow}>
                         <Image source={avatar} style={styles.titleAvatar} />
@@ -167,10 +164,9 @@ export default function ChatDetailScreen() {
                         <Text style={styles.attachText}>📎</Text>
                     </Pressable>
                 </View>
-                <TabBar activeRoute="/chats" />
             </View>
 
-        </SafeAreaView>
+        </AppSafeArea>
     );
 }
 

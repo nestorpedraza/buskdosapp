@@ -1,6 +1,6 @@
 import { useVideoPlayer, VideoView } from 'expo-video';
 import React, { useEffect, useRef } from 'react';
-import { Dimensions, FlatList, Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, FlatList, Image, Modal, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { GalleryItem } from '../../types/place.types';
 
 const { width, height } = Dimensions.get('window');
@@ -54,14 +54,79 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
             p.loop = false;
             p.play();
         });
+        const [isPlaying, setIsPlaying] = React.useState(true);
+        const [currentTime, setCurrentTime] = React.useState(0);
+        const [duration, setDuration] = React.useState(0);
+        const [barWidth, setBarWidth] = React.useState(0);
+
+        useEffect(() => {
+            const id = setInterval(() => {
+                const cur = (player as any)?.currentTime ?? 0;
+                const dur = (player as any)?.duration ?? 0;
+                setCurrentTime(cur);
+                setDuration(dur);
+            }, 250);
+            return () => clearInterval(id);
+        }, [player]);
+
+        const togglePlay = () => {
+            if (isPlaying) {
+                (player as any)?.pause?.();
+                setIsPlaying(false);
+            } else {
+                (player as any)?.play?.();
+                setIsPlaying(true);
+            }
+        };
+
+        const seekToPercent = (pct: number) => {
+            const dur = (player as any)?.duration ?? 0;
+            if (dur > 0) {
+                const next = dur * pct;
+                (player as any)?.seekTo?.(next);
+                setCurrentTime(next);
+            }
+        };
+
+        const progress = duration > 0 ? Math.min(1, Math.max(0, currentTime / duration)) : 0;
+        const fmt = (s: number) => {
+            const mm = Math.floor(s / 60);
+            const ss = Math.floor(s % 60);
+            return `${mm}:${String(ss).padStart(2, '0')}`;
+        };
+
         return (
-            <VideoView
-                player={player}
-                style={styles.media}
-                allowsFullscreen
-                allowsPictureInPicture
-                contentFit="contain"
-            />
+            <View style={{ width, height }}>
+                <VideoView
+                    player={player}
+                    style={styles.media}
+                    allowsFullscreen
+                    allowsPictureInPicture
+                    contentFit="contain"
+                />
+                <View style={styles.controlsOverlay}>
+                    <View style={styles.controlsRow}>
+                        <TouchableOpacity style={styles.controlButton} onPress={togglePlay} activeOpacity={0.85}>
+                            <Text style={styles.controlButtonText}>{isPlaying ? 'Pause' : 'Play'}</Text>
+                        </TouchableOpacity>
+                        <Text style={styles.timeText}>
+                            {fmt(currentTime)} / {fmt(duration)}
+                        </Text>
+                    </View>
+                    <Pressable
+                        style={styles.progressContainer}
+                        onLayout={(e) => setBarWidth(e.nativeEvent.layout.width)}
+                        onPress={(e) => {
+                            const x = (e as any)?.nativeEvent?.locationX ?? 0;
+                            if (barWidth > 0) {
+                                seekToPercent(Math.min(1, Math.max(0, x / barWidth)));
+                            }
+                        }}
+                    >
+                        <View style={[styles.progressFill, { width: `${progress * 100}%` }]} />
+                    </Pressable>
+                </View>
+            </View>
         );
     };
 
@@ -204,6 +269,49 @@ const styles = StyleSheet.create({
     media: {
         width: width,
         height: height,
+    },
+    controlsOverlay: {
+        position: 'absolute',
+        left: 16,
+        right: 16,
+        bottom: 32,
+        zIndex: 20,
+    },
+    controlsRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+        marginBottom: 10,
+    },
+    controlButton: {
+        backgroundColor: 'rgba(64,64,64,0.7)',
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#fff',
+    },
+    controlButtonText: {
+        color: '#fff',
+        fontSize: 14,
+        fontWeight: '700',
+    },
+    timeText: {
+        color: '#fff',
+        fontSize: 12,
+        opacity: 0.8,
+        fontWeight: '600',
+    },
+    progressContainer: {
+        width: '100%',
+        height: 6,
+        borderRadius: 999,
+        backgroundColor: 'rgba(255,255,255,0.25)',
+        overflow: 'hidden',
+    },
+    progressFill: {
+        height: '100%',
+        backgroundColor: '#fff',
     },
     // Barra superior
     topBar: {

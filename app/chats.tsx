@@ -1,9 +1,7 @@
 import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
-import { Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Header from '../components/Header';
-import TabBar from '../components/TabBar';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import AppSafeArea from '../components/AppSafeArea';
 import ChatRow, { ChatItem } from '../components/chats/ChatRow';
 import { getChatsFromPlaces } from '../data/dataService';
 
@@ -33,27 +31,30 @@ export default function ChatsScreen() {
     router.push({ pathname: '/chats/[id]', params: { id: ci.id, placeName: ci.placeName } });
   };
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <Header />
-        <View style={styles.toolbar}>
-          <View style={styles.search}>
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Buscar lugar"
-              placeholderTextColor="#9ca3af"
-              value={query}
-              onChangeText={setQuery}
-            />
-            <Pressable accessibilityRole="button" style={styles.searchIconBtn}>
-              <Text style={styles.searchIconText}>{'\u{1F50D}'}</Text>
-            </Pressable>
-          </View>
-          <Pressable style={styles.sortBtn} onPress={toggleSort}>
-            <Text style={styles.sortText}>{sortDesc ? 'Fecha ↓' : 'Fecha ↑'}</Text>
+    <AppSafeArea activeRoute="/chats">
+      <View style={styles.toolbar}>
+        <View style={styles.search}>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Buscar lugar"
+            placeholderTextColor="#9ca3af"
+            value={query}
+            onChangeText={setQuery}
+          />
+          <Pressable accessibilityRole="button" style={styles.searchIconBtn}>
+            <Text style={styles.searchIconText}>{'\u{1F50D}'}</Text>
           </Pressable>
         </View>
-        <View style={styles.list}>
+        <Pressable style={styles.sortBtn} onPress={toggleSort}>
+          <Text style={styles.sortText}>{sortDesc ? 'Fecha ↓' : 'Fecha ↑'}</Text>
+        </Pressable>
+      </View>
+      <ScrollView
+        contentContainerStyle={styles.listContent}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.listWrapper}>
           {filtered.map(item => (
             <ChatRow key={item.id} item={item} onDelete={handleDelete} onPress={handleOpen} />
           ))}
@@ -64,23 +65,14 @@ export default function ChatsScreen() {
               <Text style={styles.emptySub}>Busca por nombre o vuelve más tarde</Text>
             </View>
           )}
+          <View style={{ height: 120 }} />
         </View>
-        <TabBar activeRoute="/chats" />
-      </View>
-    </SafeAreaView>
+      </ScrollView>
+    </AppSafeArea>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: Platform.OS === 'android' ? 0 : 0,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   toolbar: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -137,9 +129,6 @@ const styles = StyleSheet.create({
     color: '#4b5563',
     fontWeight: '600',
   },
-  list: {
-    flex: 1,
-  },
   empty: {
     alignItems: 'center',
     paddingTop: 40,
@@ -157,5 +146,13 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#6b7280',
     marginTop: 4,
+  },
+  listContent: {
+    paddingHorizontal: 12,
+    paddingTop: 8,
+    paddingBottom: 16,
+  },
+  listWrapper: {
+    gap: 8,
   },
 });
