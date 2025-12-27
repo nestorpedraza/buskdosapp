@@ -27,14 +27,43 @@ export default function NewBusinessScreen() {
   const [selectedSubIds, setSelectedSubIds] = React.useState<string[]>([]);
 
   const [name, setName] = React.useState('');
-  const [tag, setTag] = React.useState('');
+  const [tagsText, setTagsText] = React.useState('');
+  const tagsNormalized = React.useMemo(() => {
+    const parts = String(tagsText || '')
+      .split(',')
+      .map(t => t.trim())
+      .filter(Boolean);
+    return parts.map(t => {
+      const bare = t.replace(/^#+/, '');
+      return bare ? `#${bare}` : '';
+    }).filter(Boolean);
+  }, [tagsText]);
   const [subtitle, setSubtitle] = React.useState('');
   const [latitude, setLatitude] = React.useState('');
   const [longitude, setLongitude] = React.useState('');
   const [hasSelectedCoords, setHasSelectedCoords] = React.useState(false);
   const [description, setDescription] = React.useState('');
   const [address, setAddress] = React.useState('');
-  const [phonePrincipal, setPhonePrincipal] = React.useState('');
+  const COUNTRY_ITEMS = [
+    { label: 'CO', code: '+57' },
+    { label: 'US', code: '+1' },
+    { label: 'MX', code: '+52' },
+    { label: 'ES', code: '+34' },
+    { label: 'BR', code: '+55' },
+    { label: 'EC', code: '+593' },
+  ];
+  const COUNTRY_FLAGS: Record<string, string> = {
+    CO: '🇨🇴',
+    US: '🇺🇸',
+    MX: '🇲🇽',
+    ES: '🇪🇸',
+    BR: '🇧🇷',
+    EC: '🇪🇨',
+  };
+  const [phones, setPhones] = React.useState<{ type: string; countryCode: string; number: string }[]>([
+    { type: 'Principal', countryCode: COUNTRY_ITEMS[0].code, number: '' },
+  ]);
+  const [openCountryPickerIndex, setOpenCountryPickerIndex] = React.useState<number | null>(null);
   const [whatsapp, setWhatsapp] = React.useState('');
   const [weekdays, setWeekdays] = React.useState('');
   const [saturday, setSaturday] = React.useState('');
@@ -73,7 +102,8 @@ export default function NewBusinessScreen() {
       subcategoryIds: selectedSubIds,
       categoriesSelected: selectedCategories.map(c => c.name),
       subcategoriesSelected: selectedSubIds.map(id => aggregatedSubcategories.find(s => s.id === id)?.name).filter(Boolean),
-      tag: tag.trim(),
+      tag: (tagsNormalized[0] || '').replace(/^#/, ''),
+      tags: tagsNormalized,
       subtitle: subtitle.trim(),
       idOrganization: String(orgId),
       coordinates: {
@@ -86,7 +116,12 @@ export default function NewBusinessScreen() {
           logo: 'assets/images/city.png',
           coverImage: 'assets/images/city.png',
           address: address.trim(),
-          phones: phonePrincipal ? [{ type: 'Principal', phone: phonePrincipal.trim() }] : [],
+          phones: phones
+            .filter(p => p.number.trim())
+            .map(p => ({
+              type: (p.type || '').trim() || 'Otro',
+              phone: `${p.countryCode} ${p.number.trim()}`,
+            })),
           whatsapp: whatsapp.trim(),
           whatsapps: whatsapp ? [{ type: 'Principal', whatsapp: whatsapp.trim() }] : [],
           schedule: {
@@ -316,8 +351,23 @@ export default function NewBusinessScreen() {
                 <Text style={styles.helperText}>{selectedSubIds.length} subcategorías seleccionadas</Text>
               ) : null}
 
-              <Text style={styles.label}>Tag</Text>
-              <TextInput value={tag} onChangeText={setTag} placeholder="Ropa" style={styles.input} />
+              <Text style={styles.label}>Tags</Text>
+              <TextInput
+                value={tagsText}
+                onChangeText={setTagsText}
+                placeholder="ej: ropa, italiana, boutique"
+                style={styles.input}
+                autoCapitalize="none"
+              />
+              {tagsNormalized.length > 0 ? (
+                <View style={styles.chipsContainer}>
+                  {tagsNormalized.map((t) => (
+                    <View key={t} style={styles.chip}>
+                      <Text style={styles.chipText}>{t}</Text>
+                    </View>
+                  ))}
+                </View>
+              ) : null}
 
               <Text style={styles.label}>Subtítulo</Text>
               <TextInput value={subtitle} onChangeText={setSubtitle} placeholder="Moda contemporánea" style={styles.input} />
@@ -331,8 +381,87 @@ export default function NewBusinessScreen() {
                 multiline
               />
 
-              <Text style={styles.label}>Teléfono principal</Text>
-              <TextInput value={phonePrincipal} onChangeText={setPhonePrincipal} placeholder="+57 1 234 5678" style={styles.input} keyboardType="phone-pad" />
+              <Text style={styles.label}>Teléfonos</Text>
+              <View style={{ gap: 10 }}>
+                {phones.map((p, idx) => (
+                  <View key={idx} style={styles.phoneRow}>
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.phoneLabel}>Título</Text>
+                      <TextInput
+                        value={p.type}
+                        onChangeText={(v) => setPhones(prev => prev.map((x, i) => (i === idx ? { ...x, type: v } : x)))}
+                        placeholder="Ej: Principal, Reservas, Ventas"
+                        style={styles.input}
+                      />
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.phoneLabel}>Código país</Text>
+                      <TouchableOpacity
+                        style={styles.dropdown}
+                        onPress={() => setOpenCountryPickerIndex(prev => (prev === idx ? null : idx))}
+                        activeOpacity={0.85}
+                      >
+                        <Text style={styles.dropdownText}>
+                          {(() => {
+                            const item = COUNTRY_ITEMS.find(ci => ci.code === p.countryCode);
+                            const flag = item ? COUNTRY_FLAGS[item.label] : '';
+                            return item ? `${flag} ${item.label} ${item.code}` : p.countryCode;
+                          })()}
+                        </Text>
+                        <Text style={styles.dropdownIcon}>▾</Text>
+                      </TouchableOpacity>
+                      {openCountryPickerIndex === idx ? (
+                        <View style={styles.dropdownList}>
+                          {COUNTRY_ITEMS.map(ci => (
+                            <TouchableOpacity
+                              key={ci.code}
+                              style={styles.dropdownItem}
+                              onPress={() => {
+                                setPhones(prev => prev.map((x, i) => (i === idx ? { ...x, countryCode: ci.code } : x)));
+                                setOpenCountryPickerIndex(null);
+                              }}
+                              activeOpacity={0.8}
+                            >
+                              <Text style={styles.dropdownItemText}>
+                                {COUNTRY_FLAGS[ci.label]} {ci.label} {ci.code}
+                              </Text>
+                            </TouchableOpacity>
+                          ))}
+                        </View>
+                      ) : null}
+                    </View>
+                    <View style={{ flex: 1.2 }}>
+                      <Text style={styles.phoneLabel}>Número</Text>
+                      <TextInput
+                        value={p.number}
+                        onChangeText={(v) => setPhones(prev => prev.map((x, i) => (i === idx ? { ...x, number: v } : x)))}
+                        placeholder="320 123 4567"
+                        style={styles.input}
+                        keyboardType="phone-pad"
+                      />
+                    </View>
+                    <View style={styles.phoneActions}>
+                      <TouchableOpacity
+                        style={styles.actionIcon}
+                        onPress={() => setPhones(prev => [...prev, { type: '', countryCode: COUNTRY_ITEMS[0].code, number: '' }])}
+                        activeOpacity={0.85}
+                      >
+                        <Text style={styles.actionIconText}>＋</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={[styles.actionIcon, { opacity: phones.length > 1 ? 1 : 0.4 }]}
+                        onPress={() =>
+                          setPhones(prev => (prev.length > 1 ? prev.filter((_, i) => i !== idx) : prev))
+                        }
+                        activeOpacity={0.85}
+                        disabled={phones.length <= 1}
+                      >
+                        <Text style={styles.actionIconText}>−</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                ))}
+              </View>
 
               <Text style={styles.label}>WhatsApp</Text>
               <TextInput value={whatsapp} onChangeText={setWhatsapp} placeholder="+57 320 123 4567" style={styles.input} keyboardType="phone-pad" />
@@ -503,6 +632,128 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     paddingHorizontal: 8,
     paddingVertical: 6,
+  },
+  chipsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    paddingHorizontal: 4,
+    marginTop: 8,
+  },
+  chip: {
+    backgroundColor: '#f3f4f6',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+  chipText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#374151',
+    letterSpacing: 0.2,
+  },
+  phoneRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+  },
+  phoneLabel: {
+    fontSize: 12,
+    color: '#6b7280',
+    fontWeight: '600',
+    paddingHorizontal: 4,
+    marginBottom: 4,
+  },
+  countryCodesWrap: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+    backgroundColor: '#f3f4f6',
+    borderRadius: 12,
+    padding: 4,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  codeItem: {
+    paddingVertical: 6,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+  },
+  codeItemActive: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  codeText: {
+    fontSize: 12,
+    color: '#4b5563',
+    fontWeight: '700',
+  },
+  codeTextActive: {
+    color: '#111827',
+  },
+  dropdown: {
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  dropdownText: {
+    fontSize: 14,
+    color: '#111827',
+    fontWeight: '600',
+  },
+  dropdownIcon: {
+    fontSize: 14,
+    color: '#6b7280',
+    marginLeft: 8,
+  },
+  dropdownList: {
+    marginTop: 6,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    overflow: 'hidden',
+  },
+  dropdownItem: {
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f3f4f6',
+  },
+  dropdownItemText: {
+    fontSize: 14,
+    color: '#111827',
+    fontWeight: '600',
+  },
+  phoneActions: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 6,
+  },
+  actionIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#f3f4f6',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  actionIconText: {
+    fontSize: 18,
+    color: '#111827',
+    fontWeight: '700',
+    lineHeight: 18,
   },
   actions: {
     flexDirection: 'row',
