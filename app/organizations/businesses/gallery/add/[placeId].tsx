@@ -193,8 +193,8 @@ function FullscreenVideo({ uri }: { uri: string }) {
     <VideoView
       player={player}
       style={styles.previewFullMedia}
-      allowsFullscreen
-      allowsPictureInPicture
+      fullscreenOptions={{ enabled: true }}
+      pictureInPictureOptions={{ enabled: true }}
       contentFit="contain"
     />
   );

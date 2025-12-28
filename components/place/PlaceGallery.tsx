@@ -118,8 +118,8 @@ export default function PlaceGallery({ items, onItemPress }: PlaceGalleryProps) 
             <VideoView
                 player={player}
                 style={styles.gridImage}
-                allowsFullscreen={false}
-                allowsPictureInPicture={false}
+                fullscreenOptions={{ enabled: false }}
+                pictureInPictureOptions={{ enabled: false }}
                 contentFit="cover"
             />
         );

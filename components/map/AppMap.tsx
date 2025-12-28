@@ -1,7 +1,11 @@
 import * as Location from 'expo-location';
 import React, { useEffect, useRef, useState } from 'react';
-import { Image as RNImage, StyleProp, ViewStyle } from 'react-native';
-import MapView, { Circle, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Image as RNImage, Platform, StyleProp, View, ViewStyle, Text } from 'react-native';
+const RNMaps = Platform.OS !== 'web' ? require('react-native-maps') : null;
+const MapViewComponent = RNMaps ? RNMaps.default : null;
+const MarkerComponent = RNMaps ? RNMaps.Marker : null;
+const CircleComponent = RNMaps ? RNMaps.Circle : null;
+const PROVIDER_GOOGLE = RNMaps ? RNMaps.PROVIDER_GOOGLE : undefined;
 
 export interface MapMarker {
     id: string;
@@ -18,7 +22,7 @@ export interface MapMarker {
 interface AppMapProps {
     style?: StyleProp<ViewStyle>;
     markers?: MapMarker[];
-    onMapRef?: (ref: MapView | null) => void;
+    onMapRef?: (ref: any | null) => void;
     radiusKm?: number;
     onMarkerPress?: (marker: MapMarker) => void;
 }
@@ -29,7 +33,7 @@ export default function AppMap({ style, markers, onMapRef, radiusKm, onMarkerPre
         longitude: -75.5812,
     };
 
-    const mapRef = useRef<MapView>(null);
+    const mapRef = useRef<any>(null);
     const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
     const [locationPermissionGranted, setLocationPermissionGranted] = useState(false);
     const [tracksView, setTracksView] = useState(true);
@@ -113,8 +117,15 @@ export default function AppMap({ style, markers, onMapRef, radiusKm, onMarkerPre
         return () => clearTimeout(t);
     }, [markers]);
 
+    if (Platform.OS === 'web' || !MapViewComponent) {
+        return (
+            <View style={[{ width: '100%', height: 180, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f9fafb' }, style as any]}>
+                <Text style={{ color: '#6b7280' }}>Mapa no disponible en web</Text>
+            </View>
+        );
+    }
     return (
-        <MapView
+        <MapViewComponent
             ref={mapRef}
             provider={PROVIDER_GOOGLE}
             style={style}
@@ -128,7 +139,7 @@ export default function AppMap({ style, markers, onMapRef, radiusKm, onMarkerPre
 
 
             {markers?.map((marker, idx) => (
-                <Marker
+                <MarkerComponent
                     key={marker.id}
                     coordinate={{ latitude: marker.lat, longitude: marker.lng }}
                     title={marker.name}
@@ -142,10 +153,10 @@ export default function AppMap({ style, markers, onMapRef, radiusKm, onMarkerPre
                     <RNImage
                         source={require('../../assets/images/icon-map.png')}
                     />
-                </Marker>
+                </MarkerComponent>
             ))}
             {radiusKm && userLocation && (
-                <Circle
+                <CircleComponent
                     center={userLocation}
                     radius={radiusKm * 1000}
                     strokeColor="rgba(153,0,255,0.6)"
@@ -153,6 +164,6 @@ export default function AppMap({ style, markers, onMapRef, radiusKm, onMarkerPre
                     zIndex={5}
                 />
             )}
-        </MapView>
+        </MapViewComponent>
     );
 }

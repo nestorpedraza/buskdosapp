@@ -16,6 +16,11 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
     const flatListRef = useRef<FlatList<GalleryItem>>(null);
     const [currentIndex, setCurrentIndex] = React.useState(initialIndex);
     const commentsRef = useRef<ScrollView>(null);
+    const [commentsVisible, setCommentsVisible] = React.useState(false);
+    const playersRef = useRef<Record<string, any>>({});
+    const autoPlayedRef = useRef<Set<string>>(new Set());
+    const [activeId, setActiveId] = React.useState<string | null>(items[initialIndex]?.id ?? null);
+    const [playSignalMap, setPlaySignalMap] = React.useState<Record<string, number>>({});
 
     useEffect(() => {
         if (visible && flatListRef.current) {
@@ -49,12 +54,60 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
 
     const comments = currentItem?.comments || [];
 
-    const FullscreenVideo = ({ uri }: { uri: string }) => {
-        const player = useVideoPlayer(uri, (p) => {
-            p.loop = false;
-            p.play();
+    const registerPlayer = (id: string, player: any) => {
+        playersRef.current[id] = player;
+    };
+
+    const requestPlay = (id: string) => {
+        // Pause and reset all other players
+        Object.entries(playersRef.current).forEach(([pid, p]) => {
+            if (pid !== id) {
+                (p as any)?.pause?.();
+                (p as any)?.seekTo?.(0);
+            }
         });
-        const [isPlaying, setIsPlaying] = React.useState(true);
+        setActiveId(id);
+    };
+
+    useEffect(() => {
+        const id = items[currentIndex]?.id;
+        if (!id) return;
+        // On item change, stop previous videos and reset audio
+        Object.entries(playersRef.current).forEach(([pid, p]) => {
+            if (pid !== id) {
+                (p as any)?.pause?.();
+                (p as any)?.seekTo?.(0);
+            }
+        });
+        setActiveId(id);
+        // Auto-play only the first time this item becomes active
+        if (!autoPlayedRef.current.has(id)) {
+            autoPlayedRef.current.add(id);
+            setPlaySignalMap(prev => ({ ...prev, [id]: (prev[id] ?? 0) + 1 }));
+        }
+    }, [currentIndex, items]);
+
+    const FullscreenVideo = ({
+        uri,
+        itemId,
+        isActive,
+        playSignal,
+        onRegister,
+        onRequestPlay,
+    }: {
+        uri: string;
+        itemId: string;
+        isActive: boolean;
+        playSignal: number;
+        onRegister: (id: string, player: any) => void;
+        onRequestPlay: (id: string) => void;
+    }) => {
+        const initPlayer = React.useCallback((p: any) => {
+            p.loop = false;
+            p.pause();
+        }, []);
+        const player = useVideoPlayer(uri, initPlayer);
+        const [isPlaying, setIsPlaying] = React.useState(false);
         const [currentTime, setCurrentTime] = React.useState(0);
         const [duration, setDuration] = React.useState(0);
         const [barWidth, setBarWidth] = React.useState(0);
@@ -69,11 +122,29 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
             return () => clearInterval(id);
         }, [player]);
 
+        useEffect(() => {
+            onRegister(itemId, player);
+            return () => {
+                // Deregister the player on unmount to avoid calling methods on a released instance
+                if (playersRef.current[itemId] === player) {
+                    delete playersRef.current[itemId];
+                }
+            };
+        }, [itemId, player, onRegister]);
+
+        useEffect(() => {
+            if (isActive && playSignal > 0) {
+                (player as any)?.play?.();
+                setIsPlaying(true);
+            }
+        }, [isActive, playSignal, player]);
+
         const togglePlay = () => {
             if (isPlaying) {
                 (player as any)?.pause?.();
                 setIsPlaying(false);
             } else {
+                onRequestPlay(itemId);
                 (player as any)?.play?.();
                 setIsPlaying(true);
             }
@@ -100,8 +171,8 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                 <VideoView
                     player={player}
                     style={styles.media}
-                    allowsFullscreen
-                    allowsPictureInPicture
+                    fullscreenOptions={{ enabled: true }}
+                    pictureInPictureOptions={{ enabled: true }}
                     contentFit="contain"
                 />
                 <View style={styles.controlsOverlay}>
@@ -143,7 +214,14 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                     renderItem={({ item }) => (
                         <View style={styles.imageContainer} pointerEvents="box-none">
                             {item.type === 'video' ? (
-                                <FullscreenVideo uri={'https://www.w3schools.com/html/mov_bbb.mp4'} />
+                                <FullscreenVideo
+                                    uri={'https://www.w3schools.com/html/mov_bbb.mp4'}
+                                    itemId={item.id}
+                                    isActive={activeId === item.id}
+                                    playSignal={playSignalMap[item.id] ?? 0}
+                                    onRegister={registerPlayer}
+                                    onRequestPlay={requestPlay}
+                                />
                             ) : (
                                 <Image source={item.url} style={styles.image} resizeMode="cover" />
                             )}
@@ -189,7 +267,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                     </TouchableOpacity>
 
                     {/* Comentarios */}
-                    <TouchableOpacity style={styles.actionButton}>
+                    <TouchableOpacity style={styles.actionButton} onPress={() => setCommentsVisible(v => !v)}>
                         <View style={styles.iconCircle}>
                             <Text style={styles.actionIcon}>💬</Text>
                         </View>
@@ -229,23 +307,25 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                     </View>
                 </View>
 
-                <View style={styles.commentsOverlay}>
-                    <Text style={styles.commentsTitle}>Comentarios</Text>
-                    <ScrollView ref={commentsRef} style={styles.commentsScroll} showsVerticalScrollIndicator={false}>
-                        {comments.map((c: any, idx: number) => (
-                            <View key={idx} style={styles.commentRow}>
-                                <View style={styles.commentLeft}>
-                                    <View style={styles.commentAvatarSmall} />
+                {commentsVisible ? (
+                    <View style={styles.commentsOverlay}>
+                        <Text style={styles.commentsTitle}>Comentarios</Text>
+                        <ScrollView ref={commentsRef} style={styles.commentsScroll} showsVerticalScrollIndicator={false}>
+                            {comments.map((c: any, idx: number) => (
+                                <View key={idx} style={styles.commentRow}>
+                                    <View style={styles.commentLeft}>
+                                        <View style={styles.commentAvatarSmall} />
+                                    </View>
+                                    <View style={{ flex: 1 }}>
+                                        <Text style={styles.commentNameSmall}>{c.userName}</Text>
+                                        <Text style={styles.commentTextSmall}>{c.text}</Text>
+                                        <Text style={styles.commentTextExtraSmall}>{c.timestamp}</Text>
+                                    </View>
                                 </View>
-                                <View style={{ flex: 1 }}>
-                                    <Text style={styles.commentNameSmall}>{c.userName}</Text>
-                                    <Text style={styles.commentTextSmall}>{c.text}</Text>
-                                    <Text style={styles.commentTextExtraSmall}>{c.timestamp}</Text>
-                                </View>
-                            </View>
-                        ))}
-                    </ScrollView>
-                </View>
+                            ))}
+                        </ScrollView>
+                    </View>
+                ) : null}
             </View>
         </Modal>
     );
