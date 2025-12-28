@@ -93,7 +93,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
         }
     }, [currentIndex, items]);
 
-    const FullscreenVideo = ({
+    const FullscreenVideo = React.memo(({
         uri,
         itemId,
         isActive,
@@ -110,60 +110,86 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
         onRequestPlay: (id: string) => void;
         height: number;
     }) => {
-        const initPlayer = React.useCallback((p: any) => {
-            p.loop = false;
-            p.pause();
-        }, []);
-        const player = useVideoPlayer(uri, initPlayer);
         const [isPlaying, setIsPlaying] = React.useState(false);
         const [currentTime, setCurrentTime] = React.useState(0);
         const [duration, setDuration] = React.useState(0);
         const [barWidth, setBarWidth] = React.useState(0);
+        const playerRef = useRef<any>(null);
+
+        const player = useVideoPlayer(uri, (p: any) => {
+            playerRef.current = p;
+            p.loop = false;
+            p.muted = false;
+            try {
+                p.pause();
+            } catch (e) {
+                console.log('Initial pause error:', e);
+            }
+        });
 
         useEffect(() => {
             const id = setInterval(() => {
-                const cur = (player as any)?.currentTime ?? 0;
-                const dur = (player as any)?.duration ?? 0;
-                setCurrentTime(cur);
-                setDuration(dur);
+                try {
+                    if (playerRef.current) {
+                        const cur = playerRef.current?.currentTime ?? 0;
+                        const dur = playerRef.current?.duration ?? 0;
+                        setCurrentTime(cur);
+                        setDuration(dur);
+                    }
+                } catch (e) {
+                    // Player might be released
+                }
             }, 250);
             return () => clearInterval(id);
-        }, [player]);
+        }, []);
 
         useEffect(() => {
-            onRegister(itemId, player);
-            return () => {
-                // Deregister the player on unmount to avoid calling methods on a released instance
-                if (playersRef.current[itemId] === player) {
-                    delete playersRef.current[itemId];
-                }
-            };
+            if (player) {
+                onRegister(itemId, player);
+            }
         }, [itemId, player, onRegister]);
 
         useEffect(() => {
             if (isActive && playSignal > 0) {
-                (player as any)?.play?.();
-                setIsPlaying(true);
+                try {
+                    if (playerRef.current) {
+                        playerRef.current.play();
+                        setIsPlaying(true);
+                    }
+                } catch (e) {
+                    console.log('Play error:', e);
+                }
             }
-        }, [isActive, playSignal, player]);
+        }, [isActive, playSignal]);
 
         const togglePlay = () => {
-            if (isPlaying) {
-                (player as any)?.pause?.();
-                setIsPlaying(false);
-            } else {
-                onRequestPlay(itemId);
-                (player as any)?.play?.();
-                setIsPlaying(true);
+            try {
+                if (!playerRef.current) return;
+
+                if (isPlaying) {
+                    playerRef.current.pause();
+                    setIsPlaying(false);
+                } else {
+                    onRequestPlay(itemId);
+                    playerRef.current.play();
+                    setIsPlaying(true);
+                }
+            } catch (e) {
+                console.log('Toggle play error:', e);
             }
         };
 
         const seekToPercent = (pct: number) => {
-            const dur = (player as any)?.duration ?? 0;
-            if (dur > 0) {
-                const next = dur * pct;
-                (player as any)?.seekTo?.(next);
-                setCurrentTime(next);
+            try {
+                if (!playerRef.current) return;
+                const dur = playerRef.current?.duration ?? 0;
+                if (dur > 0) {
+                    const next = dur * pct;
+                    playerRef.current.seekTo(next);
+                    setCurrentTime(next);
+                }
+            } catch (e) {
+                console.log('Seek error:', e);
             }
         };
 
@@ -174,6 +200,10 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
             return `${mm}:${String(ss).padStart(2, '0')}`;
         };
 
+        if (!player) {
+            return <View style={{ width, height, backgroundColor: '#000' }} />;
+        }
+
         return (
             <View style={{ width, height }}>
                 <VideoView
@@ -181,6 +211,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                     style={styles.previewFullMedia}
                     allowsPictureInPicture={false}
                     contentFit="contain"
+                    nativeControls={false}
                 />
                 <View
                     style={[
@@ -212,7 +243,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                 </View>
             </View>
         );
-    };
+    });
 
     return (
         <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
