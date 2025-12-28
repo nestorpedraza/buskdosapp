@@ -171,8 +171,8 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                 <VideoView
                     player={player}
                     style={styles.media}
-                    fullscreenOptions={{ enabled: true }}
-                    pictureInPictureOptions={{ enabled: true }}
+                    allowsFullscreen={false}
+                    allowsPictureInPicture={false}
                     contentFit="contain"
                 />
                 <View style={styles.controlsOverlay}>

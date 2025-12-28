@@ -118,9 +118,9 @@ export default function PlaceGallery({ items, onItemPress }: PlaceGalleryProps) 
             <VideoView
                 player={player}
                 style={styles.gridImage}
-                fullscreenOptions={{ enabled: false }}
-                pictureInPictureOptions={{ enabled: false }}
-                contentFit="cover"
+                allowsFullscreen={false}
+                allowsPictureInPicture={false}
+                contentFit="contain"
             />
         );
     };
