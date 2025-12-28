@@ -94,7 +94,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
     }, [currentIndex, items]);
 
     const FullscreenVideo = React.memo(({
-        uri,
+        source,
         itemId,
         isActive,
         playSignal,
@@ -102,7 +102,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
         onRequestPlay,
         height,
     }: {
-        uri: string;
+        source: any;
         itemId: string;
         isActive: boolean;
         playSignal: number;
@@ -116,7 +116,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
         const [barWidth, setBarWidth] = React.useState(0);
         const playerRef = useRef<any>(null);
 
-        const player = useVideoPlayer(uri, (p: any) => {
+        const player = useVideoPlayer(source, (p: any) => {
             playerRef.current = p;
             p.loop = false;
             p.muted = false;
@@ -259,7 +259,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                         <View style={[styles.imageContainer, { height: containerHeight }]} pointerEvents="box-none">
                             {item.type === 'video' ? (
                                 <FullscreenVideo
-                                    uri={'https://www.w3schools.com/html/mov_bbb.mp4'}
+                                    source={require('../../assets/videos/video.mp4')}
                                     itemId={item.id}
                                     isActive={activeId === item.id}
                                     playSignal={playSignalMap[item.id] ?? 0}
