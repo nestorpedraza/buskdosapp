@@ -1,9 +1,10 @@
 import { useVideoPlayer, VideoView } from 'expo-video';
 import React, { useEffect, useRef } from 'react';
 import { Dimensions, FlatList, Image, Modal, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { GalleryItem } from '../../types/place.types';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 interface GalleryViewerProps {
     visible: boolean;
@@ -21,6 +22,10 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
     const autoPlayedRef = useRef<Set<string>>(new Set());
     const [activeId, setActiveId] = React.useState<string | null>(items[initialIndex]?.id ?? null);
     const [playSignalMap, setPlaySignalMap] = React.useState<Record<string, number>>({});
+    const insets = useSafeAreaInsets();
+
+    // Calculamos la altura real considerando el safe area
+    const containerHeight = Dimensions.get('window').height - insets.top - insets.bottom;
 
     useEffect(() => {
         if (visible && flatListRef.current) {
@@ -34,6 +39,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
     useEffect(() => {
         commentsRef.current?.scrollTo({ y: 0, animated: false });
     }, [currentIndex]);
+
     const onViewableItemsChanged = useRef(({ viewableItems }: any) => {
         if (viewableItems && viewableItems.length > 0) {
             setCurrentIndex(viewableItems[0].index);
@@ -46,7 +52,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
 
     const onScrollHandler = useRef((e: any) => {
         const offsetY = e?.nativeEvent?.contentOffset?.y || 0;
-        const idx = Math.round(offsetY / height);
+        const idx = Math.round(offsetY / containerHeight);
         if (idx >= 0 && idx < items.length) {
             setCurrentIndex(idx);
         }
@@ -94,6 +100,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
         playSignal,
         onRegister,
         onRequestPlay,
+        height,
     }: {
         uri: string;
         itemId: string;
@@ -101,6 +108,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
         playSignal: number;
         onRegister: (id: string, player: any) => void;
         onRequestPlay: (id: string) => void;
+        height: number;
     }) => {
         const initPlayer = React.useCallback((p: any) => {
             p.loop = false;
@@ -170,12 +178,17 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
             <View style={{ width, height }}>
                 <VideoView
                     player={player}
-                    style={styles.media}
-                    allowsFullscreen={false}
+                    style={styles.previewFullMedia}
                     allowsPictureInPicture={false}
                     contentFit="contain"
                 />
-                <View style={styles.controlsOverlay}>
+                <View
+                    style={[
+                        styles.controlsOverlay,
+                        { bottom: Math.max(16, insets.bottom + 16) + (commentsVisible ? 120 : 0) },
+                    ]}
+                    pointerEvents="box-none"
+                >
                     <View style={styles.controlsRow}>
                         <TouchableOpacity style={styles.controlButton} onPress={togglePlay} activeOpacity={0.85}>
                             <Text style={styles.controlButtonText}>{isPlaying ? 'Pause' : 'Play'}</Text>
@@ -209,10 +222,10 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                     data={items}
                     pagingEnabled
                     initialScrollIndex={initialIndex}
-                    getItemLayout={(_, index) => ({ length: height, offset: height * index, index })}
+                    getItemLayout={(_, index) => ({ length: containerHeight, offset: containerHeight * index, index })}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => (
-                        <View style={styles.imageContainer} pointerEvents="box-none">
+                        <View style={[styles.imageContainer, { height: containerHeight }]} pointerEvents="box-none">
                             {item.type === 'video' ? (
                                 <FullscreenVideo
                                     uri={'https://www.w3schools.com/html/mov_bbb.mp4'}
@@ -221,9 +234,10 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                                     playSignal={playSignalMap[item.id] ?? 0}
                                     onRegister={registerPlayer}
                                     onRequestPlay={requestPlay}
+                                    height={containerHeight}
                                 />
                             ) : (
-                                <Image source={item.url} style={styles.image} resizeMode="cover" />
+                                <Image source={item.url} style={[styles.image, { height: containerHeight }]} resizeMode="cover" />
                             )}
                         </View>
                     )}
@@ -234,13 +248,13 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                     onScroll={onScrollHandler}
                     scrollEventThrottle={16}
                     decelerationRate="fast"
-                    snapToInterval={height}
+                    snapToInterval={containerHeight}
                     snapToAlignment="start"
                     disableIntervalMomentum={true}
                 />
 
                 {/* Barra superior con botón de regresar */}
-                <View style={styles.topBar}>
+                <View style={[styles.topBar, { top: insets.top + 10 }]}>
                     <TouchableOpacity style={styles.backButton} onPress={onClose}>
                         <Text style={styles.backIcon}>←</Text>
                     </TouchableOpacity>
@@ -338,17 +352,15 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         width,
-        height,
         justifyContent: 'center',
         alignItems: 'center',
     },
     image: {
         width: width,
-        height: height,
     },
-    media: {
-        width: width,
-        height: height,
+    previewFullMedia: {
+        width: '100%',
+        height: '100%',
     },
     controlsOverlay: {
         position: 'absolute',
@@ -396,7 +408,6 @@ const styles = StyleSheet.create({
     // Barra superior
     topBar: {
         position: 'absolute',
-        top: 50,
         left: 0,
         right: 0,
         flexDirection: 'row',

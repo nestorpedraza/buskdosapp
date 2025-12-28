@@ -117,7 +117,7 @@ export default function PlaceGallery({ items, onItemPress }: PlaceGalleryProps) 
         return (
             <VideoView
                 player={player}
-                style={styles.gridImage}
+                style={styles.previewFullMedia}
                 allowsFullscreen={false}
                 allowsPictureInPicture={false}
                 contentFit="contain"
@@ -134,7 +134,7 @@ export default function PlaceGallery({ items, onItemPress }: PlaceGalleryProps) 
             {item.type === 'video' ? (
                 <GridVideo uri={'https://www.w3schools.com/html/mov_bbb.mp4'} />
             ) : (
-                <Image source={item.url} style={styles.gridImage} />
+                <Image source={item.url} style={styles.previewFullMedia} />
             )}
             {item.type === 'video' && (
                 <View style={styles.videoIndicatorCentered}>
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         backgroundColor: '#f0f0f0',
     },
-    gridImage: {
+    previewFullMedia: {
         width: '100%',
         height: '100%',
     },
