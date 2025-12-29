@@ -1,6 +1,6 @@
 import { useVideoPlayer, VideoView } from 'expo-video';
 import React, { useEffect, useRef } from 'react';
-import { Dimensions, FlatList, Image, Modal, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, FlatList, Image, Modal, Platform, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { GalleryItem } from '../../types/place.types';
 
@@ -93,7 +93,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
         }
     }, [currentIndex, items]);
 
-    const FullscreenVideo = React.memo(({
+    const FullscreenVideoComponent = ({
         source,
         itemId,
         isActive,
@@ -211,6 +211,8 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                     style={styles.previewFullMedia}
                     allowsPictureInPicture={false}
                     contentFit="contain"
+                    surfaceType={Platform.OS === 'android' ? 'textureView' : undefined}
+                    pointerEvents="none"
                     nativeControls={false}
                 />
                 <View
@@ -243,11 +245,12 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                 </View>
             </View>
         );
-    });
+    };
+    const FullscreenVideo = React.memo(FullscreenVideoComponent);
 
     return (
         <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
-            <View style={styles.overlay}>
+            <View style={styles.overlay} pointerEvents="box-none">
                 <FlatList
                     ref={flatListRef}
                     data={items}
@@ -285,7 +288,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                 />
 
                 {/* Barra superior con botón de regresar */}
-                <View style={[styles.topBar, { top: insets.top + 10 }]}>
+                <View style={[styles.topBar, { top: insets.top + 10 }]} pointerEvents="auto">
                     <TouchableOpacity style={styles.backButton} onPress={onClose}>
                         <Text style={styles.backIcon}>←</Text>
                     </TouchableOpacity>
@@ -441,11 +444,13 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 0,
         right: 0,
+        height: 64,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 20,
-        zIndex: 10,
+        zIndex: 200,
+        elevation: 1000,
     },
     topButton: {
         backgroundColor: 'rgba(64, 64, 64, 0.71)',
@@ -503,7 +508,8 @@ const styles = StyleSheet.create({
         right: 12,
         bottom: 300,
         alignItems: 'center',
-        zIndex: 5,
+        zIndex: 200,
+        elevation: 1000,
     },
     avatarContainer: {
         marginBottom: 20,
@@ -566,7 +572,8 @@ const styles = StyleSheet.create({
         left: 16,
         bottom: 160,
         right: 90,
-        zIndex: 7,
+        zIndex: 150,
+        elevation: 500,
         backgroundColor: 'rgba(0,0,0,0.5)',
         borderRadius: 16,
         paddingHorizontal: 12,
