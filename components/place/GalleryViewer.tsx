@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { Dimensions, FlatList, Image, Modal, Platform, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { GalleryItem } from '../../types/place.types';
+import GalleryCommentsSheet from './GalleryCommentsSheet';
 
 const { width } = Dimensions.get('window');
 
@@ -355,25 +356,11 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                     </View>
                 </View>
 
-                {commentsVisible ? (
-                    <View style={styles.commentsOverlay}>
-                        <Text style={styles.commentsTitle}>Comentarios</Text>
-                        <ScrollView ref={commentsRef} style={styles.commentsScroll} showsVerticalScrollIndicator={false}>
-                            {comments.map((c: any, idx: number) => (
-                                <View key={idx} style={styles.commentRow}>
-                                    <View style={styles.commentLeft}>
-                                        <View style={styles.commentAvatarSmall} />
-                                    </View>
-                                    <View style={{ flex: 1 }}>
-                                        <Text style={styles.commentNameSmall}>{c.userName}</Text>
-                                        <Text style={styles.commentTextSmall}>{c.text}</Text>
-                                        <Text style={styles.commentTextExtraSmall}>{c.timestamp}</Text>
-                                    </View>
-                                </View>
-                            ))}
-                        </ScrollView>
-                    </View>
-                ) : null}
+                <GalleryCommentsSheet
+                    visible={commentsVisible}
+                    onClose={() => setCommentsVisible(false)}
+                    comments={comments}
+                />
             </View>
         </Modal>
     );
