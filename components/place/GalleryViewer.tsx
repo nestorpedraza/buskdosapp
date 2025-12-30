@@ -26,6 +26,8 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose, p
     const [playSignalMap, setPlaySignalMap] = React.useState<Record<string, number>>({});
     const insets = useSafeAreaInsets();
     const [isFollowing, setIsFollowing] = React.useState(false);
+    const [likedSet, setLikedSet] = React.useState<Set<string>>(new Set());
+    const [likesMap, setLikesMap] = React.useState<Record<string, number>>({});
 
     // Calculamos la altura real considerando el safe area
     const containerHeight = Dimensions.get('window').height - insets.top - insets.bottom;
@@ -315,11 +317,37 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose, p
                     </View>
 
                     {/* Like */}
-                    <TouchableOpacity style={styles.actionButton}>
+                    <TouchableOpacity
+                        style={styles.actionButton}
+                        onPress={() => {
+                            const id = currentItem?.id;
+                            if (!id) return;
+                            setLikedSet(prev => {
+                                const ns = new Set(prev);
+                                const isLiked = ns.has(id);
+                                const base = typeof (likesMap[id]) === 'number' ? likesMap[id] : (currentItem?.likes ?? 0);
+                                const nextCount = isLiked ? Math.max(0, base - 1) : base + 1;
+                                setLikesMap(m => ({ ...m, [id]: nextCount }));
+                                if (isLiked) {
+                                    ns.delete(id);
+                                } else {
+                                    ns.add(id);
+                                }
+                                return ns;
+                            });
+                        }}
+                        activeOpacity={0.85}
+                    >
                         <View style={styles.iconCircle}>
-                            <Text style={styles.actionIcon}>❤️</Text>
+                            <Text style={styles.actionIcon}>
+                                {likedSet.has(currentItem?.id || '') ? '💜' : '❤️'}
+                            </Text>
                         </View>
-                        <Text style={styles.actionCount}>{currentItem?.likes ?? 208}</Text>
+                        <Text style={styles.actionCount}>
+                            {typeof likesMap[currentItem?.id || ''] === 'number'
+                                ? likesMap[currentItem?.id || '']
+                                : (currentItem?.likes ?? 0)}
+                        </Text>
                     </TouchableOpacity>
 
                     {/* Comentarios */}
