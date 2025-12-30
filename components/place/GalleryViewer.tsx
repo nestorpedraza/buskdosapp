@@ -1,6 +1,6 @@
 import { useVideoPlayer, VideoView } from 'expo-video';
 import React, { useEffect, useRef } from 'react';
-import { Dimensions, FlatList, Image, ImageSourcePropType, Modal, Platform, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, FlatList, Image, ImageSourcePropType, Modal, Platform, Pressable, ScrollView, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { GalleryItem } from '../../types/place.types';
 import GalleryCommentsSheet from './GalleryCommentsSheet';
@@ -29,6 +29,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose, p
     const [likedSet, setLikedSet] = React.useState<Set<string>>(new Set());
     const [likesMap, setLikesMap] = React.useState<Record<string, number>>({});
     const [favoriteSet, setFavoriteSet] = React.useState<Set<string>>(new Set());
+    const [sharesMap, setSharesMap] = React.useState<Record<string, number>>({});
 
     // Calculamos la altura real considerando el safe area
     const containerHeight = Dimensions.get('window').height - insets.top - insets.bottom;
@@ -388,11 +389,30 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose, p
                     </TouchableOpacity>
 
                     {/* Compartir */}
-                    <TouchableOpacity style={styles.actionButton}>
+                    <TouchableOpacity
+                        style={styles.actionButton}
+                        onPress={async () => {
+                            const id = currentItem?.id;
+                            if (!id) return;
+                            const message = `Mira esta publicación: ${currentItem?.description || ''}`;
+                            try {
+                                await Share.share({ message });
+                            } catch { }
+                            setSharesMap(prev => {
+                                const base = typeof prev[id] === 'number' ? prev[id] : (currentItem?.shares ?? 0);
+                                return { ...prev, [id]: base + 1 };
+                            });
+                        }}
+                        activeOpacity={0.85}
+                    >
                         <View style={styles.iconCircle}>
-                            <Text style={styles.actionIcon}>↗️</Text>
+                            <Text style={styles.actionIcon}>📲</Text>
                         </View>
-                        <Text style={styles.actionCount}>{currentItem?.shares ?? 82}</Text>
+                        <Text style={styles.actionCount}>
+                            {typeof sharesMap[currentItem?.id || ''] === 'number'
+                                ? sharesMap[currentItem?.id || '']
+                                : (currentItem?.shares ?? 0)}
+                        </Text>
                     </TouchableOpacity>
 
                 </View>
