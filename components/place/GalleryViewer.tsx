@@ -570,6 +570,9 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 12,
         fontWeight: '600',
+        textShadowColor: 'rgba(0, 0, 0, 1)',
+        textShadowOffset: { width: 0, height: 0 },
+        textShadowRadius: 4,
     },
     // Información inferior
     infoContainer: {
