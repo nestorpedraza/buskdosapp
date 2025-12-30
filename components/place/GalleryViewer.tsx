@@ -28,6 +28,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose, p
     const [isFollowing, setIsFollowing] = React.useState(false);
     const [likedSet, setLikedSet] = React.useState<Set<string>>(new Set());
     const [likesMap, setLikesMap] = React.useState<Record<string, number>>({});
+    const [favoriteSet, setFavoriteSet] = React.useState<Set<string>>(new Set());
 
     // Calculamos la altura real considerando el safe area
     const containerHeight = Dimensions.get('window').height - insets.top - insets.bottom;
@@ -359,11 +360,31 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose, p
                     </TouchableOpacity>
 
                     {/* Favoritos */}
-                    <TouchableOpacity style={styles.actionButton}>
+                    <TouchableOpacity
+                        style={styles.actionButton}
+                        onPress={() => {
+                            const id = currentItem?.id;
+                            if (!id) return;
+                            setFavoriteSet(prev => {
+                                const ns = new Set(prev);
+                                if (ns.has(id)) {
+                                    ns.delete(id);
+                                } else {
+                                    ns.add(id);
+                                }
+                                return ns;
+                            });
+                        }}
+                        activeOpacity={0.85}
+                    >
                         <View style={styles.iconCircle}>
-                            <Text style={styles.actionIcon}>⭐</Text>
+                            <Text style={styles.actionIcon}>
+                                {favoriteSet.has(currentItem?.id || '') ? '🌟' : '⭐'}
+                            </Text>
                         </View>
-                        <Text style={styles.actionCount}>Add favorite</Text>
+                        <Text style={styles.actionCount}>
+                            {favoriteSet.has(currentItem?.id || '') ? 'Agregado' : 'agregar a favoritos'}
+                        </Text>
                     </TouchableOpacity>
 
                     {/* Compartir */}
