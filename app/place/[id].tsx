@@ -155,6 +155,7 @@ export default function PlaceDetailScreen() {
                         <PlaceGallery
                             items={placeData.gallery}
                             onItemPress={handleGalleryItemPress}
+                            placeLogo={placeData.logo}
                         />
                     )}
 

@@ -1,6 +1,6 @@
 import { useVideoPlayer, VideoView } from 'expo-video';
 import React, { useEffect, useRef } from 'react';
-import { Dimensions, FlatList, Image, Modal, Platform, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, FlatList, Image, ImageSourcePropType, Modal, Platform, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { GalleryItem } from '../../types/place.types';
 import GalleryCommentsSheet from './GalleryCommentsSheet';
@@ -12,9 +12,10 @@ interface GalleryViewerProps {
     items: GalleryItem[];
     initialIndex: number;
     onClose: () => void;
+    placeLogo?: ImageSourcePropType;
 }
 
-export default function GalleryViewer({ visible, items, initialIndex, onClose }: GalleryViewerProps) {
+export default function GalleryViewer({ visible, items, initialIndex, onClose, placeLogo }: GalleryViewerProps) {
     const flatListRef = useRef<FlatList<GalleryItem>>(null);
     const [currentIndex, setCurrentIndex] = React.useState(initialIndex);
     const commentsRef = useRef<ScrollView>(null);
@@ -24,6 +25,7 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
     const [activeId, setActiveId] = React.useState<string | null>(items[initialIndex]?.id ?? null);
     const [playSignalMap, setPlaySignalMap] = React.useState<Record<string, number>>({});
     const insets = useSafeAreaInsets();
+    const [isFollowing, setIsFollowing] = React.useState(false);
 
     // Calculamos la altura real considerando el safe area
     const containerHeight = Dimensions.get('window').height - insets.top - insets.bottom;
@@ -299,12 +301,17 @@ export default function GalleryViewer({ visible, items, initialIndex, onClose }:
                 <View style={styles.actionsSidebar}>
                     {/* Avatar */}
                     <View style={styles.avatarContainer}>
-                        <View style={styles.avatar}>
-                            <Text style={styles.avatarText}>👤</Text>
-                        </View>
-                        <View style={styles.followButton}>
-                            <Text style={styles.followIcon}>+</Text>
-                        </View>
+                        <Image
+                            source={placeLogo ?? require('../../assets/images/city.png')}
+                            style={styles.avatarImage}
+                        />
+                        <TouchableOpacity
+                            style={[styles.followButton, isFollowing && styles.followButtonActive]}
+                            onPress={() => setIsFollowing(v => !v)}
+                            activeOpacity={0.85}
+                        >
+                            <Text style={styles.followIcon}>{isFollowing ? '✓' : '+'}</Text>
+                        </TouchableOpacity>
                     </View>
 
                     {/* Like */}
@@ -512,6 +519,14 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#fff',
     },
+    avatarImage: {
+        width: 48,
+        height: 48,
+        borderRadius: 24,
+        borderWidth: 2,
+        borderColor: '#fff',
+        backgroundColor: '#333',
+    },
     avatarText: {
         fontSize: 24,
     },
@@ -524,6 +539,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#FE2C55',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    followButtonActive: {
+        backgroundColor: '#22c55e',
     },
     followIcon: {
         color: '#fff',

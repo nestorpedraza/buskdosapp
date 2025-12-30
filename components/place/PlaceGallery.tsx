@@ -13,6 +13,7 @@ import {
     View,
 } from 'react-native';
 import { GalleryItem } from '../../types/place.types';
+import { ImageSourcePropType } from 'react-native';
 import GalleryViewer from './GalleryViewer';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -21,9 +22,10 @@ const ITEM_SIZE = (SCREEN_WIDTH - 48) / 3;
 interface PlaceGalleryProps {
     items: GalleryItem[];
     onItemPress?: (item: GalleryItem) => void;
+    placeLogo?: ImageSourcePropType;
 }
 
-export default function PlaceGallery({ items, onItemPress }: PlaceGalleryProps) {
+export default function PlaceGallery({ items, onItemPress, placeLogo }: PlaceGalleryProps) {
     const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
     const [viewerVisible, setViewerVisible] = useState(false);
     const [viewerIndex, setViewerIndex] = useState(0);
@@ -209,6 +211,7 @@ export default function PlaceGallery({ items, onItemPress }: PlaceGalleryProps) 
                 items={items}
                 initialIndex={viewerIndex}
                 onClose={() => setViewerVisible(false)}
+                placeLogo={placeLogo}
             />
 
             {/* Modal de compartir */}
